@@ -16,7 +16,7 @@ namespace Authorization.Data.Shared.MappingConfiguration
 
             builder.Property(x => x.LastName).HasColumnName(nameof(Account.LastName)).HasMaxLength(256).IsRequired();
             builder.Property(x => x.MiddleName).HasColumnName(nameof(Account.MiddleName)).HasMaxLength(256).IsRequired();
-            builder.HasOne(x => x.Photo).WithOne(x => x.Account);
+            
             
         }
     }
