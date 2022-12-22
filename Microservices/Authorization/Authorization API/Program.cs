@@ -4,6 +4,7 @@ using Authorization.Application.Helpers;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
+using Authorization_API.HostedServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ builder.Services.AddSwaggerGen();
 services.AddApplication();
 services.Configure<JwtSettings>(configurationRoot.GetSection(nameof(JwtSettings)));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+services.AddHostedService<RoleHostedServices>();
 services.AddIdentity<Account, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;
