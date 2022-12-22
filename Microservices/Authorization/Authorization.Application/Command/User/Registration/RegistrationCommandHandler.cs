@@ -1,5 +1,6 @@
 ﻿using Authorization.Application.Contracts.Incoming.User;
 using Authorization.Application.Contracts.Outgoing;
+using Authorization.Application.Helpers;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -9,13 +10,17 @@ namespace Authorization.Application.Command.User.Registration
     public class RegistrationCommandHandler:IRequestHandler<RegistrationCommand,string>
     {
         private readonly UserManager<Account> _userManager;
-        public RegistrationCommandHandler(UserManager<Account> userManager)
+       private readonly RoleManager<IdentityRole> _roleManager;
+        public RegistrationCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-       public async Task<string> Handle(RegistrationCommand request, CancellationToken cancellationToken)
-       {
+        public async Task<string> Handle(RegistrationCommand request, CancellationToken cancellationToken)
+        {
+            var role = UserRoles.User;
+
            var appUser = new Account()
            {
                FirstName = request.User.FirstName,
@@ -25,7 +30,13 @@ namespace Authorization.Application.Command.User.Registration
                PhoneNumber = request.User.PhoneNumber,
                UserName = request.User.Login
            };
+           if ( !await _roleManager.RoleExistsAsync(role))
+           {
+               var newRole=new IdentityRole(role);
+               await _roleManager.CreateAsync(newRole);
+           }
            var result =  await _userManager.CreateAsync(appUser, request.User.Password);
+           await _userManager.AddToRoleAsync(appUser, role);
 
            if (result.Succeeded)
            {
