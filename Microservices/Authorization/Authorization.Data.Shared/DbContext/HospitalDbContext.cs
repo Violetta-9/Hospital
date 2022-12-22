@@ -7,7 +7,8 @@ namespace Authorization.Data.Shared.DbContext
 {
     public class HospitalDbContext:IdentityDbContext<Account>
     {
-        public DbSet<Photo> Photos { get; set; }
+        
+        public HospitalDbContext(DbContextOptions<HospitalDbContext> options): base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
      => optionsBuilder.AddInterceptors(new AuditableInterseptor());

@@ -44,7 +44,7 @@ namespace Authorization.Data.Shared.Interseptor
 
             if (eventData.Context == null)
                 return;
-            var date= DateTime.Now;
+            var date= DateTimeOffset.Now;
             var addOrModifEntities = eventData.Context.ChangeTracker.Entries<IAudientable>()
                 .Where(x => x.State == EntityState.Added || x.State == EntityState.Modified).ToList();
             foreach(var entity in addOrModifEntities ) 
