@@ -1,6 +1,4 @@
-﻿using Authorization.Application.Contracts.Incoming.User;
-using Authorization.Application.Contracts.Outgoing;
-using Authorization.Application.Helpers;
+﻿using Authorization.Application.Helpers;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

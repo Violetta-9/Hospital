@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
     <ProjectReference Include="..\Authorization.Application.Contracts\Authorization.Application.Contracts.csproj" />
     <ProjectReference Include="..\Authorization.Application.Helpers\Authorization.Application.Helpers.csproj" />
-    <ProjectReference Include="..\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
   </ItemGroup>
 
 </Project>
