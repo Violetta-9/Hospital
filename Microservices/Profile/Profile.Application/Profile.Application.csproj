@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
+    <ProjectReference Include="..\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Profile.Application.Helpers\Profile.Application.Helpers.csproj" />
+  </ItemGroup>
+
+</Project>
