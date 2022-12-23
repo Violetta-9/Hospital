@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
+﻿
 namespace Authorization.Application.Contracts.Incoming.User
 {
     public class UserDTO
