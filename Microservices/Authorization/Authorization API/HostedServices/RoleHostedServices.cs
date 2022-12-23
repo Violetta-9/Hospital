@@ -1,6 +1,7 @@
 ﻿using Authorization.Application.Helpers;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace Authorization_API.HostedServices
 {
     public class RoleHostedServices:IHostedService
@@ -36,6 +37,11 @@ namespace Authorization_API.HostedServices
             if (!await roleManager.RoleExistsAsync(UserRoles.Patient))
             {
                 var role = new IdentityRole(UserRoles.Patient);
+                await roleManager.CreateAsync(role);
+            }
+            if (!await roleManager.RoleExistsAsync(UserRoles.Receptionist))
+            {
+                var role = new IdentityRole(UserRoles.Receptionist);
                 await roleManager.CreateAsync(role);
             }
         }

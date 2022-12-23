@@ -21,9 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Authorization.Data.EF.PostgreSQL\Authorization.Data.EF.PostgreSQL.csproj" />
+    <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
     <ProjectReference Include="..\Authorization.Application.Contracts\Authorization.Application.Contracts.csproj" />
     <ProjectReference Include="..\Authorization.Application\Authorization.Application.csproj" />
-    <ProjectReference Include="..\Authorization.Data.EF.PostgreSQL\Authorization.Data.EF.PostgreSQL.csproj" />
   </ItemGroup>
 
 </Project>
