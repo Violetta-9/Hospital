@@ -4,11 +4,24 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>9c0bd4fd-949a-4533-92c2-a271db0ef04c</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\DoctorController\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Authorization.Data.EF.PostgreSQL\Authorization.Data.EF.PostgreSQL.csproj" />
+    <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
+    <ProjectReference Include="..\Profile.Application\Profile.Application.csproj" />
   </ItemGroup>
 
 </Project>

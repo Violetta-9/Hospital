@@ -13,7 +13,8 @@ namespace Authorization.Data.Shared.MappingConfiguration
            builder.MapAuditProperty();
             builder.Property(x => x.FirstName).HasColumnName(nameof(Account.FirstName)).HasMaxLength(256)
               .IsRequired();
-
+            builder.Property(x => x.Birtday).HasColumnName(nameof(Account.Birtday)).HasMaxLength(36)
+                .IsRequired();
             builder.Property(x => x.LastName).HasColumnName(nameof(Account.LastName)).HasMaxLength(256).IsRequired();
             builder.Property(x => x.MiddleName).HasColumnName(nameof(Account.MiddleName)).HasMaxLength(256).IsRequired();
             

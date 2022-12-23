@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authorization.Application.Helpers
+namespace Profile.Application.Helpers
 {
     public static class UserRoles
     {
