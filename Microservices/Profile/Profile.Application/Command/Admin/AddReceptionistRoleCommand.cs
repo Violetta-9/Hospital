@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Profile.Application.Contracts.Incoming;
 using Profile.Application.Contracts.Outgoing;
 
 namespace Profile.Application.Command.Admin
@@ -11,10 +12,12 @@ namespace Profile.Application.Command.Admin
     public class AddReceptionistRoleCommand:IRequest<Response>
     {
         public string UserId { get; set; }
+        public long OfficeId { get; set; }
 
-        public AddReceptionistRoleCommand(string userId)
+        public AddReceptionistRoleCommand(ReceptionistDTO receptionistDto)
         {
-            UserId=userId;
+            UserId=receptionistDto.AccountId;
+            OfficeId=receptionistDto.OfficeId;
         }
     }
 }

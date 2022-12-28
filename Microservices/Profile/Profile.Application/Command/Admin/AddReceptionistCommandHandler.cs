@@ -1,4 +1,5 @@
-﻿using Authorization.Data_Domain.Models;
+﻿using Authorization.Data.Repository;
+using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Contracts.Outgoing;
@@ -10,10 +11,12 @@ namespace Profile.Application.Command.Admin
     {
         private readonly UserManager<Account> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public AddReceptionistCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager)
+        private readonly IReceptionistRepository _receptionistRepository;
+        public AddReceptionistCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager, IReceptionistRepository receptionist)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _receptionistRepository = receptionist;
         }
 
         public async Task<Response> Handle(AddReceptionistRoleCommand request, CancellationToken cancellationToken)
@@ -23,6 +26,12 @@ namespace Profile.Application.Command.Admin
             if (user!= null )
             {
                await _userManager.AddToRoleAsync(user,role);
+               await _receptionistRepository.InsertAsync(new Receptionist()
+               {
+                   AccountId = user.Id,
+                   OfficeId = request.OfficeId,
+
+               }, cancellationToken);
                return Response.Success;
             }
             return Response.Error;

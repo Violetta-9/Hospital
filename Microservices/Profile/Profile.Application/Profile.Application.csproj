@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared\Authorization.Data.Repository\Authorization.Data.Repository.csproj" />
     <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
     <ProjectReference Include="..\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
     <ProjectReference Include="..\Profile.Application.Helpers\Profile.Application.Helpers.csproj" />

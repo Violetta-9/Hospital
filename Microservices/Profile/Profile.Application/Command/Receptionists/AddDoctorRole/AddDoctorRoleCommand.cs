@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Profile.Application.Contracts.Incoming;
 using Profile.Application.Contracts.Outgoing;
 
-namespace Profile.Application.Command.Receptionist.AddDoctorRole
+namespace Profile.Application.Command.Receptionists.AddDoctorRole
 {
     public class AddDoctorRoleCommand:IRequest<Response>
     {
-        public string UserId { get; set; }
-        public AddDoctorRoleCommand(string userId)
+        public DoctorDTO Doctor { get; set; }
+        public AddDoctorRoleCommand(DoctorDTO doctor)
         {
-            UserId = userId;
+            Doctor = doctor;
         }
     }
 }

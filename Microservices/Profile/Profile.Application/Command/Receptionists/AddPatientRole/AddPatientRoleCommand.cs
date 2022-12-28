@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Profile.Application.Contracts.Outgoing;
 
-namespace Profile.Application.Command.Receptionist.AddPatientRole
+namespace Profile.Application.Command.Receptionists.AddPatientRole
 {
     public class AddPatientRoleCommand:IRequest<Response>
     {
