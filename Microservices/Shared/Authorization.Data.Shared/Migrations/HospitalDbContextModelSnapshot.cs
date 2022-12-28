@@ -144,7 +144,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasIndex("SpecializationId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>
@@ -172,7 +172,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Offices");
+                    b.ToTable("Offices", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Patient", b =>
@@ -196,7 +196,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Receptionist", b =>
@@ -225,7 +225,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasIndex("OfficeId");
 
-                    b.ToTable("Receptionists");
+                    b.ToTable("Receptionists", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Specialization", b =>
@@ -250,7 +250,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specializations");
+                    b.ToTable("Specializations", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -14,6 +14,7 @@ namespace Authorization.Data.Repository.Abstraction
             Task DeleteAsync(long id, CancellationToken cancellationToken = default);
             Task<bool> ExistsAsync(long id, CancellationToken cancellationToken = default);
             Task<TEntity> GetAsync(long id, CancellationToken cancellationToken = default);
+            Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default);
 
             Task<TEntity[]> GetAllAsync(CancellationToken cancellationToken = default);
             Task<TEntity> InsertAsync(TEntity newEntity, CancellationToken cancellationToken = default);
@@ -40,8 +41,11 @@ namespace Authorization.Data.Repository.Abstraction
         {
             return DbContext.Set<TEntity>().SingleOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
         }
+        public Task<TEntity> GetAsync(string id, CancellationToken cancellationToken)
+        {
+            return DbContext.Set<TEntity>().SingleOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
+        }
 
-       
 
         public Task<TEntity[]> GetAllAsync(CancellationToken cancellationToken = default)
         {
