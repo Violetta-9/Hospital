@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Profile.Application.Contracts.Incoming
 {
-    public class DoctorDTO
+    public class ReceptionistDTO
     {
         public string AccountId { get; set; }
-        public long SpecializationId { get; set; }
         public long OfficeId { get; set; }
-        public bool Status { get; set; }
     }
 }

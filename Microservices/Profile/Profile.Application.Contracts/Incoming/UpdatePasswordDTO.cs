@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Profile.Application.Contracts.Incoming
 {
-    public class DoctorDTO
+    public class UpdatePasswordDTO
     {
         public string AccountId { get; set; }
-        public long SpecializationId { get; set; }
-        public long OfficeId { get; set; }
-        public bool Status { get; set; }
+        public string OldPassword { get; set; }
+        public string NewPassword { get; set; }
     }
 }
