@@ -26,7 +26,8 @@ namespace Authorization.Application.Command.User.Registration
                MiddleName = request.User.MiddleName,
                Email = request.User.Email,
                PhoneNumber = request.User.PhoneNumber,
-               UserName = request.User.Login
+               UserName = request.User.Login,
+               Birtday = new DateTime(request.User.Year,request.User.Month,request.User.Day)
            };
            if ( !await _roleManager.RoleExistsAsync(role))
            {

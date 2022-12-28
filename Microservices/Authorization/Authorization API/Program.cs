@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var services=builder.Services;
@@ -55,6 +56,10 @@ services.AddAuthentication(x =>
         ClockSkew = TimeSpan.Zero,
         ValidateLifetime = true
     };
+});
+services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
 });
 var app = builder.Build();
 
