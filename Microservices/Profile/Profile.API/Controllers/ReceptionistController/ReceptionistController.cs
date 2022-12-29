@@ -10,6 +10,7 @@ using Profile.Application.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
+using Profile.Application.Command.Receptionists.AddReceptionistRole;
 using Profile.Application.Command.Receptionists.DeleteDoctor;
 using Profile.Application.Command.Receptionists.DeletePatient;
 using Profile.Application.Command.Receptionists.UpdateOffice;
