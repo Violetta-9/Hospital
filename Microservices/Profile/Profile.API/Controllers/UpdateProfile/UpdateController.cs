@@ -4,7 +4,7 @@ using Profile.Application.Helpers;
 using System.Data;
 using Profile.API.Controllers.Abstraction.Mediator;
 using MediatR;
-using Profile.Application.Command.Admin;
+
 using Profile.Application.Command.Update.UpdateAccountIfo;
 using Profile.Application.Command.Update.UpdatePassword;
 using Profile.Application.Contracts.Incoming;

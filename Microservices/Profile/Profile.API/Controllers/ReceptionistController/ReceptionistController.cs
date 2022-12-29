@@ -47,22 +47,7 @@ namespace Profile.API.Controllers.ReceptionistController
             return await SendRequestAsync(query);
         }
 
-        [HttpPost("AddDoctorRole")]
-        [SwaggerOperation(Summary = "Add patient role", OperationId = "AddDoctorRole")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        public async Task<ActionResult> AddDoctorRole([FromBody] DoctorDTO doctor)
-        {
-            var query = new AddDoctorRoleCommand(doctor);
-            return await SendRequestAsync(query);
-        }
-        [HttpDelete("DeleteDoctor")]
-        [SwaggerOperation(Summary = "Delete Doctor", OperationId = "DeleteDoctor")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        public async Task<ActionResult> DeleteDoctor([FromBody] string accountId)
-        {
-            var query = new DeleteDoctorCommand(accountId);
-            return await SendRequestAsync(query);
-        }
+
         [HttpDelete("DeletePatient")]
         [SwaggerOperation(Summary = "Delete Patient", OperationId = "DeletePatient")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
