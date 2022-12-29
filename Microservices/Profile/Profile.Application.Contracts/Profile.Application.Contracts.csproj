@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
+    <ProjectReference Include="..\Profile.Application.Helpers\Profile.Application.Helpers.csproj" />
+  </ItemGroup>
+
 </Project>

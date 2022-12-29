@@ -11,6 +11,6 @@ namespace Profile.Application.Contracts.Incoming
         public string AccountId { get; set; }
         public long SpecializationId { get; set; }
         public long OfficeId { get; set; }
-        public int Year { get; set; }
+        
     }
 }
