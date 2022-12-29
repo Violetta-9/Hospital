@@ -18,12 +18,7 @@ namespace Authorization_API.HostedServices
             using var scope = _serviceProvider.CreateScope();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
-            {
-                var role = new IdentityRole(UserRoles.Admin);
-                await roleManager.CreateAsync(role);
-            }
-
+            
             if (!await roleManager.RoleExistsAsync(UserRoles.User))
             {
                 var role = new IdentityRole(UserRoles.User);
