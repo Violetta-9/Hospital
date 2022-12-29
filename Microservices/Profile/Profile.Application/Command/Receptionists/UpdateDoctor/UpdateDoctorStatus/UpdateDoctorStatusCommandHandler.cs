@@ -20,12 +20,12 @@ namespace Profile.Application.Command.Receptionists.UpdateDoctor.UpdateDoctorSta
 
         public async Task<Response> Handle(UpdateDoctorStatusCommand request, CancellationToken cancellationToken)
         {
-            var doctor =  _doctorRepository.GetDoctorByAccountId(request.AccounrId, cancellationToken);
+            var doctor = await _doctorRepository.GetDoctorByAccountIdAsync(request.AccounrId, cancellationToken);
             if (doctor == null)
             {
                 return Response.Error;
             }
-            doctor.Status = request.NewStatus;
+            doctor.StatusId = request.NewStatus;
             await _doctorRepository.UpdateAsync(doctor, cancellationToken);
             return Response.Success;
         }
