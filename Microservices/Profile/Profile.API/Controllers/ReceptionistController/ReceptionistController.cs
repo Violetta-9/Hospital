@@ -14,6 +14,7 @@ using Profile.Application.Command.Receptionists.DeleteDoctor;
 using Profile.Application.Command.Receptionists.DeletePatient;
 using Profile.Application.Command.Receptionists.UpdateOffice;
 using Profile.Application.Contracts.Outgoing;
+using Profile.Application.Command.Receptionists.DeleteReceptionist;
 
 namespace Profile.API.Controllers.ReceptionistController
 {
@@ -26,6 +27,23 @@ namespace Profile.API.Controllers.ReceptionistController
         public ReceptionistController(IMediator mediator) : base(mediator)
         {
 
+        }
+      //todo: check
+        [HttpPost("AddReceptionistRole")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+        [SwaggerOperation(Summary = "Add receptionist role", OperationId = "AddReceptionistRole")]
+        public async Task<ActionResult> AddReceptionistRole([FromBody] ReceptionistDTO receptionistDto)
+        {
+            var query = new AddReceptionistRoleCommand(receptionistDto);
+            return await SendRequestAsync(query);
+        }
+        [HttpDelete("DeleteReceptionist")]
+        [SwaggerOperation(Summary = "Delete Receptionist", OperationId = "DeleteReceptionist")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
+        public async Task<ActionResult> DeleteReceptionist([FromForm] string accountId)
+        {
+            var query = new DeleteReceptionistCommand(accountId);
+            return await SendRequestAsync(query);
         }
 
         [HttpPost("AddDoctorRole")]
