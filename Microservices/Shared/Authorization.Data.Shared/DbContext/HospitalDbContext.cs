@@ -11,7 +11,6 @@ namespace Authorization.Data.Shared.DbContext
         public DbSet<Office> Offices { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Receptionist> Receptionists { get; set; }
-        public DbSet<Status> Statuses { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
         public HospitalDbContext(DbContextOptions<HospitalDbContext> options): base(options) { }
 

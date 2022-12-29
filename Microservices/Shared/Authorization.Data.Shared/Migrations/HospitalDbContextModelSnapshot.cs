@@ -133,8 +133,8 @@ namespace Authorization.Data.Shared.Migrations
                     b.Property<long>("SpecializationId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("StatusId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -144,9 +144,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasIndex("SpecializationId");
 
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>
@@ -174,7 +172,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Offices");
+                    b.ToTable("Offices", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Patient", b =>
@@ -198,7 +196,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Receptionist", b =>
@@ -227,7 +225,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasIndex("OfficeId");
 
-                    b.ToTable("Receptionists");
+                    b.ToTable("Receptionists", (string)null);
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Specialization", b =>
@@ -252,29 +250,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specializations");
-                });
-
-            modelBuilder.Entity("Authorization.Data_Domain.Models.Status", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTimeOffset>("LastRowModificationTimestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset>("RowCreatedTimestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Statuses");
+                    b.ToTable("Specializations", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -427,19 +403,11 @@ namespace Authorization.Data.Shared.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Authorization.Data_Domain.Models.Status", "Status")
-                        .WithMany("Doctors")
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Account");
 
                     b.Navigation("Office");
 
                     b.Navigation("Specialization");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Patient", b =>
@@ -536,11 +504,6 @@ namespace Authorization.Data.Shared.Migrations
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Specialization", b =>
-                {
-                    b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("Authorization.Data_Domain.Models.Status", b =>
                 {
                     b.Navigation("Doctors");
                 });

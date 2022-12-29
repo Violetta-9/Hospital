@@ -25,6 +25,5 @@ namespace Authorization.Data.Repository
         {
             return DbContext.Patients.SingleOrDefault(x => x.AccountId == accountId);
         }
-
     }
 }
