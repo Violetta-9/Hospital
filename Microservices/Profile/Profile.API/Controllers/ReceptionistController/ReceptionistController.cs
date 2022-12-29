@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profile.API.Controllers.Abstraction.Mediator;
-using Profile.Application.Command.Admin;
+
 using Profile.Application.Command.Receptionists.AddDoctorRole;
 using Profile.Application.Command.Receptionists.AddPatientRole;
 using Profile.Application.Contracts.Incoming;
