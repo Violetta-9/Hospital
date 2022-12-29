@@ -35,7 +35,7 @@ namespace Profile.Application.Command.Receptionists.AddDoctorRole
                     CareerStartYear =DateTime.Now,
                     SpecializationId = request.Doctor.SpecializationId,
                     OfficeId = request.Doctor.OfficeId,
-                    Status = request.Doctor.Status,
+                    StatusId = request.Doctor.StatusId,
 
 
                 }, cancellationToken);

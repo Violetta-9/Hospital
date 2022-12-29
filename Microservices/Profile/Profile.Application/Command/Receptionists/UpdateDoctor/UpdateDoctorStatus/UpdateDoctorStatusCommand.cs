@@ -10,10 +10,10 @@ namespace Profile.Application.Command.Receptionists.UpdateDoctor.UpdateDoctorSta
 {
     public class UpdateDoctorStatusCommand:IRequest<Response>
     {
-        public bool NewStatus { get; set; }
+        public long NewStatus { get; set; }
         public string AccounrId { get; set; }
 
-        public UpdateDoctorStatusCommand(bool status, string accounrId)
+        public UpdateDoctorStatusCommand(long status, string accounrId)
         {
             NewStatus = status;
             AccounrId = accounrId;

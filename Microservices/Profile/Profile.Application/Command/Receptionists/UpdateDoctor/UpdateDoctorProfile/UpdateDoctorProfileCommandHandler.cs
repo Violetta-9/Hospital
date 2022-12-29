@@ -20,14 +20,13 @@ namespace Profile.Application.Command.Receptionists.UpdateDoctor.UpdateDoctorPro
         }
         public async Task<Response> Handle(UpdateDoctorProfileCommand request, CancellationToken cancellationToken)
         {
-            var doctor = _doctorRepository.GetDoctorByAccountId(request.DoctorInfo.AccountId, cancellationToken);
+            var doctor = await _doctorRepository.GetDoctorByAccountIdAsync(request.DoctorInfo.AccountId, cancellationToken);
             if (doctor == null)
             {
                 return Response.Error;
             }
             doctor.OfficeId = request.DoctorInfo.OfficeId;
             doctor.SpecializationId = request.DoctorInfo.SpecializationId;
-            doctor.CareerStartYear = new DateTime(request.DoctorInfo.Year, 01, 01);
             await _doctorRepository.UpdateAsync(doctor, cancellationToken);
             return Response.Success;
         }

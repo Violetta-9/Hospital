@@ -27,7 +27,7 @@ namespace Profile.Application.Command.Receptionists.DeleteDoctor
         public async Task<Response> Handle(DeleteDoctorCommand request, CancellationToken cancellationToken)
         {
             var role = UserRoles.Doctor;
-            var doctor = _doctorRepository.GetDoctorByAccountId(request.AccountId, cancellationToken);
+            var doctor =await _doctorRepository.GetDoctorByAccountIdAsync(request.AccountId, cancellationToken);
             if (doctor == null)
             {
                 return Response.Error;
