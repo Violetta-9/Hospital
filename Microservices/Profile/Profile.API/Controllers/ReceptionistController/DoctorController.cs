@@ -12,7 +12,10 @@ using System.Data;
 using Profile.Application.Query.Doctor.GetAllDoctors;
 using Profile.Application.Command.Receptionists.AddDoctorRole;
 using Profile.Application.Command.Receptionists.DeleteDoctor;
+using Profile.Application.Query.Doctor.GetDoctorByFullName;
 using Profile.Application.Query.Doctor.GetDoctorById;
+using Profile.Application.Query.Doctor.GetDoctorByOfficeId;
+using Profile.Application.Query.Doctor.GetDoctorBySpesializationId;
 
 namespace Profile.API.Controllers.ReceptionistController
 {
@@ -23,6 +26,23 @@ namespace Profile.API.Controllers.ReceptionistController
     {
         public DoctorController(IMediator mediator) : base(mediator)
         {
+        }
+        [HttpPost("AddDoctorRole")]
+        [SwaggerOperation(Summary = "Add patient role", OperationId = "AddDoctorRole")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
+        public async Task<ActionResult> AddDoctorRole([FromBody] DoctorDTO doctor)
+        {
+            var query = new AddDoctorRoleCommand(doctor);
+            return await SendRequestAsync(query);
+        }
+
+        [HttpDelete("DeleteDoctor")]
+        [SwaggerOperation(Summary = "Delete Doctor", OperationId = "DeleteDoctor")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
+        public async Task<ActionResult> DeleteDoctor([FromBody] string accountId)
+        {
+            var query = new DeleteDoctorCommand(accountId);
+            return await SendRequestAsync(query);
         }
 
         [HttpPatch("UpdateStatus")]
@@ -41,6 +61,7 @@ namespace Profile.API.Controllers.ReceptionistController
             var query = new UpdateDoctorProfileCommand(updateDoctorDTO);
             return await SendRequestAsync(query);
         }
+
         [HttpGet("GetAllDoctors")]
         [SwaggerOperation(Summary = "Get All Doctors", OperationId = "GetAllDoctors")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
@@ -57,20 +78,29 @@ namespace Profile.API.Controllers.ReceptionistController
             var query = new GetDoctorByIdQuery(doctorId);
             return await SendRequestAsync(query);
         }
-        [HttpPost("AddDoctorRole")]
-        [SwaggerOperation(Summary = "Add patient role", OperationId = "AddDoctorRole")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-        public async Task<ActionResult> AddDoctorRole([FromBody] DoctorDTO doctor)
+        [HttpGet("GetDoctorsByOfficeId")]
+        [SwaggerOperation(Summary = "Get Doctor By Id", OperationId = "GetDoctorsByOfficeId")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
+        public async Task<ActionResult> GetDoctorsByOfficeId([FromQuery] long officeId)
         {
-            var query = new AddDoctorRoleCommand(doctor);
+            var query = new GetDoctorsByOfficeIdQuery(officeId);
             return await SendRequestAsync(query);
         }
-        [HttpDelete("DeleteDoctor")]
-        [SwaggerOperation(Summary = "Delete Doctor", OperationId = "DeleteDoctor")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-        public async Task<ActionResult> DeleteDoctor([FromBody] string accountId)
+
+        [HttpGet("GetDoctorsBySpesializationId")]
+        [SwaggerOperation(Summary = "Get Doctors By Spesialization Id", OperationId = "GetDoctorsBySpesializationId")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
+        public async Task<ActionResult> GetDoctorsBySpesializationId([FromQuery] long spesializationId)
         {
-            var query = new DeleteDoctorCommand(accountId);
+            var query = new GetDoctorsBySpesializationIdQuery(spesializationId);
+            return await SendRequestAsync(query);
+        }
+        [HttpGet("FindDoctorByFullName")]
+        [SwaggerOperation(Summary = "Find Doctor By FullName", OperationId = "FindDoctorByFullName")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
+        public async Task<ActionResult> FindDoctorByFullName([FromQuery] DoctorsFullNameDTO doctorsFullName)
+        {
+            var query = new GetDoctorByFullNameQuery(doctorsFullName);
             return await SendRequestAsync(query);
         }
     }
