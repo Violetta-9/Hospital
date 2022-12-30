@@ -19,7 +19,7 @@ namespace Profile.Application.Query.Doctor.GetDoctorById
         }
         public async Task<DoctorOneDTO> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
         {
-          return await _doctorRepository.GetDoctorById(request.DoctorId,cancellationToken);
+          return await _doctorRepository.GetDoctorByIdAsync(request.DoctorId,cancellationToken);
         }
     }
 }
