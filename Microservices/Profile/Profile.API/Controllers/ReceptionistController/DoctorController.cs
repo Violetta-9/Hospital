@@ -19,8 +19,7 @@ using Profile.Application.Query.Doctor.GetDoctorBySpesializationId;
 
 namespace Profile.API.Controllers.ReceptionistController
 {
-    //api/doctor/AddDoctorRole
-    //api/doctor/roles
+    
     [Route("api/[controller]")]
     [Authorize(Roles = UserRoles.Receptionist)]
     [ApiController]
