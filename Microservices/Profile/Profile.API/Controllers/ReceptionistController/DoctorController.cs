@@ -19,6 +19,8 @@ using Profile.Application.Query.Doctor.GetDoctorBySpesializationId;
 
 namespace Profile.API.Controllers.ReceptionistController
 {
+    //api/doctor/AddDoctorRole
+    //api/doctor/roles
     [Route("api/[controller]")]
     [Authorize(Roles = UserRoles.Receptionist)]
     [ApiController]
@@ -27,16 +29,16 @@ namespace Profile.API.Controllers.ReceptionistController
         public DoctorController(IMediator mediator) : base(mediator)
         {
         }
-        [HttpPost("AddDoctorRole")]
-        [SwaggerOperation(Summary = "Add patient role", OperationId = "AddDoctorRole")]
+        [HttpPost("roles")]
+        [SwaggerOperation(Summary = "Assign the Role To Doctor", OperationId = "AssignRoleToDoctor")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-        public async Task<ActionResult> AddDoctorRole([FromBody] DoctorDTO doctor)
+        public async Task<ActionResult> AssignRoleToDoctor([FromBody] DoctorDTO doctor)
         {
             var query = new AddDoctorRoleCommand(doctor);
             return await SendRequestAsync(query);
         }
 
-        [HttpDelete("DeleteDoctor")]
+        [HttpDelete]
         [SwaggerOperation(Summary = "Delete Doctor", OperationId = "DeleteDoctor")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<ActionResult> DeleteDoctor([FromBody] string accountId)
@@ -45,7 +47,7 @@ namespace Profile.API.Controllers.ReceptionistController
             return await SendRequestAsync(query);
         }
 
-        [HttpPatch("UpdateStatus")]
+        [HttpPatch("status")]
         [SwaggerOperation(Summary = "Update Status", OperationId = "UpdateStatus")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<ActionResult> UpdateStatus([FromForm] long status, [FromForm] string accountId)
@@ -53,7 +55,7 @@ namespace Profile.API.Controllers.ReceptionistController
             var query = new UpdateDoctorStatusCommand(status, accountId);
             return await SendRequestAsync(query);
         }
-        [HttpPatch("UpdateDoctorProfile")]
+        [HttpPatch("update")]
         [SwaggerOperation(Summary = "Update Doctor Profile", OperationId = "UpdateDoctorProfile")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<ActionResult> UpdateDoctorProfile([FromBody] UpdateDoctorDTO updateDoctorDTO)
@@ -62,7 +64,7 @@ namespace Profile.API.Controllers.ReceptionistController
             return await SendRequestAsync(query);
         }
 
-        [HttpGet("GetAllDoctors")]
+        [HttpGet("all")]
         [SwaggerOperation(Summary = "Get All Doctors", OperationId = "GetAllDoctors")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
         public async Task<ActionResult> GetAllDoctors()
@@ -70,32 +72,33 @@ namespace Profile.API.Controllers.ReceptionistController
             var query =new GetAllDoctorsQuery();
             return await SendRequestAsync(query);
         }
-        [HttpGet("GetDoctorById")]
+        [HttpGet("{doctorId}")]
         [SwaggerOperation(Summary = "Get Doctor By Id", OperationId = "GetDoctorById")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorOneDTO))]
-        public async Task<ActionResult> GetDoctorById([FromQuery] long doctorId)
+        public async Task<ActionResult> GetDoctorById([FromRoute] long doctorId)
         {
             var query = new GetDoctorByIdQuery(doctorId);
             return await SendRequestAsync(query);
         }
-        [HttpGet("GetDoctorsByOfficeId")]
+        [HttpGet("offices/{officeId}")]
         [SwaggerOperation(Summary = "Get Doctor By Id", OperationId = "GetDoctorsByOfficeId")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
-        public async Task<ActionResult> GetDoctorsByOfficeId([FromQuery] long officeId)
+        public async Task<ActionResult> GetDoctorsByOfficeId([FromRoute] long officeId)
         {
             var query = new GetDoctorsByOfficeIdQuery(officeId);
             return await SendRequestAsync(query);
         }
 
-        [HttpGet("GetDoctorsBySpesializationId")]
-        [SwaggerOperation(Summary = "Get Doctors By Spesialization Id", OperationId = "GetDoctorsBySpesializationId")]
+        [HttpGet("specialization/{id}")]
+        [SwaggerOperation(Summary = "Get Doctors By Specialization Id", OperationId = "GetDoctorsBySpecializationId")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
-        public async Task<ActionResult> GetDoctorsBySpesializationId([FromQuery] long spesializationId)
+        public async Task<ActionResult> GetDoctorsBySpecializationId([FromQuery] long specializationId)
         {
-            var query = new GetDoctorsBySpesializationIdQuery(spesializationId);
+            var query = new GetDoctorsBySpesializationIdQuery(specializationId);
             return await SendRequestAsync(query);
         }
-        [HttpGet("FindDoctorByFullName")]
+
+        [HttpGet("fullname")]
         [SwaggerOperation(Summary = "Find Doctor By FullName", OperationId = "FindDoctorByFullName")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
         public async Task<ActionResult> FindDoctorByFullName([FromQuery] DoctorsFullNameDTO doctorsFullName)
