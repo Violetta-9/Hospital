@@ -65,7 +65,7 @@ namespace Authorization.Data.Repository
                 StatusTitle = x.Status.Title,
                 CareerStartYear = x.CareerStartYear
 
-            }).FirstOrDefaultAsync(cancellationToken);
+            }).SingleOrDefaultAsync(cancellationToken);
 
         }
         public async Task<DoctorAllDTO[]> GetDoctorByOfficeIdAsync(long officeid, CancellationToken cancellationToken = default)
