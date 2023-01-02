@@ -15,7 +15,7 @@ namespace Profile.Application.Command.Receptionists.UpdateOffice
 
         public async Task<Response> Handle(UpdateOfficeCommand request, CancellationToken cancellationToken)
         {
-            var receptionist = _receptionistRepository.GetReceptionistByAccountId(request.AccountId, cancellationToken);
+            var receptionist = await _receptionistRepository.GetReceptionistByAccountIdAsync(request.AccountId, cancellationToken);
             if (receptionist == null)
             {
                 return Response.Error;
