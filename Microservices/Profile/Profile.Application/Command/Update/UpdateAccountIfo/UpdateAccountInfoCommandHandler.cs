@@ -30,7 +30,7 @@ namespace Profile.Application.Command.Update.UpdateAccountIfo
             user.LastName=request.UserDtO.LastName;
             user.Email=request.UserDtO.Email;
             user.PhoneNumber = request.UserDtO.PhoneNumber;
-            user.Birtday = new DateTime(request.UserDtO.Year, request.UserDtO.Month, request.UserDtO.Day);
+            user.Birthday = new DateTime(request.UserDtO.Year, request.UserDtO.Month, request.UserDtO.Day);
             await _userManager.UpdateAsync(user);
             return Response.Success;
         }

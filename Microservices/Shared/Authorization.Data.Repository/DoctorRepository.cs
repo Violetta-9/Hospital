@@ -43,7 +43,7 @@ namespace Authorization.Data.Repository
                 FirstName = x.Account.FirstName,
                 LastName = x.Account.LastName,
                 MiddleName = x.Account.MiddleName,
-                BirthDay = x.Account.Birtday,
+                BirthDay = x.Account.Birthday,
                 OfficeAddress = x.Office.Address,
                 SpecializationTitle = x.Specialization.Title,
                 StatusTitle = x.Status.Title
@@ -59,7 +59,7 @@ namespace Authorization.Data.Repository
                 FirstName = x.Account.FirstName,
                 LastName = x.Account.LastName,
                 MiddleName = x.Account.MiddleName,
-                BirthDay = x.Account.Birtday,
+                BirthDay = x.Account.Birthday,
                 OfficeAddress = x.Office.Address,
                 SpecializationTitle = x.Specialization.Title,
                 StatusTitle = x.Status.Title,
@@ -76,7 +76,7 @@ namespace Authorization.Data.Repository
                 FirstName = x.Account.FirstName,
                 LastName = x.Account.LastName,
                 MiddleName = x.Account.MiddleName,
-                BirthDay = x.Account.Birtday,
+                BirthDay = x.Account.Birthday,
                 OfficeAddress = x.Office.Address,
                 SpecializationTitle = x.Specialization.Title,
                 StatusTitle = x.Status.Title
@@ -92,7 +92,7 @@ namespace Authorization.Data.Repository
                 FirstName = x.Account.FirstName,
                 LastName = x.Account.LastName,
                 MiddleName = x.Account.MiddleName,
-                BirthDay = x.Account.Birtday,
+                BirthDay = x.Account.Birthday,
                 OfficeAddress = x.Office.Address,
                 SpecializationTitle = x.Specialization.Title,
                 StatusTitle = x.Status.Title
@@ -119,7 +119,7 @@ namespace Authorization.Data.Repository
                 FirstName = x.Account.FirstName,
                 LastName = x.Account.LastName,
                 MiddleName = x.Account.MiddleName,
-                BirthDay = x.Account.Birtday,
+                BirthDay = x.Account.Birthday,
                 OfficeAddress = x.Office.Address,
                 SpecializationTitle = x.Specialization.Title,
                 StatusTitle = x.Status.Title

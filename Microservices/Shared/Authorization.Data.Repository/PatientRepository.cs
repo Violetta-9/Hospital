@@ -49,7 +49,7 @@ namespace Authorization.Data.Repository
                 LastName = x.Account.LastName,
                 MiddleName = x.Account.MiddleName,
                 PhoneNumber = x.Account.PhoneNumber,
-                BirthDay = x.Account.Birtday,
+                BirthDay = x.Account.Birthday,
                 
               
 
