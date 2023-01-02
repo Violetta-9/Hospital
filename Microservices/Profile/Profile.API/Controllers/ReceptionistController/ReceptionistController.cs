@@ -16,6 +16,10 @@ using Profile.Application.Command.Receptionists.DeletePatient;
 using Profile.Application.Command.Receptionists.UpdateOffice;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Command.Receptionists.DeleteReceptionist;
+using Profile.Application.Query.Doctor.GetAllDoctors;
+using Profile.Application.Query.Doctor.GetDoctorById;
+using Profile.Application.Query.Receptionist.GetAllReceptionist;
+using Profile.Application.Query.Receptionist.GetReceptionistById;
 
 namespace Profile.API.Controllers.ReceptionistController
 {
@@ -38,7 +42,7 @@ namespace Profile.API.Controllers.ReceptionistController
             var query = new AddReceptionistRoleCommand(receptionistDto);
             return await SendRequestAsync(query);
         }
-        [HttpDelete("DeleteReceptionist")]
+        [HttpDelete("receptionist")]
         [SwaggerOperation(Summary = "Delete Receptionist", OperationId = "DeleteReceptionist")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<ActionResult> DeleteReceptionist([FromForm] string accountId)
@@ -48,7 +52,7 @@ namespace Profile.API.Controllers.ReceptionistController
         }
 
 
-        [HttpDelete("DeletePatient")]
+        [HttpDelete("patient")]
         [SwaggerOperation(Summary = "Delete Patient", OperationId = "DeletePatient")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
         public async Task<ActionResult> DeletePatient([FromForm] string accountId)
@@ -67,12 +71,27 @@ namespace Profile.API.Controllers.ReceptionistController
         [HttpPatch("UpdateOffice")]
         [SwaggerOperation(Summary = "Update Office", OperationId = "UpdateOffice")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        public async Task<ActionResult> UpdateOffice([FromBody] string userId,long officeId)
+        public async Task<ActionResult> UpdateOffice([FromForm] string userId, [FromForm] long officeId)
         {
             var query = new UpdateOfficeCommand(userId, officeId);
             return await SendRequestAsync(query);
         }
-
+        [HttpGet("all")]
+        [SwaggerOperation(Summary = "Get All Receptionists", OperationId = "GetAllReceptionists")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
+        public async Task<ActionResult> GetAllDoctors()
+        {
+            var query = new GetAllReceptionistQuery();
+            return await SendRequestAsync(query);
+        }
+        [HttpGet("{receptionistId}")]
+        [SwaggerOperation(Summary = "Get Receptionist By Id", OperationId = "GetReceptionistById")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorOneDTO))]
+        public async Task<ActionResult> GetDoctorById([FromRoute] long receptionistId)
+        {
+            var query = new GetReceptionistByIdQuery(receptionistId);
+            return await SendRequestAsync(query);
+        }
 
     }
 }
