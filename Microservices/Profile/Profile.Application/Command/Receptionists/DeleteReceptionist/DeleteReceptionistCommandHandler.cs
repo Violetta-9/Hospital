@@ -26,8 +26,8 @@ namespace Profile.Application.Command.Receptionists.DeleteReceptionist
         }
         public async Task<Response> Handle(DeleteReceptionistCommand request, CancellationToken cancellationToken)
         {
-            var role = UserRoles.Doctor;
-            var receptionist = _receptionistRepository.GetReceptionistByAccountId(request.AccountId, cancellationToken);
+            var role = UserRoles.Receptionist;
+            var receptionist = await _receptionistRepository.GetReceptionistByAccountIdAsync(request.AccountId, cancellationToken);
             if (receptionist == null)
             {
                 return Response.Error;

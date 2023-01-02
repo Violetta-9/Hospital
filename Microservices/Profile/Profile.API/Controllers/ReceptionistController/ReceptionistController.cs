@@ -2,20 +2,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profile.API.Controllers.Abstraction.Mediator;
-
-using Profile.Application.Command.Receptionists.AddDoctorRole;
 using Profile.Application.Command.Receptionists.AddPatientRole;
 using Profile.Application.Contracts.Incoming;
 using Profile.Application.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Data;
-using Microsoft.AspNetCore.Identity;
 using Profile.Application.Command.Receptionists.AddReceptionistRole;
-using Profile.Application.Command.Receptionists.DeleteDoctor;
 using Profile.Application.Command.Receptionists.DeletePatient;
 using Profile.Application.Command.Receptionists.UpdateOffice;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Command.Receptionists.DeleteReceptionist;
+using Profile.Application.Query.Receptionist.GetAllReceptionist;
+using Profile.Application.Query.Receptionist.GetReceptionistById;
 
 namespace Profile.API.Controllers.ReceptionistController
 {
@@ -38,7 +35,7 @@ namespace Profile.API.Controllers.ReceptionistController
             var query = new AddReceptionistRoleCommand(receptionistDto);
             return await SendRequestAsync(query);
         }
-        [HttpDelete("DeleteReceptionist")]
+        [HttpDelete("receptionist")]
         [SwaggerOperation(Summary = "Delete Receptionist", OperationId = "DeleteReceptionist")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<ActionResult> DeleteReceptionist([FromForm] string accountId)
@@ -48,7 +45,7 @@ namespace Profile.API.Controllers.ReceptionistController
         }
 
 
-        [HttpDelete("DeletePatient")]
+        [HttpDelete("patient")]
         [SwaggerOperation(Summary = "Delete Patient", OperationId = "DeletePatient")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
         public async Task<ActionResult> DeletePatient([FromForm] string accountId)
@@ -67,12 +64,27 @@ namespace Profile.API.Controllers.ReceptionistController
         [HttpPatch("UpdateOffice")]
         [SwaggerOperation(Summary = "Update Office", OperationId = "UpdateOffice")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        public async Task<ActionResult> UpdateOffice([FromBody] string userId,long officeId)
+        public async Task<ActionResult> UpdateOffice([FromForm] UpdateReceptionistDTO receptionistDto)
         {
-            var query = new UpdateOfficeCommand(userId, officeId);
+            var query = new UpdateOfficeCommand(receptionistDto);
             return await SendRequestAsync(query);
         }
-
+        [HttpGet("all")]
+        [SwaggerOperation(Summary = "Get All Receptionists", OperationId = "GetAllReceptionists")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ReceptionistAllDTO[]))]
+        public async Task<ActionResult> GetAllReceptionists()
+        {
+            var query = new GetAllReceptionistQuery();
+            return await SendRequestAsync(query);
+        }
+        [HttpGet("{receptionistId}")]
+        [SwaggerOperation(Summary = "Get Receptionist By Id", OperationId = "GetReceptionistById")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ReceptionistOneDTO))]
+        public async Task<ActionResult> GetReceptionistById([FromRoute] long receptionistId)
+        {
+            var query = new GetReceptionistByIdQuery(receptionistId);
+            return await SendRequestAsync(query);
+        }
 
     }
 }

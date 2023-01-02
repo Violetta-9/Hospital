@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Profile.Application.Contracts.Incoming;
 using Profile.Application.Contracts.Outgoing;
 
 namespace Profile.Application.Command.Receptionists.UpdateOffice
@@ -13,10 +14,10 @@ namespace Profile.Application.Command.Receptionists.UpdateOffice
         public string AccountId { get; set; }
         public long NewOffice { get; set; }
 
-        public UpdateOfficeCommand(string accountId, long newOffice)
+        public UpdateOfficeCommand(UpdateReceptionistDTO receptionistDto)
         {
-            AccountId=accountId;
-            NewOffice=newOffice;
+            AccountId=receptionistDto.AccountId;
+            NewOffice=receptionistDto.OfficeId;
         }
     }
 }
