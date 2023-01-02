@@ -2,22 +2,15 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profile.API.Controllers.Abstraction.Mediator;
-
-using Profile.Application.Command.Receptionists.AddDoctorRole;
 using Profile.Application.Command.Receptionists.AddPatientRole;
 using Profile.Application.Contracts.Incoming;
 using Profile.Application.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Data;
-using Microsoft.AspNetCore.Identity;
 using Profile.Application.Command.Receptionists.AddReceptionistRole;
-using Profile.Application.Command.Receptionists.DeleteDoctor;
 using Profile.Application.Command.Receptionists.DeletePatient;
 using Profile.Application.Command.Receptionists.UpdateOffice;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Command.Receptionists.DeleteReceptionist;
-using Profile.Application.Query.Doctor.GetAllDoctors;
-using Profile.Application.Query.Doctor.GetDoctorById;
 using Profile.Application.Query.Receptionist.GetAllReceptionist;
 using Profile.Application.Query.Receptionist.GetReceptionistById;
 
@@ -71,9 +64,9 @@ namespace Profile.API.Controllers.ReceptionistController
         [HttpPatch("UpdateOffice")]
         [SwaggerOperation(Summary = "Update Office", OperationId = "UpdateOffice")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        public async Task<ActionResult> UpdateOffice([FromForm] string userId, [FromForm] long officeId)
+        public async Task<ActionResult> UpdateOffice([FromForm] UpdateReceptionistDTO receptionistDto)
         {
-            var query = new UpdateOfficeCommand(userId, officeId);
+            var query = new UpdateOfficeCommand(receptionistDto);
             return await SendRequestAsync(query);
         }
         [HttpGet("all")]
