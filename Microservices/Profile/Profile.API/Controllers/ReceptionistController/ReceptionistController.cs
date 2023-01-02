@@ -26,16 +26,15 @@ namespace Profile.API.Controllers.ReceptionistController
         {
 
         }
-      //todo: check
-        [HttpPost("AddReceptionistRole")]
+        [HttpPost("roles")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        [SwaggerOperation(Summary = "Add receptionist role", OperationId = "AddReceptionistRole")]
-        public async Task<ActionResult> AddReceptionistRole([FromBody] ReceptionistDTO receptionistDto)
+        [SwaggerOperation(Summary = "Assign receptionist role", OperationId = "AssignReceptionistRole")]
+        public async Task<ActionResult> AssignReceptionistRole([FromBody] ReceptionistDTO receptionistDto)
         {
             var query = new AddReceptionistRoleCommand(receptionistDto);
             return await SendRequestAsync(query);
         }
-        [HttpDelete("receptionist")]
+        [HttpDelete]
         [SwaggerOperation(Summary = "Delete Receptionist", OperationId = "DeleteReceptionist")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
         public async Task<ActionResult> DeleteReceptionist([FromForm] string accountId)
@@ -43,10 +42,7 @@ namespace Profile.API.Controllers.ReceptionistController
             var query = new DeleteReceptionistCommand(accountId);
             return await SendRequestAsync(query);
         }
-
-
-       
-        [HttpPatch("UpdateOffice")]
+        [HttpPatch]
         [SwaggerOperation(Summary = "Update Office", OperationId = "UpdateOffice")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
         public async Task<ActionResult> UpdateOffice([FromForm] UpdateReceptionistDTO receptionistDto)
