@@ -17,7 +17,7 @@ using Profile.Application.Query.Receptionist.GetReceptionistById;
 namespace Profile.API.Controllers.ReceptionistController
 {
     [Route("api/[controller]")]
-    [Authorize(Roles =$"{UserRoles.Admin},{UserRoles.Receptionist}" )]
+    [Authorize(Roles =UserRoles.Receptionist )]
     
     [ApiController]
     public class ReceptionistController : MediatingControllerBase
@@ -45,22 +45,7 @@ namespace Profile.API.Controllers.ReceptionistController
         }
 
 
-        [HttpDelete("patient")]
-        [SwaggerOperation(Summary = "Delete Patient", OperationId = "DeletePatient")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        public async Task<ActionResult> DeletePatient([FromForm] string accountId)
-        {
-            var query = new DeletePatientCommand(accountId);
-            return await SendRequestAsync(query);
-        }
-        [HttpPost("AddPatientRole")]
-        [SwaggerOperation(Summary = "Add patient role", OperationId = "AddPatientRole")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
-        public async Task<ActionResult> AddPatientRole([FromBody] string userId)
-        {
-            var query = new AddPatientRoleCommand(userId);
-            return await SendRequestAsync(query);
-        }
+       
         [HttpPatch("UpdateOffice")]
         [SwaggerOperation(Summary = "Update Office", OperationId = "UpdateOffice")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]

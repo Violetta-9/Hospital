@@ -17,9 +17,9 @@ using Profile.Application.Query.Doctor.GetDoctorById;
 using Profile.Application.Query.Doctor.GetDoctorByOfficeId;
 using Profile.Application.Query.Doctor.GetDoctorBySpesializationId;
 
-namespace Profile.API.Controllers.ReceptionistController
+namespace Profile.API.Controllers.DoctorController
 {
-    
+
     [Route("api/[controller]")]
     [Authorize(Roles = UserRoles.Receptionist)]
     [ApiController]
@@ -68,7 +68,7 @@ namespace Profile.API.Controllers.ReceptionistController
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
         public async Task<ActionResult> GetAllDoctors()
         {
-            var query =new GetAllDoctorsQuery();
+            var query = new GetAllDoctorsQuery();
             return await SendRequestAsync(query);
         }
         [HttpGet("{doctorId}")]

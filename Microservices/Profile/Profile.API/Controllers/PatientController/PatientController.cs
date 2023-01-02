@@ -7,6 +7,8 @@ using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Query.Patient.GetAllPatient;
 using Profile.Application.Query.Patient.GetPatientById;
 using Swashbuckle.AspNetCore.Annotations;
+using Profile.Application.Command.Receptionists.AddPatientRole;
+using Profile.Application.Command.Receptionists.DeletePatient;
 
 namespace Profile.API.Controllers.PatientController
 {
@@ -32,6 +34,23 @@ namespace Profile.API.Controllers.PatientController
         public async Task<ActionResult> GetPatientById([FromRoute] long patientId)
         {
             var query = new GetPatientByIdQuery(patientId);
+            return await SendRequestAsync(query);
+        }
+
+        [HttpDelete]
+        [SwaggerOperation(Summary = "Delete Patient", OperationId = "DeletePatient")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+        public async Task<ActionResult> DeletePatient([FromForm] string accountId)
+        {
+            var query = new DeletePatientCommand(accountId);
+            return await SendRequestAsync(query);
+        }
+        [HttpPost("roles")]
+        [SwaggerOperation(Summary = "Assign the Role To Patient", OperationId = "AssignPatientRole")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+        public async Task<ActionResult> AssignPatientRole([FromBody] string userId)
+        {
+            var query = new AddPatientRoleCommand(userId);
             return await SendRequestAsync(query);
         }
     }
