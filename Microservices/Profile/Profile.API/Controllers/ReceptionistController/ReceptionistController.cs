@@ -71,16 +71,16 @@ namespace Profile.API.Controllers.ReceptionistController
         }
         [HttpGet("all")]
         [SwaggerOperation(Summary = "Get All Receptionists", OperationId = "GetAllReceptionists")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
-        public async Task<ActionResult> GetAllDoctors()
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ReceptionistAllDTO[]))]
+        public async Task<ActionResult> GetAllReceptionists()
         {
             var query = new GetAllReceptionistQuery();
             return await SendRequestAsync(query);
         }
         [HttpGet("{receptionistId}")]
         [SwaggerOperation(Summary = "Get Receptionist By Id", OperationId = "GetReceptionistById")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorOneDTO))]
-        public async Task<ActionResult> GetDoctorById([FromRoute] long receptionistId)
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ReceptionistOneDTO))]
+        public async Task<ActionResult> GetReceptionistById([FromRoute] long receptionistId)
         {
             var query = new GetReceptionistByIdQuery(receptionistId);
             return await SendRequestAsync(query);
