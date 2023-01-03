@@ -26,10 +26,4 @@
     <ProjectReference Include="..\Profile.Application.Resources\Profile.Application.Resources.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validators\Query\Doctor\" />
-    <Folder Include="Validators\Query\Receptionist\" />
-    <Folder Include="Validators\Query\Patient\" />
-  </ItemGroup>
-
 </Project>
