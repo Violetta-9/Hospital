@@ -30,7 +30,7 @@ namespace Authorization.Application.Query.User
             var roles = await _userManager.GetRolesAsync(user);
             var options = new IdentityOptions();
             var listOfClaims = roles.Select(role => new Claim(options.ClaimsIdentity.RoleClaimType, role)).ToList();
-            listOfClaims.Add(new Claim(JwtRegisteredClaimNames.Jti, user.Id));
+            listOfClaims.Add(new Claim(options.ClaimsIdentity.UserIdClaimType, user.Id));
             listOfClaims.Add(new Claim(JwtRegisteredClaimNames.Name, user.FirstName));
             listOfClaims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
          

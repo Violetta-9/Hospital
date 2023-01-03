@@ -8,7 +8,7 @@ namespace Authorization.Data_Domain.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
-        public DateTime Birtday { get; set; }
+        public DateTime Birthday { get; set; }
         public DateTimeOffset RowCreatedTimestamp { get; set; }
         public DateTimeOffset LastRowModificationTimestamp { get; set; }
         public virtual ICollection<Doctor> Doctors { get; set; }

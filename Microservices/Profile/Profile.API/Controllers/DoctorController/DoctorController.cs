@@ -9,6 +9,7 @@ using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Data;
+using Profile.Application.Command.Doctors.DeleteDoctor;
 using Profile.Application.Query.Doctor.GetAllDoctors;
 using Profile.Application.Command.Receptionists.AddDoctorRole;
 using Profile.Application.Command.Receptionists.DeleteDoctor;
