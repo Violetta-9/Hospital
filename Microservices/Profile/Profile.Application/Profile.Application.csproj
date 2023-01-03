@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Command\Patient\**" />
+    <EmbeddedResource Remove="Command\Patient\**" />
+    <None Remove="Command\Patient\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
 
@@ -16,10 +23,13 @@
     <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
     <ProjectReference Include="..\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
     <ProjectReference Include="..\Profile.Application.Helpers\Profile.Application.Helpers.csproj" />
+    <ProjectReference Include="..\Profile.Application.Resources\Profile.Application.Resources.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\Patient\" />
+    <Folder Include="Validators\Query\Doctor\" />
+    <Folder Include="Validators\Query\Receptionist\" />
+    <Folder Include="Validators\Query\Patient\" />
   </ItemGroup>
 
 </Project>

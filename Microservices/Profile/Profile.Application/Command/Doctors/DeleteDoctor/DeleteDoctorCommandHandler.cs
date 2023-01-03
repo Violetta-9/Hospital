@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Authorization.Data.Repository;
+﻿using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 
-namespace Profile.Application.Command.Receptionists.DeleteDoctor
+namespace Profile.Application.Command.Doctors.DeleteDoctor
 {
     public class DeleteDoctorCommandHandler : IRequestHandler<DeleteDoctorCommand, Response>
     {

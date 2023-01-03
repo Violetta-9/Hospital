@@ -7,12 +7,12 @@ using Profile.Application.Helpers;
 
 namespace Profile.Application.Command.Receptionists.AddReceptionistRole
 {
-    public class AddReceptionistCommandHandler : IRequestHandler<AddReceptionistRoleCommand, Response>
+    public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionistRoleCommand, Response>
     {
         private readonly UserManager<Account> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IReceptionistRepository _receptionistRepository;
-        public AddReceptionistCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager, IReceptionistRepository receptionist)
+        public AddReceptionistRoleCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager, IReceptionistRepository receptionist)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -22,7 +22,7 @@ namespace Profile.Application.Command.Receptionists.AddReceptionistRole
         public async Task<Response> Handle(AddReceptionistRoleCommand request, CancellationToken cancellationToken)
         {
             var role = UserRoles.Receptionist;
-            var user = await _userManager.FindByIdAsync(request.UserId);
+            var user = await _userManager.FindByIdAsync(request.AccountId);
             if (user != null)
             {
                 await _userManager.AddToRoleAsync(user, role);

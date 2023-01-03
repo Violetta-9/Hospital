@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Authorization.Data.Repository;
+﻿using Authorization.Data.Repository;
 using MediatR;
 using Profile.Application.Contracts.Outgoing;
 
-namespace Profile.Application.Command.Receptionists.UpdateDoctor.UpdateDoctorStatus
+namespace Profile.Application.Command.Doctors.UpdateDoctor.UpdateDoctorStatus
 {
     public class UpdateDoctorStatusCommandHandler : IRequestHandler<UpdateDoctorStatusCommand,Response>
     {
@@ -20,7 +15,7 @@ namespace Profile.Application.Command.Receptionists.UpdateDoctor.UpdateDoctorSta
 
         public async Task<Response> Handle(UpdateDoctorStatusCommand request, CancellationToken cancellationToken)
         {
-            var doctor = await _doctorRepository.GetDoctorByAccountIdAsync(request.AccounrId, cancellationToken);
+            var doctor = await _doctorRepository.GetDoctorByAccountIdAsync(request.AccountId, cancellationToken);
             if (doctor == null)
             {
                 return Response.Error;

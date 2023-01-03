@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Authorization.Data.Repository;
+﻿using Authorization.Data.Repository;
 using MediatR;
-using Profile.Application.Command.Receptionists.UpdateDoctor.UpdateDoctorProfile;
 using Profile.Application.Contracts.Outgoing;
 
-namespace Profile.Application.Command.Receptionists.UpdateDoctor.UpdateDoctorProfile
+namespace Profile.Application.Command.Doctors.UpdateDoctor.UpdateDoctorProfile
 {
     public class UpdateDoctorProfileCommandHandler : IRequestHandler<UpdateDoctorProfileCommand, Response>
     {

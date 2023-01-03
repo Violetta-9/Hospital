@@ -2,11 +2,11 @@
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Profile.Application.Command.Receptionists.AddDoctorRole;
+
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 
-namespace Profile.Application.Command.Receptionists.AddDoctorRole
+namespace Profile.Application.Command.Doctors.AddDoctorRole
 {
     public class AddDoctorRoleCommandHandler : IRequestHandler<AddDoctorRoleCommand, Response>
     {
@@ -23,7 +23,7 @@ namespace Profile.Application.Command.Receptionists.AddDoctorRole
 
         public async Task<Response> Handle(AddDoctorRoleCommand request, CancellationToken cancellationToken)
         {
-            //todo:
+          
             var role = UserRoles.Doctor;
             var user = await _userManager.FindByIdAsync(request.Doctor.AccountId);
             if (user != null)
