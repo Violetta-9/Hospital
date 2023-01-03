@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EmptyField" xml:space="preserve">
-    <value>Поле не может быть пустым</value>
+    <value>Поле {0} не может быть пустым</value>
   </data>
   <data name="NotCorrectDay" xml:space="preserve">
     <value>Некорректый день</value>
@@ -132,8 +132,17 @@
   <data name="NotFoundAccount" xml:space="preserve">
     <value>Аккаунт с Id {0} не найлен</value>
   </data>
+  <data name="NotFoundDoctorById" xml:space="preserve">
+    <value>Доктор не найден по Id {0}</value>
+  </data>
   <data name="NotFoundOffice" xml:space="preserve">
     <value>Офис с Id {0} не найден</value>
+  </data>
+  <data name="NotFoundPatient" xml:space="preserve">
+    <value>Пациент не найден по Id {0}</value>
+  </data>
+  <data name="NotFoundReceptionist" xml:space="preserve">
+    <value>Администратор не найден по Id {0}</value>
   </data>
   <data name="NotFoundSpecialition" xml:space="preserve">
     <value>Специалисяция с Id {0} не найдена</value>

@@ -61,7 +61,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Поле не может быть пустым.
+        ///   Looks up a localized string similar to Поле {0} не может быть пустым.
         /// </summary>
         public static string EmptyField {
             get {
@@ -106,11 +106,38 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доктор не найден по Id {0}.
+        /// </summary>
+        public static string NotFoundDoctorById {
+            get {
+                return ResourceManager.GetString("NotFoundDoctorById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Офис с Id {0} не найден.
         /// </summary>
         public static string NotFoundOffice {
             get {
                 return ResourceManager.GetString("NotFoundOffice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пациент не найден по Id {0}.
+        /// </summary>
+        public static string NotFoundPatient {
+            get {
+                return ResourceManager.GetString("NotFoundPatient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Администратор не найден по Id {0}.
+        /// </summary>
+        public static string NotFoundReceptionist {
+            get {
+                return ResourceManager.GetString("NotFoundReceptionist", resourceCulture);
             }
         }
         
