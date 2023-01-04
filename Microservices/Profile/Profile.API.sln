@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.API", "Profile.API\Profile.API.csproj", "{92ABD6DE-18A6-440E-8412-6748B8502C1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Application", "Profile.Application\Profile.Application.csproj", "{10C24630-9121-4F04-A143-7091941CA481}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.Application", "Profile.Application\Profile.Application.csproj", "{10C24630-9121-4F04-A143-7091941CA481}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{D48C46D4-25AD-4CB0-8143-D29A3955BBCF}"
 EndProject
@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Data.Reposito
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Data.Shared", "..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj", "{9B0AF4A9-7866-471A-8ADD-1E8197E3865A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Application.Helpers", "Profile.Application.Helpers\Profile.Application.Helpers.csproj", "{D368B3A4-007B-43C6-A3DC-5CE5CC667FEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.Application.Helpers", "Profile.Application.Helpers\Profile.Application.Helpers.csproj", "{D368B3A4-007B-43C6-A3DC-5CE5CC667FEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Application.Contracts", "Profile.Application.Contracts\Profile.Application.Contracts.csproj", "{D9A4F97B-E0A3-4087-B757-2420A5CC2C57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profile.Application.Contracts", "Profile.Application.Contracts\Profile.Application.Contracts.csproj", "{D9A4F97B-E0A3-4087-B757-2420A5CC2C57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profile.Application.Services", "Profile.Application.Services\Profile.Application.Services.csproj", "{EE2A19C2-815D-49EB-84A6-22E4F38D7A0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{D9A4F97B-E0A3-4087-B757-2420A5CC2C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9A4F97B-E0A3-4087-B757-2420A5CC2C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9A4F97B-E0A3-4087-B757-2420A5CC2C57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2A19C2-815D-49EB-84A6-22E4F38D7A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2A19C2-815D-49EB-84A6-22E4F38D7A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2A19C2-815D-49EB-84A6-22E4F38D7A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2A19C2-815D-49EB-84A6-22E4F38D7A0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{9B0AF4A9-7866-471A-8ADD-1E8197E3865A} = {5EBA46A5-CA88-48B5-B256-B799A137AD2A}
 		{D368B3A4-007B-43C6-A3DC-5CE5CC667FEB} = {D48C46D4-25AD-4CB0-8143-D29A3955BBCF}
 		{D9A4F97B-E0A3-4087-B757-2420A5CC2C57} = {D48C46D4-25AD-4CB0-8143-D29A3955BBCF}
+		{EE2A19C2-815D-49EB-84A6-22E4F38D7A0F} = {D48C46D4-25AD-4CB0-8143-D29A3955BBCF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {891D4BBE-B845-4212-A498-D63B7CDCC929}

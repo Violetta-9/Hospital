@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Profile.Application;
+using Profile.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services=builder.Services;
@@ -18,7 +19,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 services.AddApplication();
+services.AddApplicationServices();
 services.AddRepository();
 services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

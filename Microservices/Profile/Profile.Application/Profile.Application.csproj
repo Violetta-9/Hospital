@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +17,7 @@
     <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
     <ProjectReference Include="..\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
     <ProjectReference Include="..\Profile.Application.Helpers\Profile.Application.Helpers.csproj" />
+    <ProjectReference Include="..\Profile.Application.Services\Profile.Application.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
