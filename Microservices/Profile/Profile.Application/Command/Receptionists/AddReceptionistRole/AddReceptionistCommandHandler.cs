@@ -4,32 +4,35 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
+using Profile.Application.Services;
 
 namespace Profile.Application.Command.Receptionists.AddReceptionistRole
 {
     public class AddReceptionistCommandHandler : IRequestHandler<AddReceptionistRoleCommand, Response>
     {
         private readonly UserManager<Account> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+       private readonly IAuthorizationService _authorizationService;
         private readonly IReceptionistRepository _receptionistRepository;
-        public AddReceptionistCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager, IReceptionistRepository receptionist)
+        public AddReceptionistCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist, IAuthorizationService authorizationService)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+          _authorizationService=authorizationService;
             _receptionistRepository = receptionist;
         }
 
         public async Task<Response> Handle(AddReceptionistRoleCommand request, CancellationToken cancellationToken)
         {
             var role = UserRoles.Receptionist;
-            var user = await _userManager.FindByIdAsync(request.UserId);
+           var AccountId= await _authorizationService.SendReceptionistInfoForRegistrationAsync(request.ReceptionistDTO,
+                cancellationToken);
+            var user = await _userManager.FindByIdAsync(AccountId);
             if (user != null)
             {
                 await _userManager.AddToRoleAsync(user, role);
                 await _receptionistRepository.InsertAsync(new Receptionist()
                 {
                     AccountId = user.Id,
-                    OfficeId = request.OfficeId,
+                    OfficeId = request.ReceptionistDTO.OfficeId,
 
                 }, cancellationToken);
                 return Response.Success;

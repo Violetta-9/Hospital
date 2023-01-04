@@ -11,13 +11,11 @@ namespace Profile.Application.Command.Receptionists.AddReceptionistRole
 {
     public class AddReceptionistRoleCommand : IRequest<Response>
     {
-        public string UserId { get; set; }
-        public long OfficeId { get; set; }
+        public ReceptionistDTO ReceptionistDTO { get; set; }
 
         public AddReceptionistRoleCommand(ReceptionistDTO receptionistDto)
         {
-            UserId = receptionistDto.AccountId;
-            OfficeId = receptionistDto.OfficeId;
+            ReceptionistDTO=receptionistDto;
         }
     }
 }

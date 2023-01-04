@@ -1,10 +1,13 @@
-﻿using Authorization.Data.Repository;
+﻿using System.Text;
+using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using Profile.Application.Command.Receptionists.AddDoctorRole;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
+using Profile.Application.Services;
 
 namespace Profile.Application.Command.Receptionists.AddDoctorRole
 {
@@ -12,20 +15,21 @@ namespace Profile.Application.Command.Receptionists.AddDoctorRole
     {
 
         private readonly UserManager<Account> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IAuthorizationService _authorizationService;
         private readonly IDoctorRepository _doctorRepository;
-        public AddDoctorRoleCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager,IDoctorRepository doctorRepository)
+        public AddDoctorRoleCommandHandler(UserManager<Account> userManager,IDoctorRepository doctorRepository, IAuthorizationService authorization)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+            _authorizationService = authorization;
             _doctorRepository = doctorRepository;
         }
 
         public async Task<Response> Handle(AddDoctorRoleCommand request, CancellationToken cancellationToken)
         {
-            //todo:
+            //todo: email
             var role = UserRoles.Doctor;
-            var user = await _userManager.FindByIdAsync(request.Doctor.AccountId);
+            var AccountId=await _authorizationService.SendDoctorInfoForRegistrationAsync(request.Doctor, cancellationToken);
+            var user = await _userManager.FindByIdAsync(AccountId);
             if (user != null)
             {
                 await _userManager.AddToRoleAsync(user, role);
