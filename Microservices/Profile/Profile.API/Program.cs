@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Text;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Profile.Application;
+using Profile.Application.Contracts.Internal;
 using Profile.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,8 +25,13 @@ builder.Services.AddHttpClient();
 services.AddApplication();
 services.AddApplicationServices();
 services.AddRepository();
+
 services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+
+var emailConfig=services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
+services.AddSingleton(emailConfig);
 
 services.AddIdentity<Account, IdentityRole>(options =>
     {
