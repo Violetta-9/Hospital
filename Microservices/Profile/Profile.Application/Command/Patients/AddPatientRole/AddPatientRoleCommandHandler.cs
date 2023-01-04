@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 
-namespace Profile.Application.Command.Receptionists.AddPatientRole
+namespace Profile.Application.Command.Patients.AddPatientRole
 {
     public class AddPatientRoleCommandHandler:IRequestHandler<AddPatientRoleCommand,Response>
     {
@@ -22,7 +22,7 @@ namespace Profile.Application.Command.Receptionists.AddPatientRole
         public async Task<Response> Handle(AddPatientRoleCommand request, CancellationToken cancellationToken)
         {
             var role = UserRoles.Patient;
-            var user = await _userManager.FindByIdAsync(request.UserId);
+            var user = await _userManager.FindByIdAsync(request.AccountId);
             if (user != null)
             {
                 await _userManager.AddToRoleAsync(user, role);

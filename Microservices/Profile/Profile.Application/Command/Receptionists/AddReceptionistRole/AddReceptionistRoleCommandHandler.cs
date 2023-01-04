@@ -8,12 +8,12 @@ using Profile.Application.Services;
 
 namespace Profile.Application.Command.Receptionists.AddReceptionistRole
 {
-    public class AddReceptionistCommandHandler : IRequestHandler<AddReceptionistRoleCommand, Response>
+    public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionistRoleCommand, Response>
     {
         private readonly UserManager<Account> _userManager;
        private readonly IAuthorizationService _authorizationService;
         private readonly IReceptionistRepository _receptionistRepository;
-        public AddReceptionistCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist, IAuthorizationService authorizationService)
+        public AddReceptionistRoleCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist, IAuthorizationService authorizationService)
         {
             _userManager = userManager;
           _authorizationService=authorizationService;

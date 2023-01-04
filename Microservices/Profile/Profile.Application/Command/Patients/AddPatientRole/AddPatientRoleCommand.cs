@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using Profile.Application.Contracts.Outgoing;
 
-namespace Profile.Application.Command.Receptionists.AddPatientRole
+namespace Profile.Application.Command.Patients.AddPatientRole
 {
     public class AddPatientRoleCommand:IRequest<Response>
     {
-        public string UserId { get; set; }
+        public string AccountId { get; set; }
         public AddPatientRoleCommand(string userId)
         {
-            UserId = userId;
+            AccountId = userId;
         }
     }
 }

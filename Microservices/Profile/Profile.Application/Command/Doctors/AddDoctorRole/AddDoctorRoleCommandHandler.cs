@@ -3,13 +3,11 @@ using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
-using Profile.Application.Command.Receptionists.AddDoctorRole;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
 
-namespace Profile.Application.Command.Receptionists.AddDoctorRole
+namespace Profile.Application.Command.Doctors.AddDoctorRole
 {
     public class AddDoctorRoleCommandHandler : IRequestHandler<AddDoctorRoleCommand, Response>
     {
