@@ -14,7 +14,7 @@ namespace Profile.Application.Command.Receptionists.AddReceptionistRole
        private readonly IAuthorizationService _authorizationService;
         private readonly IReceptionistRepository _receptionistRepository;
         private readonly IEmailServices _emailServices;
-        public AddReceptionistCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist, IAuthorizationService authorizationService, IEmailServices emailServices)
+        public AddReceptionistRoleCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist, IAuthorizationService authorizationService, IEmailServices emailServices)
         {
             _userManager = userManager;
             _authorizationService = authorizationService;
