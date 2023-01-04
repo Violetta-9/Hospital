@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profile.API.Controllers.Abstraction.Mediator;
-using Profile.Application.Command.Receptionists.AddPatientRole;
+
 using Profile.Application.Contracts.Incoming;
 using Profile.Application.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
 using Profile.Application.Command.Receptionists.AddReceptionistRole;
-using Profile.Application.Command.Receptionists.DeletePatient;
+
 using Profile.Application.Command.Receptionists.UpdateOffice;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Command.Receptionists.DeleteReceptionist;

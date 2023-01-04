@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Profile.Application.Helpers;
 using Profile.API.Controllers.Abstraction.Mediator;
 using MediatR;
+using Profile.Application.Command.Patients.AddPatientRole;
+using Profile.Application.Command.Patients.DeletePatient;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Query.Patient.GetAllPatient;
 using Profile.Application.Query.Patient.GetPatientById;
 using Swashbuckle.AspNetCore.Annotations;
-using Profile.Application.Command.Receptionists.AddPatientRole;
-using Profile.Application.Command.Receptionists.DeletePatient;
 
 namespace Profile.API.Controllers.PatientController
 {
