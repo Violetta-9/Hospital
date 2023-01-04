@@ -8,7 +8,8 @@ namespace Authorization.Application.Command.User.Registration
     public class RegistrationCommandHandler:IRequestHandler<RegistrationCommand,string>
     {
         private readonly UserManager<Account> _userManager;
-       private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
         public RegistrationCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
@@ -21,6 +22,7 @@ namespace Authorization.Application.Command.User.Registration
 
            var appUser = new Account()
            {
+               UserName =  request.User.Email,
                FirstName = request.User.FirstName,
                LastName = request.User.LastName,
                MiddleName = request.User.MiddleName,
