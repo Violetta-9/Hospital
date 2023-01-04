@@ -16,20 +16,28 @@ namespace Profile.Application.Command.Receptionists.AddDoctorRole
 
         private readonly UserManager<Account> _userManager;
         private readonly IAuthorizationService _authorizationService;
+        private readonly IEmailServices _emailServices;
         private readonly IDoctorRepository _doctorRepository;
-        public AddDoctorRoleCommandHandler(UserManager<Account> userManager,IDoctorRepository doctorRepository, IAuthorizationService authorization)
+        public AddDoctorRoleCommandHandler(UserManager<Account> userManager,IDoctorRepository doctorRepository, IAuthorizationService authorization, IEmailServices emailServices)
         {
             _userManager = userManager;
             _authorizationService = authorization;
             _doctorRepository = doctorRepository;
+            _emailServices = emailServices;
         }
 
         public async Task<Response> Handle(AddDoctorRoleCommand request, CancellationToken cancellationToken)
         {
             //todo: email
+
             var role = UserRoles.Doctor;
-            var AccountId=await _authorizationService.SendDoctorInfoForRegistrationAsync(request.Doctor, cancellationToken);
-            var user = await _userManager.FindByIdAsync(AccountId);
+            var password = Guid.NewGuid().ToString().Substring(0, 8);
+            var accountId=await _authorizationService.SendDoctorInfoForRegistrationAsync(request.Doctor,password, cancellationToken);
+
+            await _emailServices.SendEmailAsync(request.Doctor.Email, "Credentials Hospital",
+                $"Log in to your account using the credentials below: \n email: {request.Doctor.Email} \n password: {password}",
+                cancellationToken);
+            var user = await _userManager.FindByIdAsync(accountId);
             if (user != null)
             {
                 await _userManager.AddToRoleAsync(user, role);
