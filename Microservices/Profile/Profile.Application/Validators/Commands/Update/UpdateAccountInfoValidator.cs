@@ -33,41 +33,11 @@ namespace Profile.Application.Validators.Commands.Update
                 .Cascade(CascadeMode.Stop)
                 .MustAsync(UniqueEmail)
                 .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.UserDtO.Email));
-
-            RuleFor(x => x.UserDtO.Day)
-                .Cascade(CascadeMode.Stop)
-                .Must(LimitForTheDay)
-                .WithMessage(Messages.NotCorrectDay);
-
-
-            RuleFor(x => x.UserDtO.Month)
-                .Cascade(CascadeMode.Stop)
-                .Must(LimitForTheMonth)
-                .WithMessage(Messages.NotCorrectMonth);
-
-               
-            RuleFor(x => x.UserDtO.Year)
-                .Cascade(CascadeMode.Stop)
-                .Must(LimitForTheYear)
-                .WithMessage(Messages.NotCorrectYear);
+            
 
         }
 
-        private bool LimitForTheYear(int year)
-        {
-            return (year > 1900) && (year <= DateTime.Now.Year);
-        }
-
-        private bool LimitForTheMonth(int month)
-        {
-            return (month > 0) && (month <= 12);
-
-        }
-
-        private bool LimitForTheDay(int day)
-        {
-            return (day > 0) && (day <= 31);
-        }
+       
 
         private async Task<bool> UniqueEmail(string email, CancellationToken cancellationToken)
         {//todo: check email 
