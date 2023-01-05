@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
@@ -16,6 +17,7 @@
     <ProjectReference Include="..\..\Shared\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
     <ProjectReference Include="..\Authorization.Application.Contracts\Authorization.Application.Contracts.csproj" />
     <ProjectReference Include="..\Authorization.Application.Helpers\Authorization.Application.Helpers.csproj" />
+    <ProjectReference Include="..\Authorization.Application.Resources\Authorization.Application.Resources.csproj" />
   </ItemGroup>
 
 </Project>
