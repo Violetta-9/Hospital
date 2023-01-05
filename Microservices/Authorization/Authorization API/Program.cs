@@ -4,12 +4,13 @@ using Authorization.Application.Helpers;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
+using Authorization_API.Helpers;
 using Authorization_API.HostedServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var services=builder.Services;
@@ -57,6 +58,11 @@ services.AddAuthentication(x =>
         ValidateLifetime = true
     };
 });
+
+services.AddProblemDetails(x =>
+{
+    x.Map<Exception>((context, exception) => CustomValidation<Exception>.CustomerDetails(exception));
+});
 services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
@@ -71,6 +77,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseProblemDetails();
 
 app.UseAuthorization();
 
