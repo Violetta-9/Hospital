@@ -9,9 +9,7 @@ namespace Profile.Application.Contracts.Incoming
         public string MiddleName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public int Day { get; set; }
-        public int Month { get; set; }
-        public int Year { get; set; }
+        public DateTime BirthDate { get; set; }
         public long OfficeId { get; set; }
     }
 }
