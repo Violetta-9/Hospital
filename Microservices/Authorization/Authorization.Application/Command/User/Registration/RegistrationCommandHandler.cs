@@ -22,10 +22,10 @@ namespace Authorization.Application.Command.User.Registration
 
            var appUser = new Account()
            {
-               
                FirstName = request.User.FirstName,
                LastName = request.User.LastName,
                MiddleName = request.User.MiddleName,
+               UserName = request.User.Email,
                Email = request.User.Email,
                PhoneNumber = request.User.PhoneNumber,
                Birthday = request.User.BirthDate

@@ -10,7 +10,8 @@ namespace Profile.Application.Services
 
         public static void AddApplicationServices(this IServiceCollection services)
         {
-            services.AddSingleton<IAuthorizationService,AuthorizationService>();
+            services.AddHttpClient<IAuthorizationService,AuthorizationService>(c=>
+                c.BaseAddress = new Uri("https://localhost:44336/"));
             services.AddSingleton<IEmailServices, EmailServices>();
         }
     }

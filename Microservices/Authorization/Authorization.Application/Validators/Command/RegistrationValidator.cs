@@ -28,22 +28,7 @@ namespace Authorization.Application.Validators.Command
                 .MustAsync(UniqueEmail)
                 .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.User.Email));
 
-            RuleFor(x => x.User.Day)
-                .Cascade(CascadeMode.Stop)
-                .Must(LimitForTheDay)
-                .WithMessage(Messages.NotCorrectDay);
-
-
-            RuleFor(x => x.User.Month)
-                .Cascade(CascadeMode.Stop)
-                .Must(LimitForTheMonth)
-                .WithMessage(Messages.NotCorrectMonth);
-
-
-            RuleFor(x => x.User.Year)
-                .Cascade(CascadeMode.Stop)
-                .Must(LimitForTheYear)
-                .WithMessage(Messages.NotCorrectYear);
+           
 
         }
 
