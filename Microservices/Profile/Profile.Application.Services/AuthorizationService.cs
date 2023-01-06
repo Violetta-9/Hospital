@@ -4,6 +4,8 @@ using System.Globalization;
 using Newtonsoft.Json;
 using Profile.Application.Contracts.Incoming;
 using System.Text;
+using Microsoft.Extensions.Options;
+using Profile.Application.Helpers;
 
 
 namespace Profile.Application.Services
@@ -21,10 +23,12 @@ namespace Profile.Application.Services
     public class AuthorizationService : IAuthorizationService
     {
         private readonly HttpClient _httpClient;
+        private readonly UriSettings _uriSettings;
 
-        public AuthorizationService(HttpClient httpClient)
+        public AuthorizationService(HttpClient httpClient,IOptions<UriSettings> uriSettings)
         {
             _httpClient = httpClient;
+            _uriSettings = uriSettings.Value;
         }
         public async Task<string> SendDoctorInfoForRegistrationAsync(DoctorDTO request, string password, CancellationToken cancellationToken)
         {
@@ -43,7 +47,7 @@ namespace Profile.Application.Services
             string strPayload = JsonConvert.SerializeObject(payload);
 
             HttpContent c = new StringContent(strPayload, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("api/User/registration", c, cancellationToken);
+            var response = await _httpClient.PostAsync(_uriSettings.RegistrationPath, c, cancellationToken);
             var responseStream = await response.Content.ReadAsStringAsync(cancellationToken);
             
             if (!response.IsSuccessStatusCode)
@@ -69,7 +73,8 @@ namespace Profile.Application.Services
             };
             string strPayload = JsonConvert.SerializeObject(payload);
             HttpContent c = new StringContent(strPayload, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("api/User/registration", c, cancellationToken);
+            var a = _uriSettings.RegistrationPath;
+            var response = await _httpClient.PostAsync(_uriSettings.RegistrationPath, c, cancellationToken);
             var responseStream = await response.Content.ReadAsStringAsync(cancellationToken);
 
             if (!response.IsSuccessStatusCode)
