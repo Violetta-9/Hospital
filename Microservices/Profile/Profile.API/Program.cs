@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Profile.Application;
 using Profile.Application.Contracts.Internal;
+using Profile.Application.Helpers;
 using Profile.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 services.AddApplication();
-services.AddApplicationServices();
+var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
+services.AddSingleton(uriSettings);
+services.AddApplicationServices(configurationRoot.GetSection("UriSettings:BasedAddress").Value);
 services.AddRepository();
 
 services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
