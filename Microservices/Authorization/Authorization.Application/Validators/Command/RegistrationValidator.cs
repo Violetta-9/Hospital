@@ -24,20 +24,7 @@ public class RegistrationValidator : AbstractValidator<RegistrationCommand>
             .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.User.Email));
     }
 
-    private bool LimitForTheYear(int year)
-    {
-        return year > 1900 && year <= DateTime.Now.Year;
-    }
-
-    private bool LimitForTheMonth(int month)
-    {
-        return month > 0 && month <= 12;
-    }
-
-    private bool LimitForTheDay(int day)
-    {
-        return day > 0 && day <= 31;
-    }
+   
 
     private async Task<bool> UniqueEmail(string email, CancellationToken cancellationToken)
     {
