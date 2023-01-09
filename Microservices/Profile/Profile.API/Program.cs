@@ -1,17 +1,20 @@
-using System.Configuration;
+
 using System.Text;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Profile.API.Helpers;
 using Profile.Application;
 using Profile.Application.Contracts.Internal;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var services=builder.Services;
@@ -70,6 +73,10 @@ services.AddAuthentication(x =>
         ValidateLifetime = true
     };
 });
+services.AddProblemDetails(x =>
+{
+    x.Map<Exception>((context, exception) => CustomValidation<Exception>.CustomerDetails(exception));
+});
 services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -106,6 +113,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseProblemDetails();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
