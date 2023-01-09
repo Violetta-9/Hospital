@@ -1,4 +1,6 @@
 ﻿using Authorization.Application.Helpers;
+using Authorization.Application.Resources;
+using Authorization.Application.Services;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -9,11 +11,13 @@ namespace Authorization.Application.Command.User.Registration
     {
         private readonly UserManager<Account> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailServices _emailServices;
 
-        public RegistrationCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager)
+        public RegistrationCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager, IEmailServices emailServices)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _emailServices = emailServices;
         }
 
         public async Task<string> Handle(RegistrationCommand request, CancellationToken cancellationToken)
@@ -30,6 +34,7 @@ namespace Authorization.Application.Command.User.Registration
                PhoneNumber = request.User.PhoneNumber,
                Birthday = request.User.BirthDate
            };
+
            if ( !await _roleManager.RoleExistsAsync(role))
            {
                var newRole=new IdentityRole(role);
@@ -40,7 +45,12 @@ namespace Authorization.Application.Command.User.Registration
 
            if (result.Succeeded)
            {
-               return appUser.Id;
+               var code = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+
+                await _emailServices.SendConfirmEmailAsync(appUser, Messages.EmailSubject,
+                   code,
+                   cancellationToken);
+                return appUser.Id;
            }
 
            throw new Exception(string.Join("/n", result.Errors.Select(x => x.Description)));

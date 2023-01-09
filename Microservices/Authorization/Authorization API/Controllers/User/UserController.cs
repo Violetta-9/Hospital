@@ -1,4 +1,6 @@
-﻿using Authorization.Application.Command.User.Registration;
+﻿using System.ComponentModel.DataAnnotations;
+using Authorization.Application.Command.User.ConfirmEmail;
+using Authorization.Application.Command.User.Registration;
 using Authorization.Application.Contracts.Incoming.User;
 using Authorization.Application.Contracts.Outgoing;
 using Authorization.Application.Query.User;
@@ -31,6 +33,16 @@ namespace Authorization_API.Controllers.User
         {
             var query = new LoginQuery(login);
             return await SendRequestAsync(query);
+        }
+        
+        [HttpGet("confirmation/{userId}")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<IActionResult> ConfirmEmail([FromRoute][Required] string userId,
+            [FromQuery][Required] string token)
+        {
+            var query = new ConfirmEmailCommand(userId,token);
+            return await SendRequestAsync(query);
+
         }
     }
 }

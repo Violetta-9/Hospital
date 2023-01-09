@@ -11,6 +11,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+    <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +19,7 @@
     <ProjectReference Include="..\Authorization.Application.Contracts\Authorization.Application.Contracts.csproj" />
     <ProjectReference Include="..\Authorization.Application.Helpers\Authorization.Application.Helpers.csproj" />
     <ProjectReference Include="..\Authorization.Application.Resources\Authorization.Application.Resources.csproj" />
+    <ProjectReference Include="..\Authorization.Application.Services\Authorization.Application.Services.csproj" />
   </ItemGroup>
 
 </Project>
