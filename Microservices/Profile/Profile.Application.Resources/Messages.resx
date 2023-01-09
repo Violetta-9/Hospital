@@ -120,37 +120,28 @@
   <data name="EmptyField" xml:space="preserve">
     <value>Поле {0} не может быть пустым</value>
   </data>
-  <data name="NotCorrectDay" xml:space="preserve">
-    <value>Некорректый день</value>
-  </data>
-  <data name="NotCorrectMonth" xml:space="preserve">
-    <value>Некорректный месяц</value>
-  </data>
-  <data name="NotCorrectYear" xml:space="preserve">
-    <value>Некоректный год</value>
-  </data>
   <data name="NotFoundAccount" xml:space="preserve">
-    <value>Аккаунт с Id {0} не найлен</value>
+    <value>Account with Id {0} not found</value>
   </data>
   <data name="NotFoundDoctorById" xml:space="preserve">
-    <value>Доктор не найден по Id {0}</value>
+    <value>Doctor not found by Id {0}</value>
   </data>
   <data name="NotFoundOffice" xml:space="preserve">
-    <value>Офис с Id {0} не найден</value>
+    <value>Office with Id {0} not found</value>
   </data>
   <data name="NotFoundPatient" xml:space="preserve">
-    <value>Пациент не найден по Id {0}</value>
+    <value>Patient not found by Id {0}</value>
   </data>
   <data name="NotFoundReceptionist" xml:space="preserve">
-    <value>Администратор не найден по Id {0}</value>
+    <value>Administrator not found by Id {0}</value>
   </data>
   <data name="NotFoundSpecialition" xml:space="preserve">
-    <value>Специалисяция с Id {0} не найдена</value>
+    <value>Specialization with Id {0} not found</value>
   </data>
   <data name="NotFoundStatus" xml:space="preserve">
-    <value>Статус с Id {0} не найдена</value>
+    <value>Status with Id {0} not found</value>
   </data>
   <data name="NotUniqueEmail" xml:space="preserve">
-    <value>Email {0} уже существует</value>
+    <value>Email {0} already exists</value>
   </data>
 </root>
