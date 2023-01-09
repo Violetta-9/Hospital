@@ -4,7 +4,7 @@ using Microsoft.Rest;
 using Newtonsoft.Json;
 using ValidationException = FluentValidation.ValidationException;
 
-namespace Authorization_API.Helpers;
+namespace Profile.API.Helpers;
 
 public class CustomValidation<T> where T : Exception
 {
@@ -31,7 +31,7 @@ public class CustomValidation<T> where T : Exception
         return new ProblemDetails
         {
             Type = ex.GetType().ToString(),
-            Detail = ErrorToString((Exception)ex),
+            Detail = ErrorToString(ex),
             Status = (int)HttpStatusCode.BadRequest
         };
     }

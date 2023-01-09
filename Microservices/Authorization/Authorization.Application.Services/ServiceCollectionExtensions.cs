@@ -1,15 +1,11 @@
-﻿
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.DependencyInjection;
+namespace Authorization.Application.Services;
 
-namespace Authorization.Application.Services
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static void AddApplicationServices(this IServiceCollection services)
     {
-
-        public static void AddApplicationServices(this IServiceCollection services)
-        {
-            services.AddSingleton<IEmailServices, EmailServices>();
-        }
+        services.AddSingleton<IEmailServices, EmailServices>();
     }
 }

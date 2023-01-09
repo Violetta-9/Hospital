@@ -2,7 +2,7 @@
 using FluentValidation.Results;
 using MediatR;
 
-namespace Authorization.Application.PipelineBehaviors;
+namespace Profile.Application.PipelineBehaviors;
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

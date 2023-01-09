@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using Profile.Application.Contracts.Outgoing;
 
-namespace Profile.Application.Command.Doctors.DeleteDoctor
+namespace Profile.Application.Command.Doctors.DeleteDoctor;
+
+public class DeleteDoctorCommand : IRequest<Response>
 {
-    public class DeleteDoctorCommand : IRequest<Response>
+    public string AccountId { get; set; }
+
+    public DeleteDoctorCommand(string accountId)
     {
-        public string AccountId { get; set; }
-        public DeleteDoctorCommand(string accountId)
-        {
-            AccountId = accountId;
-        }
+        AccountId = accountId;
     }
 }

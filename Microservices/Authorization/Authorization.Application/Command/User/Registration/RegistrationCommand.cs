@@ -1,16 +1,14 @@
 ﻿using Authorization.Application.Contracts.Incoming.User;
 using MediatR;
 
+namespace Authorization.Application.Command.User.Registration;
 
-namespace Authorization.Application.Command.User.Registration
+public class RegistrationCommand : IRequest<string>
 {
-    public class RegistrationCommand : IRequest<string>
-    {
-        public UserDTO User { get; set; }
+    public UserDTO User { get; set; }
 
-        public RegistrationCommand(UserDTO user)
-        {
-            User = user;
-        }
+    public RegistrationCommand(UserDTO user)
+    {
+        User = user;
     }
 }

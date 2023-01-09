@@ -3,22 +3,18 @@ using Authorization.Data_Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+namespace Authorization.Data.Shared.MappingConfiguration;
 
-namespace Authorization.Data.Shared.MappingConfiguration
+public class AccountMappingConfiguration : IEntityTypeConfiguration<Account>
 {
-    public class AccountMappingConfiguration : IEntityTypeConfiguration<Account>
+    public void Configure(EntityTypeBuilder<Account> builder)
     {
-        public void Configure(EntityTypeBuilder<Account> builder)
-        {
-           builder.MapAuditProperty();
-            builder.Property(x => x.FirstName).HasColumnName(nameof(Account.FirstName)).HasMaxLength(256)
-              .IsRequired();
-            builder.Property(x => x.Birthday).HasColumnName(nameof(Account.Birthday)).HasMaxLength(12)
-                .IsRequired();
-            builder.Property(x => x.LastName).HasColumnName(nameof(Account.LastName)).HasMaxLength(256).IsRequired();
-            builder.Property(x => x.MiddleName).HasColumnName(nameof(Account.MiddleName)).HasMaxLength(256).IsRequired();
-            
-            
-        }
+        builder.MapAuditProperty();
+        builder.Property(x => x.FirstName).HasColumnName(nameof(Account.FirstName)).HasMaxLength(256)
+            .IsRequired();
+        builder.Property(x => x.Birthday).HasColumnName(nameof(Account.Birthday)).HasMaxLength(12)
+            .IsRequired();
+        builder.Property(x => x.LastName).HasColumnName(nameof(Account.LastName)).HasMaxLength(256).IsRequired();
+        builder.Property(x => x.MiddleName).HasColumnName(nameof(Account.MiddleName)).HasMaxLength(256).IsRequired();
     }
 }

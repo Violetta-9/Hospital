@@ -1,35 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Command\Patient\**" />
-    <EmbeddedResource Remove="Command\Patient\**" />
-    <None Remove="Command\Patient\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Command\Patient\**" />
+		<EmbeddedResource Remove="Command\Patient\**" />
+		<None Remove="Command\Patient\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.4.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="11.4.0" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
-    <ProjectReference Include="..\..\Shared\Authorization.Data.Repository\Authorization.Data.Repository.csproj" />
-    <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
-    <ProjectReference Include="..\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
-    <ProjectReference Include="..\Profile.Application.Helpers\Profile.Application.Helpers.csproj" />
-    <ProjectReference Include="..\Profile.Application.Resources\Profile.Application.Resources.csproj" />
-    <ProjectReference Include="..\Profile.Application.Services\Profile.Application.Services.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Shared\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
+		<ProjectReference Include="..\..\Shared\Authorization.Data.Repository\Authorization.Data.Repository.csproj" />
+		<ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
+		<ProjectReference Include="..\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
+		<ProjectReference Include="..\Profile.Application.Helpers\Profile.Application.Helpers.csproj" />
+		<ProjectReference Include="..\Profile.Application.Resources\Profile.Application.Resources.csproj" />
+		<ProjectReference Include="..\Profile.Application.Services\Profile.Application.Services.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Command\Patient\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Command\Patient\" />
+	</ItemGroup>
 
 </Project>

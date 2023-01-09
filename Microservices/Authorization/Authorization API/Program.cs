@@ -7,14 +7,13 @@ using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Authorization_API.Helpers;
 using Authorization_API.HostedServices;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Hellang.Middleware.ProblemDetails;
 using Microsoft.IdentityModel.Tokens;
 
-
 var builder = WebApplication.CreateBuilder(args);
-var services=builder.Services;
+var services = builder.Services;
 var configurationRoot = builder.Configuration;
 // Add services to the container.
 
@@ -67,10 +66,7 @@ services.AddProblemDetails(x =>
 {
     x.Map<Exception>((context, exception) => CustomValidation<Exception>.CustomerDetails(exception));
 });
-services.AddSwaggerGen(c =>
-{
-    c.EnableAnnotations();
-});
+services.AddSwaggerGen(c => { c.EnableAnnotations(); });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

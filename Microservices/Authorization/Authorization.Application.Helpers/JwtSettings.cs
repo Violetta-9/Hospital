@@ -1,8 +1,6 @@
-﻿
-namespace Authorization.Application.Helpers
+﻿namespace Authorization.Application.Helpers;
+
+public class JwtSettings
 {
-    public class JwtSettings
-    {
-        public string JwtSecretKey { get; set; }
-    }
+    public string JwtSecretKey { get; set; }
 }

@@ -1,20 +1,21 @@
-using System.Configuration;
 using System.Text;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Profile.API.Helpers;
 using Profile.Application;
 using Profile.Application.Contracts.Internal;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var services=builder.Services;
+var services = builder.Services;
 var configurationRoot = builder.Configuration;
 // Add services to the container.
 
@@ -33,7 +34,7 @@ services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrin
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
-var emailConfig=services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
+var emailConfig = services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
 services.AddSingleton(emailConfig);
 
 services.AddIdentity<Account, IdentityRole>(options =>
@@ -69,6 +70,10 @@ services.AddAuthentication(x =>
         ClockSkew = TimeSpan.Zero,
         ValidateLifetime = true
     };
+});
+services.AddProblemDetails(x =>
+{
+    x.Map<Exception>((context, exception) => CustomValidation<Exception>.CustomerDetails(exception));
 });
 services.AddSwaggerGen(c =>
 {
@@ -106,6 +111,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseProblemDetails();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

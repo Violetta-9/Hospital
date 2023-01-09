@@ -1,57 +1,48 @@
-﻿using Authorization.Data_Domain.Models;
+﻿using Authorization.Application.Command.User.Registration;
+using Authorization.Application.Resources;
+using Authorization.Data_Domain.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Authorization.Application.Command.User.Registration;
-using Authorization.Application.Resources;
 
-namespace Authorization.Application.Validators.Command
+namespace Authorization.Application.Validators.Command;
+
+public class RegistrationValidator : AbstractValidator<RegistrationCommand>
 {
-    public class RegistrationValidator: AbstractValidator<RegistrationCommand>
+    private readonly UserManager<Account> _userManager;
+
+    public RegistrationValidator(UserManager<Account> userManager)
     {
-        private readonly UserManager<Account> _userManager;
-        public RegistrationValidator(UserManager<Account> userManager)
-        {
-            _userManager = userManager;
-            CreateRules();
-        }
-        private void CreateRules()
-        {
-            
+        _userManager = userManager;
+        CreateRules();
+    }
 
-            RuleFor(x => x.User.Email)
-                .Cascade(CascadeMode.Stop)
-                .MustAsync(UniqueEmail)
-                .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.User.Email));
+    private void CreateRules()
+    {
+        RuleFor(x => x.User.Email)
+            .Cascade(CascadeMode.Stop)
+            .MustAsync(UniqueEmail)
+            .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.User.Email));
+    }
 
-           
+    private bool LimitForTheYear(int year)
+    {
+        return year > 1900 && year <= DateTime.Now.Year;
+    }
 
-        }
+    private bool LimitForTheMonth(int month)
+    {
+        return month > 0 && month <= 12;
+    }
 
-        private bool LimitForTheYear(int year)
-        {
-            return (year > 1900) && (year <= DateTime.Now.Year);
-        }
+    private bool LimitForTheDay(int day)
+    {
+        return day > 0 && day <= 31;
+    }
 
-        private bool LimitForTheMonth(int month)
-        {
-            return (month > 0) && (month <= 12);
-
-        }
-
-        private bool LimitForTheDay(int day)
-        {
-            return (day > 0) && (day <= 31);
-        }
-
-        private async Task<bool> UniqueEmail(string email, CancellationToken cancellationToken)
-        {//todo: check email 
-            var account = await _userManager.FindByEmailAsync(email);
-            return account == null;
-        }
+    private async Task<bool> UniqueEmail(string email, CancellationToken cancellationToken)
+    {
+        //todo: check email 
+        var account = await _userManager.FindByEmailAsync(email);
+        return account == null;
     }
 }
