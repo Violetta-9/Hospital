@@ -1,6 +1,7 @@
 using System.Text;
 using Authorization.Application;
 using Authorization.Application.Helpers;
+using Authorization.Application.Services;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
@@ -25,6 +26,9 @@ services.AddApplication();
 services.Configure<JwtSettings>(configurationRoot.GetSection(nameof(JwtSettings)));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 services.AddHostedService<RoleHostedServices>();
+var emailConfig = services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
+services.AddSingleton(emailConfig);
+services.AddApplicationServices();
 services.AddIdentity<Account, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;
