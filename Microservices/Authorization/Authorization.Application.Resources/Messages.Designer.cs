@@ -61,29 +61,62 @@ namespace Authorization.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid day.
+        ///   Looks up a localized string similar to Hospital.
         /// </summary>
-        public static string NotCorrectDay {
+        public static string DisplayName {
             get {
-                return ResourceManager.GetString("NotCorrectDay", resourceCulture);
+                return ResourceManager.GetString("DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid month.
+        ///   Looks up a localized string similar to Email confirmation.
         /// </summary>
-        public static string NotCorrectMonth {
+        public static string EmailSubject {
             get {
-                return ResourceManager.GetString("NotCorrectMonth", resourceCulture);
+                return ResourceManager.GetString("EmailSubject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid year.
+        ///   Looks up a localized string similar to @&quot;&lt;html&gt;
+        ///                      &lt;body&gt;
+        ///                      &lt;p&gt;Dear {0},&lt;/p&gt;
+        ///                      &lt;p&gt;Confirm registration by clicking on the link: &lt;a href={1}&gt;link&lt;/a&gt;&lt;/p&gt;
+        ///                      &lt;p&gt;Sincerely,&lt;br&gt;-Hospital&lt;/br&gt;&lt;/p&gt;
+        ///                      &lt;/body&gt;
+        ///                      &lt;/html&gt;.
         /// </summary>
-        public static string NotCorrectYear {
+        public static string HtmlMessage {
             get {
-                return ResourceManager.GetString("NotCorrectYear", resourceCulture);
+                return ResourceManager.GetString("HtmlMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token cannot be empty.
+        /// </summary>
+        public static string NotEmptyToken {
+            get {
+                return ResourceManager.GetString("NotEmptyToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field must not be empty.
+        /// </summary>
+        public static string NotEmtyField {
+            get {
+                return ResourceManager.GetString("NotEmtyField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with {0} not found.
+        /// </summary>
+        public static string NotFoundUser {
+            get {
+                return ResourceManager.GetString("NotFoundUser", resourceCulture);
             }
         }
         

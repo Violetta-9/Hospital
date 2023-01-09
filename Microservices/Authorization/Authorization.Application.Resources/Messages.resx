@@ -117,14 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NotCorrectDay" xml:space="preserve">
-    <value>Invalid day</value>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Hospital</value>
   </data>
-  <data name="NotCorrectMonth" xml:space="preserve">
-    <value>Invalid month</value>
+  <data name="EmailSubject" xml:space="preserve">
+    <value>Email confirmation</value>
   </data>
-  <data name="NotCorrectYear" xml:space="preserve">
-    <value>Invalid year</value>
+  <data name="HtmlMessage" xml:space="preserve">
+    <value>@"&lt;html&gt;
+                      &lt;body&gt;
+                      &lt;p&gt;Dear {0},&lt;/p&gt;
+                      &lt;p&gt;Confirm registration by clicking on the link: &lt;a href={1}&gt;link&lt;/a&gt;&lt;/p&gt;
+                      &lt;p&gt;Sincerely,&lt;br&gt;-Hospital&lt;/br&gt;&lt;/p&gt;
+                      &lt;/body&gt;
+                      &lt;/html&gt;</value>
+  </data>
+  <data name="NotEmptyToken" xml:space="preserve">
+    <value>Token cannot be empty</value>
+  </data>
+  <data name="NotEmtyField" xml:space="preserve">
+    <value>Field must not be empty</value>
+  </data>
+  <data name="NotFoundUser" xml:space="preserve">
+    <value>User with {0} not found</value>
   </data>
   <data name="NotUniqueEmail" xml:space="preserve">
     <value>Email {0} already exists</value>
