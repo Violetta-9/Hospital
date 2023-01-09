@@ -1,9 +1,7 @@
-﻿
-namespace Authorization.Application.Contracts.Incoming.User
+﻿namespace Authorization.Application.Contracts.Incoming.User;
+
+public class LoginDTO
 {
-    public class LoginDTO
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+    public string Email { get; set; }
+    public string Password { get; set; }
 }

@@ -1,44 +1,38 @@
-﻿using Authorization.Application.Command.User.Registration;
-using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Authorization.Application.Command.User.ConfirmEmail;
+﻿using Authorization.Application.Command.User.ConfirmEmail;
 using Authorization.Application.Resources;
 using Authorization.Data_Domain.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 
-namespace Authorization.Application.Validators.Command
+namespace Authorization.Application.Validators.Command;
+
+internal class ConfirmEmailValidator : AbstractValidator<ConfirmEmailCommand>
 {
-    internal class ConfirmEmailValidator: AbstractValidator<ConfirmEmailCommand>
+    private readonly UserManager<Account> _userManager;
+
+    public ConfirmEmailValidator(UserManager<Account> userManager)
     {
-        private readonly UserManager<Account> _userManager;
-        public ConfirmEmailValidator(UserManager<Account> userManager)
-        {
-            _userManager = userManager;
-            CreateRules();
-        }
+        _userManager = userManager;
+        CreateRules();
+    }
 
-        private void CreateRules()
-        {
-            RuleFor(x => x.UserId)
-                .Cascade(CascadeMode.Stop)
-                .NotEmpty()
-                .WithMessage(Messages.NotEmtyField)
-                .MustAsync(ExistsAccountAsync)
-                .WithMessage(opt => string.Format(Messages.NotFoundUser, opt.UserId));
+    private void CreateRules()
+    {
+        RuleFor(x => x.UserId)
+            .Cascade(CascadeMode.Stop)
+            .NotEmpty()
+            .WithMessage(Messages.NotEmtyField)
+            .MustAsync(ExistsAccountAsync)
+            .WithMessage(opt => string.Format(Messages.NotFoundUser, opt.UserId));
 
-            RuleFor(x => x.Token)
-                .NotEmpty()
-                .WithMessage(Messages.NotEmptyToken);
-        }
+        RuleFor(x => x.Token)
+            .NotEmpty()
+            .WithMessage(Messages.NotEmptyToken);
+    }
 
-        private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            return user != null;
-        }
+    private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        return user != null;
     }
 }
