@@ -70,34 +70,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Некорректый день.
-        /// </summary>
-        public static string NotCorrectDay {
-            get {
-                return ResourceManager.GetString("NotCorrectDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Некорректный месяц.
-        /// </summary>
-        public static string NotCorrectMonth {
-            get {
-                return ResourceManager.GetString("NotCorrectMonth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Некоректный год.
-        /// </summary>
-        public static string NotCorrectYear {
-            get {
-                return ResourceManager.GetString("NotCorrectYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Аккаунт с Id {0} не найлен.
+        ///   Looks up a localized string similar to Account with Id {0} not found.
         /// </summary>
         public static string NotFoundAccount {
             get {
@@ -106,7 +79,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Доктор не найден по Id {0}.
+        ///   Looks up a localized string similar to Doctor not found by Id {0}.
         /// </summary>
         public static string NotFoundDoctorById {
             get {
@@ -115,7 +88,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Офис с Id {0} не найден.
+        ///   Looks up a localized string similar to Office with Id {0} not found.
         /// </summary>
         public static string NotFoundOffice {
             get {
@@ -124,7 +97,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пациент не найден по Id {0}.
+        ///   Looks up a localized string similar to Patient not found by Id {0}.
         /// </summary>
         public static string NotFoundPatient {
             get {
@@ -133,7 +106,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Администратор не найден по Id {0}.
+        ///   Looks up a localized string similar to Administrator not found by Id {0}.
         /// </summary>
         public static string NotFoundReceptionist {
             get {
@@ -142,7 +115,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Специалисяция с Id {0} не найдена.
+        ///   Looks up a localized string similar to Specialization with Id {0} not found.
         /// </summary>
         public static string NotFoundSpecialition {
             get {
@@ -151,7 +124,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Статус с Id {0} не найдена.
+        ///   Looks up a localized string similar to Status with Id {0} not found.
         /// </summary>
         public static string NotFoundStatus {
             get {
@@ -160,7 +133,7 @@ namespace Profile.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email {0} уже существует.
+        ///   Looks up a localized string similar to Email {0} already exists.
         /// </summary>
         public static string NotUniqueEmail {
             get {
