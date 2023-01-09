@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Profile.Application.Contracts.Outgoing;
 
-namespace Profile.Application.Query.Doctor.GetDoctorBySpesializationId
+namespace Profile.Application.Query.Doctor.GetDoctorBySpesializationId;
+
+public class GetDoctorsBySpesializationIdQuery : IRequest<DoctorAllDTO[]>
 {
-    public class GetDoctorsBySpesializationIdQuery : IRequest<DoctorAllDTO[]>
+    public long SpesializationId { get; set; }
+
+    public GetDoctorsBySpesializationIdQuery(long spesializationId)
     {
-        public long SpesializationId { get; set; }
-        public GetDoctorsBySpesializationIdQuery(long spesializationId)
-        {
-            SpesializationId = spesializationId;
-        }
+        SpesializationId = spesializationId;
     }
 }

@@ -1,4 +1,3 @@
-
 using System.Text;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
@@ -15,9 +14,8 @@ using Profile.Application.Contracts.Internal;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
 
-
 var builder = WebApplication.CreateBuilder(args);
-var services=builder.Services;
+var services = builder.Services;
 var configurationRoot = builder.Configuration;
 // Add services to the container.
 
@@ -36,7 +34,7 @@ services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrin
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
-var emailConfig=services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
+var emailConfig = services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
 services.AddSingleton(emailConfig);
 
 services.AddIdentity<Account, IdentityRole>(options =>
