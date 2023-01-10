@@ -1,7 +1,5 @@
-﻿namespace Office.Application.Helpers
-{
-    public class Class1
-    {
+﻿namespace Office.Application.Helpers;
 
-    }
+public class Class1
+{
 }

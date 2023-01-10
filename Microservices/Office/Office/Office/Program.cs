@@ -3,13 +3,13 @@ using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
-using Office.Application;
-using Office.Helpers;
 using Hellang.Middleware.ProblemDetails;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Office.Application;
+using Office.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 

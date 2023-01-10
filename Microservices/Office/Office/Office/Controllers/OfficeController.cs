@@ -9,52 +9,52 @@ using Office.Application.Contracts.Outgoing;
 using Office.Application.Helpers;
 using Office.Application.Query.GetAllOffices;
 using Office.Controllers.Abstraction.Mediator;
-
 using Swashbuckle.AspNetCore.Annotations;
-using System.Data;
 
-namespace Office.Controllers
+namespace Office.Controllers;
+
+[Authorize(Roles = UserRoles.Receptionist)]
+[Route("api/[controller]")]
+[ApiController]
+public class OfficeController : MediatingControllerBase
 {
-    [Authorize(Roles = UserRoles.Receptionist)]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class OfficeController : MediatingControllerBase
+    public OfficeController(IMediator mediator) : base(mediator)
     {
-        public OfficeController(IMediator mediator) : base(mediator)
-        {
-        }
+    }
 
-        [HttpPost("create")]
-        [SwaggerOperation(Summary = "Create office", OperationId = "CreateOffice")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
-        public async Task<ActionResult> CreateOffice([FromBody] CreateOfficeDTO newOfficeDto)
-        {
-            var query = new CreateOfficeCommand(newOfficeDto);
-            return await SendRequestAsync(query);
-        }
-        [HttpPut]
-        [SwaggerOperation(Summary = "Update office", OperationId = "UpdateOffice")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-        public async Task<ActionResult> UpdateOffice([FromBody] UpdateOfficeDTO changeOfficeDto)
-        {
-            var query = new UpdateOfficeCommand(changeOfficeDto);
-            return await SendRequestAsync(query);
-        }
-        [HttpPatch]
-        [SwaggerOperation(Summary = "Update office status", OperationId = "UpdateOfficeStatus")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-        public async Task<ActionResult> UpdateOfficeStatus([FromBody] UpdateOfficeStatusDTO updateOfficeStatus)
-        {
-            var query = new UpdateOfficeStatusCommand(updateOfficeStatus);
-            return await SendRequestAsync(query);
-        }
-        [HttpGet]
-        [SwaggerOperation(Summary = "Get all offices", OperationId = "GetAllOffices")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AllOfficesDto[]))]
-        public async Task<ActionResult> GetAllOffices()
-        {
-            var query = new GetAllOfficesQuery();
-            return await SendRequestAsync(query);
-        }
+    [HttpPost("create")]
+    [SwaggerOperation(Summary = "Create office", OperationId = "CreateOffice")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
+    public async Task<ActionResult> CreateOffice([FromBody] CreateOfficeDTO newOfficeDto)
+    {
+        var query = new CreateOfficeCommand(newOfficeDto);
+        return await SendRequestAsync(query);
+    }
+
+    [HttpPut]
+    [SwaggerOperation(Summary = "Update office", OperationId = "UpdateOffice")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
+    public async Task<ActionResult> UpdateOffice([FromBody] UpdateOfficeDTO changeOfficeDto)
+    {
+        var query = new UpdateOfficeCommand(changeOfficeDto);
+        return await SendRequestAsync(query);
+    }
+
+    [HttpPatch]
+    [SwaggerOperation(Summary = "Update office status", OperationId = "UpdateOfficeStatus")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
+    public async Task<ActionResult> UpdateOfficeStatus([FromBody] UpdateOfficeStatusDTO updateOfficeStatus)
+    {
+        var query = new UpdateOfficeStatusCommand(updateOfficeStatus);
+        return await SendRequestAsync(query);
+    }
+
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get all offices", OperationId = "GetAllOffices")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AllOfficesDto[]))]
+    public async Task<ActionResult> GetAllOffices()
+    {
+        var query = new GetAllOfficesQuery();
+        return await SendRequestAsync(query);
     }
 }
