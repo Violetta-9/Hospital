@@ -6,9 +6,10 @@ using Office.Application.Command.UpdateOffice;
 using Office.Application.Command.UpdateOfficeStatus;
 using Office.Application.Contracts.Incoming;
 using Office.Application.Contracts.Outgoing;
+using Office.Application.Helpers;
 using Office.Application.Query.GetAllOffices;
 using Office.Controllers.Abstraction.Mediator;
-using Profile.Application.Helpers;
+
 using Swashbuckle.AspNetCore.Annotations;
 using System.Data;
 

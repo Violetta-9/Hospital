@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office", "Office\Office.csproj", "{FEFCA416-AA4C-4D7E-B6C1-93D045E03BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Office", "Office\Office.csproj", "{FEFCA416-AA4C-4D7E-B6C1-93D045E03BF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access", "Data Access", "{78D37789-DA65-4AD9-A8CA-E01C97E3524D}"
 EndProject
@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Data.Shared",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{1345BE6E-FCC8-43E6-9A0F-E460E13902C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office.Application", "Office.Application\Office.Application.csproj", "{775F1B57-0A10-4221-A247-0484B014D3FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Office.Application", "Office.Application\Office.Application.csproj", "{775F1B57-0A10-4221-A247-0484B014D3FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office.Application.Contracts", "Office.Application.Contracts\Office.Application.Contracts.csproj", "{66CB7E19-B888-4B1A-96D6-09FBF514D894}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Office.Application.Contracts", "Office.Application.Contracts\Office.Application.Contracts.csproj", "{66CB7E19-B888-4B1A-96D6-09FBF514D894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office.Application.Resources", "Office.Application.Resources\Office.Application.Resources.csproj", "{4B448C22-41EC-4526-B84D-0867FF1E13C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Office.Application.Resources", "Office.Application.Resources\Office.Application.Resources.csproj", "{4B448C22-41EC-4526-B84D-0867FF1E13C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Office.Application.Helpers", "Office.Application.Helpers\Office.Application.Helpers.csproj", "{01337EFC-84DB-4E59-BD58-89C0FFD6F3D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{4B448C22-41EC-4526-B84D-0867FF1E13C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B448C22-41EC-4526-B84D-0867FF1E13C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B448C22-41EC-4526-B84D-0867FF1E13C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01337EFC-84DB-4E59-BD58-89C0FFD6F3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01337EFC-84DB-4E59-BD58-89C0FFD6F3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01337EFC-84DB-4E59-BD58-89C0FFD6F3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01337EFC-84DB-4E59-BD58-89C0FFD6F3D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{775F1B57-0A10-4221-A247-0484B014D3FF} = {1345BE6E-FCC8-43E6-9A0F-E460E13902C4}
 		{66CB7E19-B888-4B1A-96D6-09FBF514D894} = {1345BE6E-FCC8-43E6-9A0F-E460E13902C4}
 		{4B448C22-41EC-4526-B84D-0867FF1E13C3} = {1345BE6E-FCC8-43E6-9A0F-E460E13902C4}
+		{01337EFC-84DB-4E59-BD58-89C0FFD6F3D3} = {1345BE6E-FCC8-43E6-9A0F-E460E13902C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C43214FA-0E8F-4324-B520-87656D9C0B1E}
