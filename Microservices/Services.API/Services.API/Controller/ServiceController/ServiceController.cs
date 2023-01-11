@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.API.Application.Command.CreateService;
 using Services.API.Application.Command.UpdateService;
 using Services.API.Application.Command.UpdateServiceStatus;
+using Services.API.Application.Helpers;
 using Services.API.Application.Query.GetAllServices;
 using Services.API.Application.Query.GetServicesById;
 using Services.API.Contracts.Incoming;
@@ -13,7 +15,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Services.API.Controller.ServiceController;
 
 [Route("api/[controller]")]
-//[Authorize(Roles = UserRoles.Receptionist)]
+[Authorize(Roles = UserRoles.Receptionist)]
 [ApiController]
 public class ServiceController : MediatingControllerBase
 {

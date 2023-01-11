@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
     <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1">
       <PrivateAssets>all</PrivateAssets>
@@ -23,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Authorization.Data.EF.PostgreSQL\Authorization.Data.EF.PostgreSQL.csproj" />
     <ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
+    <ProjectReference Include="..\Services.API.Application.Helpers\Services.API.Application.Helpers.csproj" />
     <ProjectReference Include="..\Services.API.Application\Services.API.Application.csproj" />
     <ProjectReference Include="..\Services.API.Contracts\Services.API.Contracts.csproj" />
   </ItemGroup>
