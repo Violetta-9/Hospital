@@ -13,7 +13,10 @@ public class HospitalDbContext : IdentityDbContext<Account>
     public DbSet<Receptionist> Receptionists { get; set; }
     public DbSet<Status> Statuses { get; set; }
     public DbSet<Specialization> Specializations { get; set; }
+    public DbSet<Service> Services { get; set; }
+    public DbSet<ServiceCategory> ServiceCategories { get; set; }
 
+    public HospitalDbContext(){}
     public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options)
     {
     }
