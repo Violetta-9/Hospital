@@ -11,5 +11,6 @@ public static class ServiceCollectionExtension
         services.AddScoped<IReceptionistRepository, ReceptionistRepository>();
         services.AddScoped<IOfficeRepository, OfficeRepository>();
         services.AddScoped<IServiceRepository, ServiceRepository>();
+        services.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
     }
 }
