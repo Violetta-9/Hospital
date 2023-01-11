@@ -3,6 +3,7 @@ using System;
 using Authorization.Data.Shared.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Authorization.Data.Shared.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230110131423_SeedServiceCategories")]
+    partial class SeedServiceCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +259,7 @@ namespace Authorization.Data.Shared.Migrations
                     b.Property<long>("ServiceCategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("SpecializationId")
+                    b.Property<long>("SpecializationId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -544,7 +547,9 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasOne("Authorization.Data_Domain.Models.Specialization", "Specialization")
                         .WithMany("Services")
-                        .HasForeignKey("SpecializationId");
+                        .HasForeignKey("SpecializationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ServiceCategory");
 
