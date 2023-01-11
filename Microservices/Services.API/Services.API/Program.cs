@@ -28,15 +28,15 @@ services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrin
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 services.AddIdentity<Account, IdentityRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 6;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredUniqueChars = 0;
-})
+    {
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequiredUniqueChars = 0;
+    })
     .AddEntityFrameworkStores<HospitalDbContext>()
     .AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider);
 
