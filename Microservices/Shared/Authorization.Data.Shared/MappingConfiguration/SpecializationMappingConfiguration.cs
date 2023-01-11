@@ -14,5 +14,6 @@ public class SpecializationMappingConfiguration : IEntityTypeConfiguration<Speci
             .IsRequired();
         builder.Property(x => x.IsActive).HasColumnName(nameof(Specialization.IsActive)).IsRequired();
         builder.HasMany(x => x.Doctors).WithOne(x => x.Specialization).HasForeignKey(x => x.SpecializationId);
+        builder.HasMany(x=>x.Services).WithOne(x=>x.Specialization).HasForeignKey(x => x.SpecializationId);
     }
 }
