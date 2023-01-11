@@ -1,33 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Authorization.Data.Repository;
+﻿using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
 using MediatR;
 
-namespace Services.API.Application.Command.CreateService
-{
-    internal class CreateServiceCommandHandler : IRequestHandler<CreateServiceCommand, long>
-    {
-        private readonly IServiceRepository _serviceRepository;
+namespace Services.API.Application.Command.CreateService;
 
-        public CreateServiceCommandHandler(IServiceRepository serviceRepository)
+internal class CreateServiceCommandHandler : IRequestHandler<CreateServiceCommand, long>
+{
+    private readonly IServiceRepository _serviceRepository;
+
+    public CreateServiceCommandHandler(IServiceRepository serviceRepository)
+    {
+        _serviceRepository = serviceRepository;
+    }
+
+    public async Task<long> Handle(CreateServiceCommand request, CancellationToken cancellationToken)
+    {
+        var service = new Service
         {
-            _serviceRepository = serviceRepository;
-        }
-        public async Task<long> Handle(CreateServiceCommand request, CancellationToken cancellationToken)
-        {
-            var service = new Service()
-            {
-                Title = request.CreateServiceDto.Title,
-                Price = request.CreateServiceDto.Price,
-                IsActive = request.CreateServiceDto.IsActive,
-                ServiceCategoryId = request.CreateServiceDto.ServiceCategoryId,
-            };
-           await _serviceRepository.InsertAsync(service, cancellationToken);
-           return service.ServiceCategoryId;
-        }
+            Title = request.CreateServiceDto.Title,
+            Price = request.CreateServiceDto.Price,
+            IsActive = request.CreateServiceDto.IsActive,
+            ServiceCategoryId = request.CreateServiceDto.ServiceCategoryId
+        };
+        await _serviceRepository.InsertAsync(service, cancellationToken);
+        return service.ServiceCategoryId;
     }
 }

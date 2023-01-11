@@ -1,6 +1,5 @@
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
-using Authorization.Data_Domain.Models;
 using Hellang.Middleware.ProblemDetails;
 using Services.API.Application;
 using Services.API.Helpers;
@@ -13,7 +12,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var services=builder.Services;
+var services = builder.Services;
 services.AddApplication();
 services.AddRepository();
 services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);

@@ -16,7 +16,10 @@ public class HospitalDbContext : IdentityDbContext<Account>
     public DbSet<Service> Services { get; set; }
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
 
-    public HospitalDbContext(){}
+    public HospitalDbContext()
+    {
+    }
+
     public HospitalDbContext(DbContextOptions<HospitalDbContext> options) : base(options)
     {
     }
