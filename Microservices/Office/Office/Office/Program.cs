@@ -88,7 +88,7 @@ services.AddSwaggerGen(c =>
     c.EnableAnnotations();
 });
 
-services.AddSwaggerGen(c => { c.EnableAnnotations(); });
+
 
 services.AddProblemDetails(x =>
 {
