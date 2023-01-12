@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Office.Application;
-using Office.Helpers;
+using Services.API.Application;
+using Services.API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +21,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var services = builder.Services;
 var configurationRoot = builder.Configuration;
+
 services.AddApplication();
-
 services.AddRepository();
-
-services.AddHospitalPostgreSQL(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 services.AddIdentity<Account, IdentityRole>(options =>
@@ -88,8 +87,6 @@ services.AddSwaggerGen(c =>
     c.EnableAnnotations();
 });
 
-
-
 services.AddProblemDetails(x =>
 {
     x.Map<Exception>((context, exception) => CustomValidation<Exception>.CustomerDetails(exception));
@@ -105,8 +102,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseProblemDetails();
-
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
