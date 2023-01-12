@@ -10,6 +10,9 @@ public interface IServiceRepository : IRepositoryBase<Service>
 {
     public Task<OutServicesDto[]> GetAllServiceAsync(CancellationToken cancellationToken);
     public Task<OutServicesDto?> GetServiceByIdAsync(long id, CancellationToken cancellationToken);
+
+    public Task SetSpecializationAsync(ICollection<long> servicesId, long specializationId,
+        CancellationToken cancellationToken);
 }
 
 public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
@@ -40,5 +43,14 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
             IsActive = x.IsActive,
             ServiceCategoryName = x.ServiceCategory.Title
         }).SingleOrDefaultAsync(cancellationToken);
+    }
+    public async Task SetSpecializationAsync(ICollection<long> servicesId,long specializationId, CancellationToken cancellationToken)
+    {
+        foreach (var id in servicesId)
+        {
+           var service=await GetAsync(id, cancellationToken);
+           service.SpecializationId = specializationId;
+           await UpdateAsync(service, cancellationToken);
+        }
     }
 }

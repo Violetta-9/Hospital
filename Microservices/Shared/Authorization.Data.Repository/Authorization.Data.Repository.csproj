@@ -10,6 +10,7 @@
 		<ProjectReference Include="..\..\Office\Office\Office.Application.Contracts\Office.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Profile\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Services.API\Services.API.Contracts\Services.API.Contracts.csproj" />
+		<ProjectReference Include="..\..\Specialization.API\Specialization.API.Application.Contracts\Specialization.API.Application.Contracts.csproj" />
 		<ProjectReference Include="..\Authorization.Data.Domain\Authorization.Data.Domain.csproj" />
 		<ProjectReference Include="..\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
 	</ItemGroup>
