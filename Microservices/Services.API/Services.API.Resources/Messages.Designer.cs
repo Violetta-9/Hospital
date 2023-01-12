@@ -95,5 +95,14 @@ namespace Services.API.Resources {
                 return ResourceManager.GetString("NotFoundServiceCategory", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One of services id do not exists.
+        /// </summary>
+        public static string OneOfServicesIdDonotExists {
+            get {
+                return ResourceManager.GetString("OneOfServicesIdDonotExists", resourceCulture);
+            }
+        }
     }
 }
