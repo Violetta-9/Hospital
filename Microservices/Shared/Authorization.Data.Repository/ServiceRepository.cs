@@ -53,6 +53,14 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
             var service = await GetAsync(id, cancellationToken);
             service.SpecializationId = specializationId;
             await UpdateAsync(service, cancellationToken);
+
+    public async Task SetSpecializationAsync(ICollection<long> servicesId,long specializationId, CancellationToken cancellationToken)
+    {
+        foreach (var id in servicesId)
+        {
+           var service=await GetAsync(id, cancellationToken);
+           service.SpecializationId = specializationId;
+           await UpdateAsync(service, cancellationToken);
         }
     }
 }
