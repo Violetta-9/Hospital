@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.API.Application.Command.CreateService;
+using Services.API.Application.Command.SetSpecializationForService;
 using Services.API.Application.Command.UpdateService;
 using Services.API.Application.Command.UpdateServiceStatus;
 using Services.API.Application.Helpers;
@@ -65,6 +66,15 @@ public class ServiceController : MediatingControllerBase
     public async Task<ActionResult> GetServiceById([FromQuery] long id)
     {
         var query = new GetServiceByIdQuery(id);
+        return await SendRequestAsync(query);
+    }
+
+    [HttpPost("set")]
+    [SwaggerOperation(Summary = "Set specialization for service", OperationId = "SetSpecializationForService")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
+    public async Task<ActionResult> SetSpecializationForService([FromBody] SetSpecializationDTO setSpecializationDto)
+    {
+        var query = new SetSpecializationCommand(setSpecializationDto);
         return await SendRequestAsync(query);
     }
 }
