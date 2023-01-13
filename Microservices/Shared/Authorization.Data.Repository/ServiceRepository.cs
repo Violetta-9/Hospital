@@ -18,6 +18,9 @@ public interface IServiceRepository : IRepositoryBase<Service>
     public Task<OutServicesDto[]> GetServiceBySpecializationIdAsync(long specializationId,
         CancellationToken cancellationToken);
 
+    public Task<bool> IsServiceContainsFreeSpecializationAsync(long specializationId,
+        CancellationToken cancellationToken);
+
 }
 
 public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
@@ -71,6 +74,12 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
             IsActive = x.IsActive,
             ServiceCategoryName = x.ServiceCategory.Title
         }).ToArrayAsync(cancellationToken);
+    }
+
+    public async Task<bool> IsServiceContainsFreeSpecializationAsync(long specializationId,
+        CancellationToken cancellationToken)
+    {
+       return  await DbContext.Services.Where(x => x.Id == specializationId && x.SpecializationId == null).AnyAsync(cancellationToken);
     }
 
 }
