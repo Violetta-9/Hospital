@@ -1,4 +1,4 @@
-﻿using Authorization.Data.Repository.Abstraction;
+using Authorization.Data.Repository.Abstraction;
 using Authorization.Data.Shared.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Specialization.API.Application.Contracts.Outgoing;

@@ -78,6 +78,7 @@ public class ServiceController : MediatingControllerBase
         var query = new SetSpecializationCommand(setSpecializationDto);
         return await SendRequestAsync(query);
     }
+
     [HttpGet("specialization/id")]
     [SwaggerOperation(Summary = "Get services by specialization id", OperationId = "GetServicesBySpecializationId")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto[]))]
@@ -86,4 +87,5 @@ public class ServiceController : MediatingControllerBase
         var query = new GetServicesBySpecializationIdQuery(specializationId);
         return await SendRequestAsync(query);
     }
+
 }

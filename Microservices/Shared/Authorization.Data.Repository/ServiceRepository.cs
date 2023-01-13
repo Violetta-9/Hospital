@@ -14,8 +14,10 @@ public interface IServiceRepository : IRepositoryBase<Service>
     public Task SetSpecializationAsync(ICollection<long> servicesId, long specializationId,
         CancellationToken cancellationToken);
 
+
     public Task<OutServicesDto[]> GetServiceBySpecializationIdAsync(long specializationId,
         CancellationToken cancellationToken);
+
 }
 
 public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
@@ -58,6 +60,7 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
             await UpdateAsync(service, cancellationToken);
         }
     }
+
     public async Task<OutServicesDto[]> GetServiceBySpecializationIdAsync(long specializationId, CancellationToken cancellationToken)
     {
         return await DbContext.Services.Where(x => x.SpecializationId==specializationId).Select(x => new OutServicesDto
@@ -69,4 +72,5 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
             ServiceCategoryName = x.ServiceCategory.Title
         }).ToArrayAsync(cancellationToken);
     }
+
 }
