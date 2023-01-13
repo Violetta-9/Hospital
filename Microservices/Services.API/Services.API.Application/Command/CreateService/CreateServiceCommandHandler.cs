@@ -23,6 +23,6 @@ internal class CreateServiceCommandHandler : IRequestHandler<CreateServiceComman
             ServiceCategoryId = request.CreateServiceDto.ServiceCategoryId
         };
         await _serviceRepository.InsertAsync(service, cancellationToken);
-        return service.ServiceCategoryId;
+        return service.Id;
     }
 }
