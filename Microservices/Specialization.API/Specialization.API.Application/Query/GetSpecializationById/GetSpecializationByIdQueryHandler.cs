@@ -6,22 +6,25 @@ using System.Threading.Tasks;
 using Authorization.Data.Repository;
 using MediatR;
 using Specialization.API.Application.Contracts.Outgoing;
+using Specialization.API.Application.Services;
 
 namespace Specialization.API.Application.Query.GetSpecializationById
 {
     public class GetSpecializationByIdQueryHandler : IRequestHandler<GetSpecializationByIdQuery, SpecializationDTO>
     {
         private readonly ISpecializationRepository _specializationRepository;
-        public GetSpecializationByIdQueryHandler(ISpecializationRepository repository)
+        private readonly IServicesService _servicesService;
+        public GetSpecializationByIdQueryHandler(ISpecializationRepository repository,IServicesService servicesService)
         {
             _specializationRepository = repository;
+            _servicesService = servicesService;
         }
 
         public async Task<SpecializationDTO> Handle(GetSpecializationByIdQuery request, CancellationToken cancellationToken)
         {
-           return await _specializationRepository.GetSpecializationByIdAsync(request.SpecializationId, cancellationToken);
-            //todo:
-           
+         var specialization= await _specializationRepository.GetSpecializationByIdAsync(request.SpecializationId, cancellationToken);
+         specialization.Services= await _servicesService.GetServicesBySpecializationId(specialization.Id, cancellationToken);
+         return specialization;
         }
     }
 }

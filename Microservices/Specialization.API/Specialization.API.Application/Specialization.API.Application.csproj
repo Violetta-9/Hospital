@@ -10,6 +10,7 @@
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
@@ -17,6 +18,7 @@
     <ProjectReference Include="..\..\Shared\Authorization.Data.Repository\Authorization.Data.Repository.csproj" />
     <ProjectReference Include="..\Specialization.API.Application.Contracts\Specialization.API.Application.Contracts.csproj" />
     <ProjectReference Include="..\Specialization.API.Application.Resources\Specialization.API.Application.Resources.csproj" />
+    <ProjectReference Include="..\Specialization.API.Application.Services\Specialization.API.Application.Services.csproj" />
   </ItemGroup>
 
 </Project>
