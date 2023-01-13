@@ -129,6 +129,9 @@
   <data name="NotFoundServiceCategory" xml:space="preserve">
     <value>ServiceCategory by Id {0} not found</value>
   </data>
+  <data name="OneOfServicesAlredyTaken" xml:space="preserve">
+    <value>One of services alredy taken by other specialization</value>
+  </data>
   <data name="OneOfServicesIdDonotExists" xml:space="preserve">
     <value>One of services id do not exists</value>
   </data>

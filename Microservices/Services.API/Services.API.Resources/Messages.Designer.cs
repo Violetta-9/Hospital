@@ -97,6 +97,15 @@ namespace Services.API.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One of services alredy taken by other specialization.
+        /// </summary>
+        public static string OneOfServicesAlredyTaken {
+            get {
+                return ResourceManager.GetString("OneOfServicesAlredyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to One of services id do not exists.
         /// </summary>
         public static string OneOfServicesIdDonotExists {
