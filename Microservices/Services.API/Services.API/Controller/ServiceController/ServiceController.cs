@@ -8,6 +8,7 @@ using Services.API.Application.Command.UpdateServiceStatus;
 using Services.API.Application.Helpers;
 using Services.API.Application.Query.GetAllServices;
 using Services.API.Application.Query.GetServicesById;
+using Services.API.Application.Query.GetServicesBySpecializationId;
 using Services.API.Contracts.Incoming;
 using Services.API.Contracts.Outgoing;
 using Services.API.Controller.Abstraction.Mediator;
@@ -75,6 +76,14 @@ public class ServiceController : MediatingControllerBase
     public async Task<ActionResult> SetSpecializationForService([FromBody] SetSpecializationDTO setSpecializationDto)
     {
         var query = new SetSpecializationCommand(setSpecializationDto);
+        return await SendRequestAsync(query);
+    }
+    [HttpGet("specialization/id")]
+    [SwaggerOperation(Summary = "Get services by specialization id", OperationId = "GetServicesBySpecializationId")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto[]))]
+    public async Task<ActionResult> GetServicesBySpecializationId([FromQuery] long specializationId)
+    {
+        var query = new GetServicesBySpecializationIdQuery(specializationId);
         return await SendRequestAsync(query);
     }
 }
