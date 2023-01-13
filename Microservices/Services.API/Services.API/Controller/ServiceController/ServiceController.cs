@@ -68,6 +68,7 @@ public class ServiceController : MediatingControllerBase
         var query = new GetServiceByIdQuery(id);
         return await SendRequestAsync(query);
     }
+
     [HttpPost("set")]
     [SwaggerOperation(Summary = "Set specialization for service", OperationId = "SetSpecializationForService")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
