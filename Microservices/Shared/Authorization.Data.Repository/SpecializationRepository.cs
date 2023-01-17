@@ -10,6 +10,7 @@ public interface ISpecializationRepository : IRepositoryBase<SpecializationEntit
 {
     public Task<SpecializationListDTO[]> GetAllSpecializationAsync(CancellationToken cancellationToken);
     public Task<SpecializationDTO?> GetSpecializationByIdAsync(long id, CancellationToken cancellationToken);
+  
 }
 
 public class SpecializationRepository : RepositoryBase<SpecializationEntity>, ISpecializationRepository
@@ -34,7 +35,17 @@ public class SpecializationRepository : RepositoryBase<SpecializationEntity>, IS
         {
             Id = x.Id,
             Title = x.Title,
-            IsActive = x.IsActive
+            IsActive = x.IsActive,
+            Services = x.Services.Select(s => new OutServicesDto()
+            {
+                Id = s.Id,
+                IsActive = s.IsActive,
+                Price = s.Price,
+                ServiceCategoryName = s.ServiceCategory.Title,
+                Title = s.Title,
+            }).ToList()
         }).SingleOrDefaultAsync(cancellationToken);
     }
+   
+
 }
