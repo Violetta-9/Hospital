@@ -28,7 +28,6 @@ builder.Services.AddHttpClient();
 services.AddApplication();
 var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
 services.AddSingleton(uriSettings);
-services.AddApplicationServices(configurationRoot.GetSection("UriSettings:BasedAddress").Value);
 services.AddRepository();
 services.AddAuthorizationApi(configurationRoot);
 services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
