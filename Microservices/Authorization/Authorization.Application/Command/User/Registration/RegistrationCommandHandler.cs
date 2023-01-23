@@ -1,4 +1,5 @@
-﻿using Authorization.Application.Helpers;
+﻿using Authorization.Application.Contracts.Outgoing;
+using Authorization.Application.Helpers;
 using Authorization.Application.Resources;
 using Authorization.Application.Services;
 using Authorization.Data_Domain.Models;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Authorization.Application.Command.User.Registration;
 
-public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, string>
+public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, AccessToken>
 {
     private readonly IEmailServices _emailServices;
     private readonly RoleManager<IdentityRole> _roleManager;
@@ -21,7 +22,7 @@ public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, s
         _emailServices = emailServices;
     }
 
-    public async Task<string> Handle(RegistrationCommand request, CancellationToken cancellationToken)
+    public async Task<AccessToken> Handle(RegistrationCommand request, CancellationToken cancellationToken)
     {
         var role = UserRoles.User;
 
@@ -52,7 +53,7 @@ public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, s
             await _emailServices.SendConfirmEmailAsync(appUser, Messages.EmailSubject,
                 code,
                 cancellationToken);
-            return appUser.Id;
+            return new AccessToken(){Token = appUser.Id};
         }
 
         throw new Exception(string.Join("/n", result.Errors.Select(x => x.Description)));
