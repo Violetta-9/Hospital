@@ -10,9 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Services.API.Client;
 using Specialization.API.Application;
 using Specialization.API.Application.Helpers;
-using Specialization.API.Application.Services;
+
 using Specialization.API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,9 +28,9 @@ var services = builder.Services;
 var configurationRoot = builder.Configuration;
 services.AddApplication();
 services.AddRepository();
+services.AddServiceApi(configurationRoot);
 var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
 services.AddSingleton(uriSettings);
-services.AddApplicationServices(configurationRoot.GetSection("UriSettings:BasedAddressForDoctors").Value, configurationRoot.GetSection("UriSettings:BasedAddressForService").Value);
 services.AddHttpContextAccessor();
 services.AddHospitalPostgreSQL(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

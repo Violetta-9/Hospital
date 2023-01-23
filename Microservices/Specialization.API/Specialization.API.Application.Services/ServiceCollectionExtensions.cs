@@ -11,13 +11,13 @@ namespace Specialization.API.Application.Services
     {
         public static void AddApplicationServices(this IServiceCollection services, string basedAddressDoctor,string basedAddressService)
         {
-            services.AddHttpClient("ServicesClient", config =>
-            {
-                config.BaseAddress = new Uri(basedAddressService);
+            //services.AddHttpClient("ServicesClient", config =>
+            //{
+            //    config.BaseAddress = new Uri(basedAddressService);
 
-            });
-            services.AddScoped<IServicesService, ServicesService>();
-            services.AddScoped<IAccessTokenService, AccessTokenService>();
+            //});
+            //services.AddScoped<IServicesService, ServicesService>();
+            //services.AddScoped<IAccessTokenService, AccessTokenService>();
         }
     }
 }

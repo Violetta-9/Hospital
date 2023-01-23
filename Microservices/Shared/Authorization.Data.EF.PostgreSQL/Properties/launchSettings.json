@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Authorization.Data.EF.PostgreSQL": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:49476;http://localhost:49479"
+    }
+  }
+}
