@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Authorization.API.Client" Version="1.0.4" />
 		<PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
 		<PackageReference Include="MediatR" Version="11.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.1" />
