@@ -13,5 +13,6 @@ public static class ServiceCollectionExtension
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
         services.AddScoped<ISpecializationRepository, SpecializationRepository>();
+        services.AddScoped<IStatusRepository, StatusRepository>();
     }
 }
