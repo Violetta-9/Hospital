@@ -1,4 +1,6 @@
-﻿using Authorization.Data.Repository;
+﻿using Authorization.API.Client.Abstraction;
+using Authorization.API.Client.GeneratedClient;
+using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -10,17 +12,17 @@ namespace Profile.Application.Command.Doctors.AddDoctorRole;
 
 public class AddDoctorRoleCommandHandler : IRequestHandler<AddDoctorRoleCommand, Response>
 {
-    private readonly IAuthorizationService _authorizationService;
+   private readonly IAuthorizationApiProxy _authorizationApiProxy;
     private readonly IDoctorRepository _doctorRepository;
     private readonly IEmailServices _emailServices;
 
     private readonly UserManager<Account> _userManager;
 
     public AddDoctorRoleCommandHandler(UserManager<Account> userManager, IDoctorRepository doctorRepository,
-        IAuthorizationService authorization, IEmailServices emailServices)
+        IAuthorizationApiProxy authorization, IEmailServices emailServices)
     {
         _userManager = userManager;
-        _authorizationService = authorization;
+        _authorizationApiProxy = authorization;
         _doctorRepository = doctorRepository;
         _emailServices = emailServices;
     }
@@ -31,8 +33,16 @@ public class AddDoctorRoleCommandHandler : IRequestHandler<AddDoctorRoleCommand,
 
         var role = UserRoles.Doctor;
         var password = Guid.NewGuid().ToString().Substring(0, 8);
-        var accountId =
-            await _authorizationService.SendDoctorInfoForRegistrationAsync(request.Doctor, password, cancellationToken);
+        var accountId = await _authorizationApiProxy.RegistrationAsync(new UserDTO()
+        {
+            BirthDate = request.Doctor.BirthDate,
+            Email = request.Doctor.Email,
+            FirstName = request.Doctor.FirstName,
+            LastName = request.Doctor.LastName,
+            MiddleName = request.Doctor.MiddleName,
+            Password = password,
+            PhoneNumber = request.Doctor.PhoneNumber
+        },cancellationToken);
 
         await _emailServices.SendEmailAsync(request.Doctor.Email, "Credentials Hospital",
             $"Log in to your account using the credentials below: \n email: {request.Doctor.Email} \n password: {password}",

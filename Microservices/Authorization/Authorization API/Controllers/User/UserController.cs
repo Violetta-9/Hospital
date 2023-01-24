@@ -2,6 +2,7 @@
 using Authorization.Application.Command.User.ConfirmEmail;
 using Authorization.Application.Command.User.Registration;
 using Authorization.Application.Contracts.Incoming.User;
+using Authorization.Application.Contracts.Outgoing;
 using Authorization.Application.Query.User;
 using Authorization_API.Controllers.Abstraction.Mediator;
 using MediatR;
@@ -20,7 +21,7 @@ public class UserController : MediatingControllerBase
 
     [HttpPost("registration")]
     [SwaggerOperation(Summary = "Register new user", OperationId = "RegisterUser")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AccessToken))]
     public async Task<ActionResult> Registration([FromBody] UserDTO newUser)
     {
         var query = new RegistrationCommand(newUser);

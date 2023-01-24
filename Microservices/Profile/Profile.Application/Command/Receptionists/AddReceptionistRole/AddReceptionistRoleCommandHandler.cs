@@ -1,4 +1,6 @@
-﻿using Authorization.Data.Repository;
+﻿using Authorization.API.Client.Abstraction;
+using Authorization.API.Client.GeneratedClient;
+using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -10,16 +12,16 @@ namespace Profile.Application.Command.Receptionists.AddReceptionistRole;
 
 public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionistRoleCommand, Response>
 {
-    private readonly IAuthorizationService _authorizationService;
+    private readonly IAuthorizationApiProxy _authorizationApiProxy;
     private readonly IEmailServices _emailServices;
     private readonly IReceptionistRepository _receptionistRepository;
     private readonly UserManager<Account> _userManager;
 
     public AddReceptionistRoleCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist,
-        IAuthorizationService authorizationService, IEmailServices emailServices)
+        IAuthorizationApiProxy authorizationService, IEmailServices emailServices)
     {
         _userManager = userManager;
-        _authorizationService = authorizationService;
+        _authorizationApiProxy = authorizationService;
         _receptionistRepository = receptionist;
         _emailServices = emailServices;
     }
@@ -31,10 +33,17 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
         await _emailServices.SendEmailAsync(request.ReceptionistDTO.Email, "Credentials Hospital",
             $"Log in to your account using the credentials below: \n email: {request.ReceptionistDTO.Email} \n password: {password}",
             cancellationToken);
-        var AccountId = await _authorizationService.SendReceptionistInfoForRegistrationAsync(request.ReceptionistDTO,
-            password,
-            cancellationToken);
-        var user = await _userManager.FindByIdAsync(AccountId);
+        var accountId = await _authorizationApiProxy.RegistrationAsync(new UserDTO()
+        {
+            BirthDate = request.ReceptionistDTO.BirthDate,
+            Email = request.ReceptionistDTO.Email,
+            FirstName = request.ReceptionistDTO.FirstName,
+            LastName = request.ReceptionistDTO.LastName,
+            MiddleName = request.ReceptionistDTO.MiddleName,
+            Password = password,
+            PhoneNumber = request.ReceptionistDTO.PhoneNumber
+        }, cancellationToken);
+        var user = await _userManager.FindByIdAsync(accountId);
         if (user != null)
         {
             await _userManager.AddToRoleAsync(user, role);

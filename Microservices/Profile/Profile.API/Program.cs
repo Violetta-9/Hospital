@@ -1,4 +1,5 @@
 using System.Text;
+using Authorization.API.Client;
 using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
@@ -32,9 +33,8 @@ services.AddApplication();
 services.AddApplicationServices();
 var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
 services.AddSingleton(uriSettings);
-services.AddApplicationServices(configurationRoot.GetSection("UriSettings:BasedAddress").Value);
 services.AddRepository();
-
+services.AddAuthorizationApi(configurationRoot);
 services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

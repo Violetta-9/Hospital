@@ -25,7 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Data.Shared",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Application.Resources", "Authorization.Application.Resources\Authorization.Application.Resources.csproj", "{F317FAA1-495A-4073-A858-C857924CD5FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.Application.Services", "Authorization.Application.Services\Authorization.Application.Services.csproj", "{F8B950ED-9BCC-486C-8FB2-08EBCD00854A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Application.Services", "Authorization.Application.Services\Authorization.Application.Services.csproj", "{F8B950ED-9BCC-486C-8FB2-08EBCD00854A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{98884B81-A838-4DD1-BD1C-4235E975EA63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.API.Client", "Authorization.API.Client\Authorization.API.Client.csproj", "{496CF543-2F3A-489B-9BFD-DE63F58200FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +77,10 @@ Global
 		{F8B950ED-9BCC-486C-8FB2-08EBCD00854A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B950ED-9BCC-486C-8FB2-08EBCD00854A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B950ED-9BCC-486C-8FB2-08EBCD00854A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{496CF543-2F3A-489B-9BFD-DE63F58200FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{496CF543-2F3A-489B-9BFD-DE63F58200FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{496CF543-2F3A-489B-9BFD-DE63F58200FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{496CF543-2F3A-489B-9BFD-DE63F58200FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +95,7 @@ Global
 		{C453DAC9-3F18-444E-A27E-98F4EAE8EA3B} = {52E30C3F-9B0B-4E4B-AF18-8005D15C6411}
 		{F317FAA1-495A-4073-A858-C857924CD5FB} = {6C025089-CB74-4958-85C1-63F90C860A50}
 		{F8B950ED-9BCC-486C-8FB2-08EBCD00854A} = {6C025089-CB74-4958-85C1-63F90C860A50}
+		{496CF543-2F3A-489B-9BFD-DE63F58200FC} = {98884B81-A838-4DD1-BD1C-4235E975EA63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {944233F2-3C35-4C1E-988B-2764511A32B6}
