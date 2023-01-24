@@ -9,6 +9,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+		<PackageReference Include="MassTransit" Version="8.0.11" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.0.11" />
 		<PackageReference Include="MediatR" Version="11.1.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
@@ -22,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\SharedTypeForRabbitmq\OfficeStatusChanged\OfficeStatusChanged\OfficeStatusChanged.csproj" />
 		<ProjectReference Include="..\..\Shared\Authorization.Data.EF.PostgreSQL\Authorization.Data.EF.PostgreSQL.csproj" />
 		<ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
 		<ProjectReference Include="..\Profile.Application\Profile.Application.csproj" />
