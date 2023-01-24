@@ -4,15 +4,19 @@ using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Hellang.Middleware.ProblemDetails;
+using MassTransit;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Profile.API.Consumer;
 using Profile.API.Helpers;
 using Profile.Application;
 using Profile.Application.Contracts.Internal;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -25,14 +29,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 services.AddApplication();
+services.AddApplicationServices();
 var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
 services.AddSingleton(uriSettings);
 services.AddApplicationServices(configurationRoot.GetSection("UriSettings:BasedAddress").Value);
 services.AddRepository();
 
 services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var emailConfig = services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
 services.AddSingleton(emailConfig);
@@ -101,6 +106,32 @@ services.AddSwaggerGen(c =>
     });
     c.EnableAnnotations();
 });
+
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumers(typeof(OfficeStatusChangedConsumer).Assembly);
+    x.SetKebabCaseEndpointNameFormatter();
+
+    x.AddBus(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
+    {
+      
+    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        var serviceProvider = builder.Services.BuildServiceProvider();
+        cfg.ReceiveEndpoint("office-status-change", e =>
+        {
+            e.Consumer<OfficeStatusChangedConsumer>(serviceProvider);
+        });
+    }));
+});
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

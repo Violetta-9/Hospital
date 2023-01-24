@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
@@ -8,11 +8,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="11.4.0" />
+		<PackageReference Include="MassTransit" Version="8.0.11" />
 		<PackageReference Include="MediatR" Version="11.1.0" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\SharedTypeForRabbitmq\OfficeStatusChanged\OfficeStatusChanged\OfficeStatusChanged.csproj" />
 		<ProjectReference Include="..\..\..\Shared\Authorization.Data.Repository\Authorization.Data.Repository.csproj" />
 		<ProjectReference Include="..\Office.Application.Contracts\Office.Application.Contracts.csproj" />
 		<ProjectReference Include="..\Office.Application.Resources\Office.Application.Resources.csproj" />
