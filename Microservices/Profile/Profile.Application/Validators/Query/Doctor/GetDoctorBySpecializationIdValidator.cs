@@ -1,27 +1,28 @@
-﻿using FluentValidation;
+﻿using Authorization.Data.Repository;
+using FluentValidation;
 using Profile.Application.Query.Doctor.GetDoctorBySpesializationId;
+using Profile.Application.Resources;
 
 namespace Profile.Application.Validators.Query.Doctor;
 
 internal class GetDoctorBySpecializationIdValidator : AbstractValidator<GetDoctorsBySpesializationIdQuery>
 {
-    public GetDoctorBySpecializationIdValidator()
+    private readonly ISpecializationRepository _specializationRepository;
+    public GetDoctorBySpecializationIdValidator(ISpecializationRepository specializationRepository)
     {
+        _specializationRepository = specializationRepository;
         CreateRules();
     }
 
     private void CreateRules()
     {
-        //todo:validator
-        //RuleFor(x => x.SpesializationId)
-        //    .Cascade(CascadeMode.Stop)
-        //    .NotEmpty()
-        //    .WithMessage(opt => string.Format(Messages.EmptyField, nameof(opt.SpesializationId)))
-        //    .MustAsync(ExistsSpecializationAsync)
-        //    .WithMessage(opt=>string.Format(Messages.NotFoundSpecialition,opt.SpesializationId));
+        RuleFor(x => x.SpesializationId)
+            .Cascade(CascadeMode.Stop)
+            .MustAsync(ExistsSpecializationAsync)
+            .WithMessage(opt => string.Format(Messages.NotFoundSpecialition, opt.SpesializationId));
     }
-    //private Task<bool> ExistsSpecializationAsync(long specId, CancellationToken arg2)
-    //{
-
-    //}
+    private async Task<bool> ExistsSpecializationAsync(long specId, CancellationToken cancellationToken)
+    {
+        return await _specializationRepository.ExistsAsync(specId, cancellationToken);
+    }
 }

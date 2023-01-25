@@ -6,7 +6,7 @@ using Profile.Application.Resources;
 
 namespace Profile.Application.Validators.Commands.Receptionist;
 
-internal class DeleteReceptionistValidator : AbstractValidator<DeleteReceptionistCommand>
+public class DeleteReceptionistValidator : AbstractValidator<DeleteReceptionistCommand>
 {
     private readonly UserManager<Account> _userManager;
 
@@ -20,8 +20,6 @@ internal class DeleteReceptionistValidator : AbstractValidator<DeleteReceptionis
     {
         RuleFor(x => x.AccountId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(Messages.EmptyField)
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.AccountId));
     }

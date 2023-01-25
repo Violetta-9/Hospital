@@ -1,4 +1,5 @@
-﻿using Authorization.Data_Domain.Models;
+﻿using Authorization.Data.Repository;
+using Authorization.Data_Domain.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Command.Doctors.UpdateDoctor.UpdateDoctorProfile;
@@ -9,9 +10,13 @@ namespace Profile.Application.Validators.Commands.Doctor;
 public class UpdateDoctorProfileValidator : AbstractValidator<UpdateDoctorProfileCommand>
 {
     private readonly UserManager<Account> _userManager;
+    private readonly ISpecializationRepository _specializationRepository;
+    private readonly IOfficeRepository _officeRepository;
 
-    public UpdateDoctorProfileValidator(UserManager<Account> userManager)
+    public UpdateDoctorProfileValidator(UserManager<Account> userManager,ISpecializationRepository specializationRepository,IOfficeRepository officeRepository)
     {
+        _specializationRepository = specializationRepository;
+        _officeRepository = officeRepository;
         _userManager = userManager;
         CreateRules();
     }
@@ -20,37 +25,31 @@ public class UpdateDoctorProfileValidator : AbstractValidator<UpdateDoctorProfil
     {
         RuleFor(x => x.DoctorInfo.AccountId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(Messages.EmptyField)
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.DoctorInfo.AccountId));
-        //todo: validation
-        //RuleFor(x=>x.DoctorInfo.OfficeId)
-        //    .Cascade(CascadeMode.Stop)
-        //    .NotEmpty()
-        //    .WithMessage(Messages.EmptyField)
-        //    .MustAsync(ExistsOfficeAsync)
-        //    .WithMessage(opt => string.Format(Messages.NotFoundOffice, opt.DoctorInfo.OfficeId));
+
+        RuleFor(x => x.DoctorInfo.OfficeId)
+            .Cascade(CascadeMode.Stop)
+            .MustAsync(ExistsOfficeAsync)
+            .WithMessage(opt => string.Format(Messages.NotFoundOffice, opt.DoctorInfo.OfficeId));
 
 
-        //RuleFor(x => x.DoctorInfo.SpecializationId)
-        //    .Cascade(CascadeMode.Stop)
-        //    .NotEmpty()
-        //    .WithMessage(Messages.EmptyField)
-        //    .MustAsync(ExistsSpecializationAsync)
-        //    .WithMessage(opt => string.Format(Messages.NotFoundSpecialition, opt.DoctorInfo.SpecializationId));
+        RuleFor(x => x.DoctorInfo.SpecializationId)
+            .Cascade(CascadeMode.Stop)
+            .MustAsync(ExistsSpecializationAsync)
+            .WithMessage(opt => string.Format(Messages.NotFoundSpecialition, opt.DoctorInfo.SpecializationId));
     }
 
-    //private Task<bool> ExistsSpecializationAsync(long specId, CancellationToken arg2)
-    //{
+    private async Task<bool> ExistsSpecializationAsync(long specId, CancellationToken cancellationToken)
+    {
+        return await _specializationRepository.ExistsAsync(specId, cancellationToken);
+    }
 
-    //}
 
-
-    //private Task<bool> ExistsOfficeAsync(long officeId, CancellationToken arg2)
-    //{
-
-    //}
+    private async Task<bool> ExistsOfficeAsync(long officeId, CancellationToken cancellationToken)
+    {
+        return await _officeRepository.ExistsAsync(officeId, cancellationToken);
+    }
 
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
     {

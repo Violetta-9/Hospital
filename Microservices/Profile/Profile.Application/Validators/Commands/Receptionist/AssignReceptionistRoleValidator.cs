@@ -1,33 +1,25 @@
-﻿using Authorization.Data_Domain.Models;
+﻿using Authorization.Data.Repository;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 using Profile.Application.Command.Receptionists.AddReceptionistRole;
+using Profile.Application.Resources;
 
 namespace Profile.Application.Validators.Commands.Receptionist;
 
-internal class AssignReceptionistRoleValidator : AbstractValidator<AddReceptionistRoleCommand>
+public class AssignReceptionistRoleValidator : AbstractValidator<AddReceptionistRoleCommand>
 {
-    private readonly UserManager<Account> _userManager;
+    private readonly IOfficeRepository _officeRepository;
 
-    public AssignReceptionistRoleValidator(UserManager<Account> userManager)
+    public AssignReceptionistRoleValidator(IOfficeRepository officeRepository)
     {
-        _userManager = userManager;
+        _officeRepository = officeRepository;
         CreateRules();
     }
 
     private void CreateRules()
     {
-        //todo: validation
-        //RuleFor(x=>x.OfficeId)
-        //    .Cascade(CascadeMode.Stop)
-        //    .NotEmpty()
-        //    .WithMessage(Messages.EmptyField)
-        //    .MustAsync(ExistsOfficeAsync)
-        //    .WithMessage(opt => string.Format(Messages.NotFoundOffice, opt.OfficeId));
+        RuleFor(x => x.ReceptionistDTO.OfficeId)
+            .Cascade(CascadeMode.Stop)
+            .MustAsync(_officeRepository.ExistsAsync)
+            .WithMessage(opt => string.Format(Messages.NotFoundOffice, opt.ReceptionistDTO.OfficeId));
     }
-
-    //private Task<bool> ExistsOfficeAsync(long officeId, CancellationToken arg2)
-    //{
-
-    //}
 }

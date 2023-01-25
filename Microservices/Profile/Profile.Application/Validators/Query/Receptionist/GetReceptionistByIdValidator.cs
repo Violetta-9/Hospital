@@ -19,15 +19,13 @@ internal class GetReceptionistByIdValidator : AbstractValidator<GetReceptionistB
     {
         RuleFor(x => x.ReceptionistId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(opt => string.Format(Messages.EmptyField, nameof(opt.ReceptionistId)))
             .MustAsync(ExistsReceptionist)
             .WithMessage(opt => string.Format(Messages.NotFoundReceptionist, opt.ReceptionistId));
     }
 
     private async Task<bool> ExistsReceptionist(long receptionistId, CancellationToken cancellationToken)
     {
-        var receptionist = await _receptionistRepository.GetReceptionistByIdAsync(receptionistId, cancellationToken);
-        return receptionist != null;
+        return await _receptionistRepository.ExistsAsync(receptionistId, cancellationToken);
+        
     }
 }

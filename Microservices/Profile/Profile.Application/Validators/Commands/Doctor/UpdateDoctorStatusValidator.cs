@@ -1,4 +1,5 @@
-﻿using Authorization.Data_Domain.Models;
+﻿using Authorization.Data.Repository;
+using Authorization.Data_Domain.Models;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Command.Doctors.UpdateDoctor.UpdateDoctorStatus;
@@ -9,10 +10,11 @@ namespace Profile.Application.Validators.Commands.Doctor;
 public class UpdateDoctorStatusValidator : AbstractValidator<UpdateDoctorStatusCommand>
 {
     private readonly UserManager<Account> _userManager;
-
-    public UpdateDoctorStatusValidator(UserManager<Account> userManager)
+    private readonly IStatusRepository _statusRepository;
+    public UpdateDoctorStatusValidator(UserManager<Account> userManager,IStatusRepository statusRepository)
     {
         _userManager = userManager;
+        _statusRepository = statusRepository;
         CreateRules();
     }
 
@@ -20,23 +22,19 @@ public class UpdateDoctorStatusValidator : AbstractValidator<UpdateDoctorStatusC
     {
         RuleFor(x => x.AccountId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(Messages.EmptyField)
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.AccountId));
-        //todo: validation
+   
 
-        //RuleFor(x => x.StatusId)
-        //    .Cascade(CascadeMode.Stop)
-        //    .NotEmpty()
-        //    .WithMessage(Messages.EmptyField)
-        //    .MustAsync(ExistsStatusAsync)
-        //    .WithMessage(opt => string.Format(Messages.NotFoundStatus, opt.StatusId));
+        RuleFor(x => x.NewStatus)
+            .Cascade(CascadeMode.Stop)
+            .MustAsync(ExistsStatusAsync)
+            .WithMessage(opt => string.Format(Messages.NotFoundStatus, opt.NewStatus));
     }
-    //private Task<bool> ExistsStatusAsync(long statusId, CancellationToken arg2)
-    //{
-
-    //}
+    private async Task<bool> ExistsStatusAsync(long statusId, CancellationToken cancellationToken)
+    {
+        return await _statusRepository.ExistsAsync(statusId, cancellationToken);
+    }
 
 
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)

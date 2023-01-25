@@ -20,8 +20,6 @@ public class UpdateAccountInfoValidator : AbstractValidator<UpdateAccountInfoCom
     {
         RuleFor(x => x.UserDtO.AccountId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(Messages.EmptyField)
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.UserDtO.AccountId));
 

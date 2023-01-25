@@ -48,8 +48,7 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
         {
             await _userManager.AddToRoleAsync(user, role);
             await _receptionistRepository.InsertAsync(new Receptionist
-            {
-                AccountId = user.Id,
+            {   AccountId = user.Id,
                 OfficeId = request.ReceptionistDTO.OfficeId
             }, cancellationToken);
             return Response.Success;

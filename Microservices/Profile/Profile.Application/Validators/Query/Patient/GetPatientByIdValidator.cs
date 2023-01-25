@@ -19,8 +19,6 @@ internal class GetPatientByIdValidator : AbstractValidator<GetPatientByIdQuery>
     {
         RuleFor(x => x.PatientId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(opt => string.Format(Messages.EmptyField, nameof(opt.PatientId)))
             .MustAsync(ExistsPatient)
             .WithMessage(opt => string.Format(Messages.NotFoundPatient, opt.PatientId));
     }

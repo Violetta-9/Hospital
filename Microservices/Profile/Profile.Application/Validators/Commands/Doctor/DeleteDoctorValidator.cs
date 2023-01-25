@@ -20,8 +20,6 @@ public class DeleteDoctorValidator : AbstractValidator<DeleteDoctorCommand>
     {
         RuleFor(x => x.AccountId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(Messages.EmptyField)
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.AccountId));
     }

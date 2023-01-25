@@ -6,7 +6,7 @@ using Profile.Application.Resources;
 
 namespace Profile.Application.Validators.Commands.Update;
 
-internal class UpdatePasswordValidator : AbstractValidator<UpdatePasswordCommand>
+public class UpdatePasswordValidator : AbstractValidator<UpdatePasswordCommand>
 {
     private readonly UserManager<Account> _userManager;
 
@@ -20,8 +20,6 @@ internal class UpdatePasswordValidator : AbstractValidator<UpdatePasswordCommand
     {
         RuleFor(x => x.NewPassword.AccountId)
             .Cascade(CascadeMode.Stop)
-            .NotEmpty()
-            .WithMessage(Messages.EmptyField)
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.NewPassword.AccountId));
     }
