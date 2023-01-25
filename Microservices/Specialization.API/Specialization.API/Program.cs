@@ -4,6 +4,7 @@ using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Hellang.Middleware.ProblemDetails;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var services = builder.Services;
 var configurationRoot = builder.Configuration;
+
+builder.Services.AddMassTransit(x =>
+{
+
+    x.AddBus(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
+    {
+        cfg.Host(new Uri("rabbitmq://localhost"), h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+    }));
+});
+
 services.AddApplication();
 services.AddRepository();
 services.AddServiceApi(configurationRoot);
