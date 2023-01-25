@@ -46,18 +46,4 @@ public class AssignDoctorRoleValidator : AbstractValidator<AddDoctorRoleCommand>
             .WithMessage(opt => string.Format(Messages.NotFoundSpecialition, opt.Doctor.SpecializationId));
     }
 
-    private async Task<bool> ExistsSpecializationAsync(long specId, CancellationToken cancellationToken)
-    {
-        return await _specializationRepository.ExistsAsync(specId, cancellationToken);
-    }
-
-    private async Task<bool> ExistsStatusAsync(long statusId, CancellationToken cancellationToken)
-    {
-        return await _statusRepository.ExistsAsync(statusId, cancellationToken);
-    }
-
-    private async Task<bool> ExistsOfficeAsync(long officeId, CancellationToken cancellationToken)
-    {
-        return await _officeRepository.ExistsAsync(officeId, cancellationToken);
-    }
 }

@@ -28,13 +28,10 @@ public class UpdateOfficeForReceptionistValidator : AbstractValidator<UpdateOffi
 
         RuleFor(x => x.NewOffice)
             .Cascade(CascadeMode.Stop)
-            .MustAsync(ExistsOfficeAsync)
+            .MustAsync(_officeRepository.ExistsAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundOffice, opt.NewOffice));
     }
-    private async Task<bool> ExistsOfficeAsync(long officeId, CancellationToken cancellationToken)
-    {
-        return await _officeRepository.ExistsAsync(officeId, cancellationToken);
-    }
+   
 
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
     {

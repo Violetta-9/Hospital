@@ -28,15 +28,10 @@ public class UpdateDoctorStatusValidator : AbstractValidator<UpdateDoctorStatusC
 
         RuleFor(x => x.NewStatus)
             .Cascade(CascadeMode.Stop)
-            .MustAsync(ExistsStatusAsync)
+            .MustAsync(_statusRepository.ExistsAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundStatus, opt.NewStatus));
     }
-    private async Task<bool> ExistsStatusAsync(long statusId, CancellationToken cancellationToken)
-    {
-        return await _statusRepository.ExistsAsync(statusId, cancellationToken);
-    }
-
-
+    
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(id);

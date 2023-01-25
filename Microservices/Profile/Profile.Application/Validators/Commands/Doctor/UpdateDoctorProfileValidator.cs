@@ -4,6 +4,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Command.Doctors.UpdateDoctor.UpdateDoctorProfile;
 using Profile.Application.Resources;
+using System.Threading;
 
 namespace Profile.Application.Validators.Commands.Doctor;
 
@@ -30,25 +31,14 @@ public class UpdateDoctorProfileValidator : AbstractValidator<UpdateDoctorProfil
 
         RuleFor(x => x.DoctorInfo.OfficeId)
             .Cascade(CascadeMode.Stop)
-            .MustAsync(ExistsOfficeAsync)
+            .MustAsync(_officeRepository.ExistsAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundOffice, opt.DoctorInfo.OfficeId));
 
 
         RuleFor(x => x.DoctorInfo.SpecializationId)
             .Cascade(CascadeMode.Stop)
-            .MustAsync(ExistsSpecializationAsync)
+            .MustAsync(_specializationRepository.ExistsAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundSpecialition, opt.DoctorInfo.SpecializationId));
-    }
-
-    private async Task<bool> ExistsSpecializationAsync(long specId, CancellationToken cancellationToken)
-    {
-        return await _specializationRepository.ExistsAsync(specId, cancellationToken);
-    }
-
-
-    private async Task<bool> ExistsOfficeAsync(long officeId, CancellationToken cancellationToken)
-    {
-        return await _officeRepository.ExistsAsync(officeId, cancellationToken);
     }
 
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
