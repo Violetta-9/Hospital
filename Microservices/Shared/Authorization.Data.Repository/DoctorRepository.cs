@@ -89,6 +89,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
         return await DbContext.Doctors.Where(x => x.SpecializationId == spesialization).Select(x => new DoctorAllDTO
         {
             Id = x.Id,
+            AccountId = x.AccountId,
             FirstName = x.Account.FirstName,
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,

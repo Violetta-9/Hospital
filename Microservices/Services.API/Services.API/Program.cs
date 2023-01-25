@@ -4,11 +4,13 @@ using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Hellang.Middleware.ProblemDetails;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Services.API.Application;
+using Services.API.Consumer;
 using Services.API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -91,6 +93,30 @@ services.AddProblemDetails(x =>
 {
     x.Map<Exception>((context, exception) => CustomValidation<Exception>.CustomerDetails(exception));
 });
+
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumers(typeof(SpecializationStatusChangedConsumer).Assembly);
+    x.SetKebabCaseEndpointNameFormatter();
+
+    x.AddBus(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
+    {
+
+        cfg.Host(new Uri("rabbitmq://localhost"), h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        var serviceProvider = builder.Services.BuildServiceProvider();
+        cfg.ReceiveEndpoint("service-status-change", e =>
+        {
+            e.Consumer<SpecializationStatusChangedConsumer>(serviceProvider);
+        });
+    }));
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
