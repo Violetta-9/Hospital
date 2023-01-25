@@ -24,9 +24,7 @@ public class UpdateServiceStatusValidator : AbstractValidator<UpdateServiceStatu
             .MustAsync(ExistsServiceAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundService, opt.UpdateServiceStatusDTO.Id));
 
-        RuleFor(x => x.UpdateServiceStatusDTO.IsActive)
-            .NotEmpty()
-            .WithMessage(opt => string.Format(Messages.NotEmptyField, nameof(opt.UpdateServiceStatusDTO.IsActive)));
+
     }
 
     private async Task<bool> ExistsServiceAsync(long serviceId, CancellationToken cancellationToken)
