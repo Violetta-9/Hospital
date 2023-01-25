@@ -126,6 +126,10 @@ builder.Services.AddMassTransit(x =>
         {
             e.Consumer<OfficeStatusChangedConsumer>(serviceProvider);
         });
+        cfg.ReceiveEndpoint("doctor-status-change", e =>
+        {
+            e.Consumer<SpecializationStatusChangedConsumer>(serviceProvider);
+        });
     }));
 });
 
