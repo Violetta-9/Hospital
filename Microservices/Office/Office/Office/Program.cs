@@ -39,7 +39,7 @@ builder.Services.AddMassTransit(x =>
     }));
 });
 
-services.AddHospitalPostgreSQL(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 services.AddIdentity<Account, IdentityRole>(options =>

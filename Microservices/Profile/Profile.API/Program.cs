@@ -35,7 +35,7 @@ var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(n
 services.AddSingleton(uriSettings);
 services.AddRepository();
 services.AddAuthorizationApi(configurationRoot);
-services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
