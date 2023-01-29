@@ -16,5 +16,6 @@ public class OfficeMappingConfiguration : IEntityTypeConfiguration<Office>
             .IsRequired();
         builder.HasMany(x => x.Doctors).WithOne(x => x.Office).HasForeignKey(x => x.OfficeId);
         builder.HasMany(x => x.Receptionists).WithOne(x => x.Office).HasForeignKey(x => x.OfficeId);
+        builder.Property(x => x.DocumentationId).HasColumnName(nameof(Office.DocumentationId));
     }
 }

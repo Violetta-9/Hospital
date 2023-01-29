@@ -1,4 +1,5 @@
-﻿using Authorization.Data.Shared.MappingConfiguration.Extension;
+﻿using System.Security.Cryptography.X509Certificates;
+using Authorization.Data.Shared.MappingConfiguration.Extension;
 using Authorization.Data_Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -16,5 +17,6 @@ public class AccountMappingConfiguration : IEntityTypeConfiguration<Account>
             .IsRequired();
         builder.Property(x => x.LastName).HasColumnName(nameof(Account.LastName)).HasMaxLength(256).IsRequired();
         builder.Property(x => x.MiddleName).HasColumnName(nameof(Account.MiddleName)).HasMaxLength(256).IsRequired();
+        builder.Property(x => x.DocumentationId).HasColumnName(nameof(Account.DocumentationId));
     }
 }
