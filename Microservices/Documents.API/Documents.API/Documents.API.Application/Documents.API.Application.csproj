@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Authorization.Data.Repository\Authorization.Data.Repository.csproj" />
+    <ProjectReference Include="..\Documents.API.Application.Configurations\Documents.API.Application.Configurations.csproj" />
+    <ProjectReference Include="..\Documents.API.Application.Contracts\Documents.API.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Documents.API.Application.Resourse\Documents.API.Application.Resourse.csproj" />
+    <ProjectReference Include="..\Documents.API.Application.Services\Documents.API.Application.Services.csproj" />
+  </ItemGroup>
+
+</Project>
