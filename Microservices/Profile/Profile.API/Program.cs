@@ -4,6 +4,7 @@ using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
+using Documents.API.Client;
 using Hellang.Middleware.ProblemDetails;
 using MassTransit;
 using MediatR;
@@ -31,12 +32,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 services.AddApplication();
 services.AddApplicationServices();
-var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
+var uriSettings = services.Configure<BlobUrlHelpers>(configurationRoot.GetSection(nameof(BlobUrlHelpers)));
 services.AddSingleton(uriSettings);
 services.AddRepository();
 services.AddAuthorizationApi(configurationRoot);
 services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
-
+services.AddDocumentsApi(configurationRoot);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var emailConfig = services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
