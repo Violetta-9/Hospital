@@ -1,4 +1,6 @@
-﻿namespace Profile.Application.Contracts.Incoming;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Profile.Application.Contracts.Incoming;
 
 public class ReceptionistDTO
 {
@@ -9,4 +11,5 @@ public class ReceptionistDTO
     public string PhoneNumber { get; set; }
     public DateTime BirthDate { get; set; }
     public long OfficeId { get; set; }
+    public IFormFile File { get; set; }
 }
