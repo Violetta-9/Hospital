@@ -28,9 +28,9 @@ namespace Documents.API.Controllers
         [HttpPost]
         [SwaggerOperation(Summary = "Upload", OperationId = "UploadBlob")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
-        public async Task<ActionResult> UploadBlob([FromForm] UploadFileDTO newFileDto, [FromForm] IFormFile file)
+        public async Task<ActionResult> UploadBlob([FromForm] UploadFileDTO newFileDto)
         {
-            var query = new UploadCommand(newFileDto,file);
+            var query = new UploadCommand(newFileDto);
             return await SendRequestAsync(query);
         }
 
