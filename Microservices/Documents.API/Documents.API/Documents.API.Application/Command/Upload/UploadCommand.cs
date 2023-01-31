@@ -1,29 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Documents.API.Application.Contracts.Enum;
+﻿using Documents.API.Application.Contracts.Enum;
 using Documents.API.Application.Contracts.Incoming;
 using MediatR;
-using Documents.API.Application.Contracts.Outgoing;
+using Microsoft.AspNetCore.Http;
 
-namespace Documents.API.Application.Command.Upload
+namespace Documents.API.Application.Command.Upload;
+
+public class UploadCommand : IRequest<long>
 {
-    public class UploadCommand:IRequest<long>
+    public IFormFile File { get; set; }
+    public long EntityId { get; set; }
+    public SubjectUpdate Subject { get; set; }
+
+    public UploadCommand(UploadFileDTO uploadFileDto)
     {
-        public IFormFile File { get; set; }
-        public long EntityId { get; set; }
-        public SubjectUpdate Subject { get; set; }
-
-        public UploadCommand(UploadFileDTO uploadFileDto)
-        {
-            File = uploadFileDto.File;
-            EntityId=uploadFileDto.EntityId;
-            Subject = uploadFileDto.Subject;
-
-        }
+        File = uploadFileDto.File;
+        EntityId = uploadFileDto.EntityId;
+        Subject = uploadFileDto.Subject;
     }
 }

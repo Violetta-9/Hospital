@@ -11,7 +11,6 @@ using Documents.API.Helpers;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -23,7 +22,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var services= builder.Services;
+var services = builder.Services;
 var configurationRoot = builder.Configuration;
 services.AddApplication();
 services.AddRepository();
@@ -31,19 +30,20 @@ var blobSettings = services.Configure<BlobStorageSettings>(configurationRoot.Get
 services.AddSingleton(blobSettings);
 services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 services.AddApplicationServices();
-services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetSection("ConnectionStrings:BlobStorageConnection").Value));
+services.AddSingleton(x =>
+    new BlobServiceClient(builder.Configuration.GetSection("ConnectionStrings:BlobStorageConnection").Value));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 services.AddIdentity<Account, IdentityRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 6;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredUniqueChars = 0;
-})
+    {
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequiredUniqueChars = 0;
+    })
     .AddEntityFrameworkStores<HospitalDbContext>()
     .AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider);
 
@@ -93,7 +93,6 @@ services.AddSwaggerGen(c =>
     });
     c.EnableAnnotations();
 });
-
 
 
 services.AddProblemDetails(x =>

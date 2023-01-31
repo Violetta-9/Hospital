@@ -1,31 +1,25 @@
-﻿using Documents.API.Client.Helpers;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Headers;
+using Documents.API.Client.Helpers;
 using Documents.API.Client.HttpClientProvider.Abstraction;
+using Microsoft.AspNetCore.Http;
 
-namespace Documents.API.Client.HttpClientProvider
+namespace Documents.API.Client.HttpClientProvider;
+
+public class DefaultDocumentApiHttpClientProvider : IDocumentApiHttpClientProvider
 {
-    public class DefaultDocumentApiHttpClientProvider:IDocumentApiHttpClientProvider
+    private readonly IHttpContextAccessor _context;
+
+    public DefaultDocumentApiHttpClientProvider(IHttpContextAccessor context)
     {
-        private readonly IHttpContextAccessor _context;
+        _context = context;
+    }
 
-        public DefaultDocumentApiHttpClientProvider(IHttpContextAccessor context)
-        {
-            _context = context;
-        }
+    public Task<HttpClient> GetHttpClientAsync(CancellationToken cancellationToken)
+    {
+        var httpClient = new HttpClient();
+        if (AuthorizationHelper.TryGetAuthorizationTokenFromHttpHeader(_context, out var token))
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        public Task<HttpClient> GetHttpClientAsync(CancellationToken cancellationToken)
-        {
-            var httpClient = new HttpClient();
-            if (AuthorizationHelper.TryGetAuthorizationTokenFromHttpHeader(_context, out var token))
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            return Task.FromResult(httpClient);
-        }
+        return Task.FromResult(httpClient);
     }
 }

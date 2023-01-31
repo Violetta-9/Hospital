@@ -1,36 +1,28 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Documents.API.Application.Command.Upload;
-using Microsoft.AspNetCore.Http;
+﻿using Documents.API.Application.Command.Upload;
 using Documents.API.Application.Resourse;
+using FluentValidation;
+using Microsoft.AspNetCore.Http;
 
-namespace Documents.API.Application.Validator.Command
+namespace Documents.API.Application.Validator.Command;
+
+public class UploadValidator : AbstractValidator<UploadCommand>
 {
-    public class UploadValidator : AbstractValidator<UploadCommand>
+    public UploadValidator()
     {
-        public UploadValidator()
-        {
-            CreateRule();
-        }
+        CreateRule();
+    }
 
-        private void CreateRule()
-        {
-            
-            RuleFor(x => x.File)
-                .Cascade(CascadeMode.Stop)
-                .Must(IsImageType)
-                .WithMessage(Messages.NotValidType);
-        }
+    private void CreateRule()
+    {
+        RuleFor(x => x.File)
+            .Cascade(CascadeMode.Stop)
+            .Must(IsImageType)
+            .WithMessage(Messages.NotValidType);
+    }
 
-       
 
-        private bool IsImageType(IFormFile arg)
-        {
-            return arg.ContentType.Contains("image");
-        }
+    private bool IsImageType(IFormFile arg)
+    {
+        return arg.ContentType.Contains("image");
     }
 }

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Documents.API.Client.Configuration;
 
-namespace Documents.API.Client.Configuration
+public class DocumentApiOptions
 {
-    public class DocumentApiOptions
-    {
-        public string DocumentUrl { get; set; }
-    }
+    public string DocumentUrl { get; set; }
 }
