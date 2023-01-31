@@ -2,11 +2,13 @@
 using Authorization.API.Client.GeneratedClient;
 using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
+using Documents.API.Client.Abstraction;
+using Documents.API.Client.GeneratedClient;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
+using Response = Profile.Application.Contracts.Outgoing.Response;
 
 namespace Profile.Application.Command.Receptionists.AddReceptionistRole;
 
@@ -16,14 +18,17 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
     private readonly IEmailServices _emailServices;
     private readonly IReceptionistRepository _receptionistRepository;
     private readonly UserManager<Account> _userManager;
+    private readonly IDocumentApiProxy _documentApiProxy;
+
 
     public AddReceptionistRoleCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist,
-        IAuthorizationApiProxy authorizationService, IEmailServices emailServices)
+        IAuthorizationApiProxy authorizationService, IEmailServices emailServices,IDocumentApiProxy documentApiProxy)
     {
         _userManager = userManager;
         _authorizationApiProxy = authorizationService;
         _receptionistRepository = receptionist;
         _emailServices = emailServices;
+        _documentApiProxy = documentApiProxy;
     }
 
     public async Task<Response> Handle(AddReceptionistRoleCommand request, CancellationToken cancellationToken)
@@ -47,10 +52,24 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
         if (user != null)
         {
             await _userManager.AddToRoleAsync(user, role);
-            await _receptionistRepository.InsertAsync(new Receptionist
+           var recep= await _receptionistRepository.InsertAsync(new Receptionist
             {   AccountId = user.Id,
                 OfficeId = request.ReceptionistDTO.OfficeId
             }, cancellationToken);
+
+            if (request.ReceptionistDTO.File != null)
+            {
+                var response = await _documentApiProxy.UploadBlobAsync(
+                    new FileParameter(request.ReceptionistDTO.File.OpenReadStream(), request.ReceptionistDTO.File.FileName,
+                        request.ReceptionistDTO.File.ContentType), recep.Id, SubjectUpdate._1, cancellationToken);
+                if (response > 0)
+                {
+                    user.DocumentationId = response;
+                    await _userManager.UpdateAsync(user);
+                    return Response.Success;
+                }
+                return Response.Error;
+            }
             return Response.Success;
         }
 

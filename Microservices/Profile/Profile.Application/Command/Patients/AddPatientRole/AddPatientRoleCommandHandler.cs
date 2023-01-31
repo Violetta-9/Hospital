@@ -32,6 +32,7 @@ public class AddPatientRoleCommandHandler : IRequestHandler<AddPatientRoleComman
             {
                 AccountId = user.Id
             }, cancellationToken);
+
             return Response.Success;
         }
 
