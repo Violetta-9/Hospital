@@ -18,9 +18,9 @@ namespace Documents.API.Application.Command.Upload
         public long EntityId { get; set; }
         public SubjectUpdate Subject { get; set; }
 
-        public UploadCommand(UploadFileDTO uploadFileDto,IFormFile file)
+        public UploadCommand(UploadFileDTO uploadFileDto)
         {
-            File = file;
+            File = uploadFileDto.File;
             EntityId=uploadFileDto.EntityId;
             Subject = uploadFileDto.Subject;
 
