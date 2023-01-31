@@ -37,7 +37,6 @@ namespace Documents.API.Application.Services
             var blobs = await blobClient.DownloadAsync(cancellationToken);
             return new BlobDTO
             {
-                DownLoadStream = blobs.Value.Content,
                 TypeOfContent = blobs.Value.ContentType,
                 AbsoluteUri = blobClient.Uri.AbsoluteUri,
             };
