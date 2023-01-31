@@ -29,7 +29,8 @@ public interface IDoctorRepository : IRepositoryBase<Doctor>
 internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
 {
     private readonly BlobUrlHelpers _blobUrlHelpers;
-    public DoctorRepository(HospitalDbContext dbContext,IOptions<BlobUrlHelpers> blobOptions) : base(dbContext)
+
+    public DoctorRepository(HospitalDbContext dbContext, IOptions<BlobUrlHelpers> blobOptions) : base(dbContext)
     {
         _blobUrlHelpers = blobOptions.Value;
     }
@@ -52,8 +53,6 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
             DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
-         
-            
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -70,9 +69,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
             CareerStartYear = x.CareerStartYear,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path,
-
-
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }
 
@@ -82,7 +79,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
         return await DbContext.Doctors.Where(x => x.OfficeId == officeid).Select(x => new DoctorAllDTO
         {
             Id = x.Id,
-            AccountId=x.AccountId,
+            AccountId = x.AccountId,
             FirstName = x.Account.FirstName,
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
@@ -90,7 +87,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).ToArrayAsync(cancellationToken);
     }
 

@@ -10,13 +10,13 @@ namespace Profile.Application.Command.Receptionists.DeleteReceptionist;
 
 internal class DeleteReceptionistCommandHandler : IRequestHandler<DeleteReceptionistCommand, Response>
 {
+    private readonly IDocumentApiProxy _documentApiProxy;
     private readonly IReceptionistRepository _receptionistRepository;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<Account> _userManager;
-    private readonly IDocumentApiProxy _documentApiProxy;
 
     public DeleteReceptionistCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager,
-        IReceptionistRepository receptionistRepository,IDocumentApiProxy documentApiProxy)
+        IReceptionistRepository receptionistRepository, IDocumentApiProxy documentApiProxy)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -38,12 +38,12 @@ internal class DeleteReceptionistCommandHandler : IRequestHandler<DeleteReceptio
 
         if (user.DocumentationId != null)
         {
-            var documentId =(long) user.DocumentationId;
+            var documentId = (long)user.DocumentationId;
             user.DocumentationId = null;
             await _userManager.UpdateAsync(user);
             await _documentApiProxy.DeleteBlobAsync(documentId, cancellationToken);
-            
         }
+
         return Response.Success;
     }
 }

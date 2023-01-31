@@ -26,6 +26,5 @@ internal class GetReceptionistByIdValidator : AbstractValidator<GetReceptionistB
     private async Task<bool> ExistsReceptionist(long receptionistId, CancellationToken cancellationToken)
     {
         return await _receptionistRepository.ExistsAsync(receptionistId, cancellationToken);
-        
     }
 }

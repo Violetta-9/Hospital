@@ -26,8 +26,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\SharedTypeForRabbitmq\OfficeStatusChanged\OfficeStatusChanged\OfficeStatusChanged.csproj" />
-		<ProjectReference Include="..\..\SharedTypeForRabbitmq\SpecializationStatusChanged\SpecializationStatusChanged\SpecializationStatusChanged\SpecializationStatusChanged.csproj" />
+		<ProjectReference
+			Include="..\..\SharedTypeForRabbitmq\OfficeStatusChanged\OfficeStatusChanged\OfficeStatusChanged.csproj" />
+		<ProjectReference
+			Include="..\..\SharedTypeForRabbitmq\SpecializationStatusChanged\SpecializationStatusChanged\SpecializationStatusChanged\SpecializationStatusChanged.csproj" />
 		<ProjectReference Include="..\..\Shared\Authorization.Data.EF.PostgreSQL\Authorization.Data.EF.PostgreSQL.csproj" />
 		<ProjectReference Include="..\..\Shared\Authorization.Data.Shared\Authorization.Data.Shared.csproj" />
 		<ProjectReference Include="..\Profile.Application\Profile.Application.csproj" />

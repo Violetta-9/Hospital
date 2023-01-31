@@ -10,13 +10,13 @@ namespace Profile.Application.Command.Patients.DeletePatient;
 
 internal class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand, Response>
 {
+    private readonly IDocumentApiProxy _documentApiProxy;
     private readonly IPatientRepository _patientRepository;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<Account> _userManager;
-    private readonly IDocumentApiProxy _documentApiProxy;
 
     public DeletePatientCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager,
-        IPatientRepository patientRepository,IDocumentApiProxy documentApiProxy)
+        IPatientRepository patientRepository, IDocumentApiProxy documentApiProxy)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -42,8 +42,8 @@ internal class DeletePatientCommandHandler : IRequestHandler<DeletePatientComman
             user.DocumentationId = null;
             await _userManager.UpdateAsync(user);
             await _documentApiProxy.DeleteBlobAsync(documentId, cancellationToken);
-           
         }
+
         return Response.Success;
     }
 }

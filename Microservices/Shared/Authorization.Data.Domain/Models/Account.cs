@@ -16,5 +16,4 @@ public class Account : IdentityUser, IAudientable
     public virtual Documentation Documentation { get; set; }
     public DateTimeOffset RowCreatedTimestamp { get; set; }
     public DateTimeOffset LastRowModificationTimestamp { get; set; }
-  
 }

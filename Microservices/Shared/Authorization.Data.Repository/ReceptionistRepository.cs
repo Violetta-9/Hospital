@@ -23,7 +23,8 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
 {
     private readonly BlobUrlHelpers _blobUrlHelpers;
 
-    public ReceptionistRepository(HospitalDbContext dbContext,IOptions<BlobUrlHelpers> blobUrlHelpers) : base(dbContext)
+    public ReceptionistRepository(HospitalDbContext dbContext, IOptions<BlobUrlHelpers> blobUrlHelpers) :
+        base(dbContext)
     {
         _blobUrlHelpers = blobUrlHelpers.Value;
     }
@@ -44,7 +45,7 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
             MiddleName = x.Account.MiddleName,
             OfficeAddress = x.Office.Address,
             DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
-        }).ToArrayAsync(cancellationToken); 
+        }).ToArrayAsync(cancellationToken);
     }
 
     public async Task<ReceptionistOneDTO?> GetReceptionistByIdAsync(long id,

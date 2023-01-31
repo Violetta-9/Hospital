@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Authorization.Data.Shared.MappingConfiguration.Extension;
+﻿using Authorization.Data.Shared.MappingConfiguration.Extension;
 using Authorization.Data_Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

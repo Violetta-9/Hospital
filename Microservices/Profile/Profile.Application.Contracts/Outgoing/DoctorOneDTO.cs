@@ -13,5 +13,4 @@ public class DoctorOneDTO
     public string Blob { get; set; }
     public DateTime CareerStartYear { get; set; }
     public DateTime BirthDay { get; set; }
-    
 }

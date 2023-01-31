@@ -2,24 +2,19 @@
 using Authorization.Data_Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Authorization.Data.Shared.MappingConfiguration
+namespace Authorization.Data.Shared.MappingConfiguration;
+
+public class DocumentationMappingConfiguration : IEntityTypeConfiguration<Documentation>
 {
-    public class DocumentationMappingConfiguration : IEntityTypeConfiguration<Documentation>
+    public void Configure(EntityTypeBuilder<Documentation> builder)
     {
-        public void Configure(EntityTypeBuilder<Documentation> builder)
-        {
-            builder.BasedMapping();
-            builder.Property(x => x.Path).HasColumnName(nameof(Documentation.Path)).HasMaxLength(512).IsRequired();
-            builder.Property(x=>x.FileName).HasColumnName(nameof(Documentation.FileName)).HasMaxLength(264).IsRequired();
-            builder.Property(x=>x.ContainerName).HasColumnName(nameof(Documentation.ContainerName)).HasMaxLength(100).IsRequired();
-            builder.HasOne(x => x.Account).WithOne(x => x.Documentation).HasForeignKey<Account>(x => x.DocumentationId);
-            builder.HasOne(x => x.Office).WithOne(x => x.Documentation).HasForeignKey<Office>(x => x.DocumentationId);
-        }
+        builder.BasedMapping();
+        builder.Property(x => x.Path).HasColumnName(nameof(Documentation.Path)).HasMaxLength(512).IsRequired();
+        builder.Property(x => x.FileName).HasColumnName(nameof(Documentation.FileName)).HasMaxLength(264).IsRequired();
+        builder.Property(x => x.ContainerName).HasColumnName(nameof(Documentation.ContainerName)).HasMaxLength(100)
+            .IsRequired();
+        builder.HasOne(x => x.Account).WithOne(x => x.Documentation).HasForeignKey<Account>(x => x.DocumentationId);
+        builder.HasOne(x => x.Office).WithOne(x => x.Documentation).HasForeignKey<Office>(x => x.DocumentationId);
     }
 }

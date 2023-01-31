@@ -7,7 +7,6 @@ using Authorization.Data_Domain.Models;
 using Documents.API.Client;
 using Hellang.Middleware.ProblemDetails;
 using MassTransit;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +17,6 @@ using Profile.Application;
 using Profile.Application.Contracts.Internal;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
-
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -116,25 +114,17 @@ builder.Services.AddMassTransit(x =>
 
     x.AddBus(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
     {
-      
-    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+        cfg.Host(new Uri("rabbitmq://localhost"), h =>
         {
             h.Username("guest");
             h.Password("guest");
         });
         var serviceProvider = builder.Services.BuildServiceProvider();
-        cfg.ReceiveEndpoint("office-status-change", e =>
-        {
-            e.Consumer<OfficeStatusChangedConsumer>(serviceProvider);
-        });
-        cfg.ReceiveEndpoint("doctor-status-change", e =>
-        {
-            e.Consumer<SpecializationStatusChangedConsumer>(serviceProvider);
-        });
+        cfg.ReceiveEndpoint("office-status-change", e => { e.Consumer<OfficeStatusChangedConsumer>(serviceProvider); });
+        cfg.ReceiveEndpoint("doctor-status-change",
+            e => { e.Consumer<SpecializationStatusChangedConsumer>(serviceProvider); });
     }));
 });
-
-
 
 
 var app = builder.Build();
