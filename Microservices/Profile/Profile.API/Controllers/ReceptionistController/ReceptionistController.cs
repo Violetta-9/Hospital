@@ -26,7 +26,7 @@ public class ReceptionistController : MediatingControllerBase
     [HttpPost("roles")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
     [SwaggerOperation(Summary = "Assign receptionist role", OperationId = "AssignReceptionistRole")]
-    public async Task<ActionResult> AssignReceptionistRole([FromBody] ReceptionistDTO receptionistDto)
+    public async Task<ActionResult> AssignReceptionistRole([FromForm] ReceptionistDTO receptionistDto)
     {
         var query = new AddReceptionistRoleCommand(receptionistDto);
         return await SendRequestAsync(query);
