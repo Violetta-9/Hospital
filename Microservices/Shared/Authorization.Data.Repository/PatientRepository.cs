@@ -2,7 +2,9 @@
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Profile.Application.Contracts.Outgoing;
+using Profile.Application.Helpers;
 
 namespace Authorization.Data.Repository;
 
@@ -17,8 +19,10 @@ public interface IPatientRepository : IRepositoryBase<Patient>
 
 internal class PatientRepository : RepositoryBase<Patient>, IPatientRepository
 {
-    public PatientRepository(HospitalDbContext dbContext) : base(dbContext)
+    private readonly BlobUrlHelpers _blobUrlHelpers;
+    public PatientRepository(HospitalDbContext dbContext, IOptions<BlobUrlHelpers> blobUrlHelpers) : base(dbContext)
     {
+        _blobUrlHelpers = blobUrlHelpers.Value;
     }
 
     public async Task<Patient> GetPatientByAccountId(string accountId, CancellationToken cancellationToken = default)
@@ -47,7 +51,8 @@ internal class PatientRepository : RepositoryBase<Patient>, IPatientRepository
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
             PhoneNumber = x.Account.PhoneNumber,
-            BirthDay = x.Account.Birthday
+            BirthDay = x.Account.Birthday,
+            DocumentAbsolutUrl= _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }
 }

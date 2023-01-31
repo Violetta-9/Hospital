@@ -2,7 +2,9 @@
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Profile.Application.Contracts.Outgoing;
+using Profile.Application.Helpers;
 
 namespace Authorization.Data.Repository;
 
@@ -19,8 +21,11 @@ public interface IReceptionistRepository : IRepositoryBase<Receptionist>
 
 internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReceptionistRepository
 {
-    public ReceptionistRepository(HospitalDbContext dbContext) : base(dbContext)
+    private readonly BlobUrlHelpers _blobUrlHelpers;
+
+    public ReceptionistRepository(HospitalDbContext dbContext,IOptions<BlobUrlHelpers> blobUrlHelpers) : base(dbContext)
     {
+        _blobUrlHelpers = blobUrlHelpers.Value;
     }
 
     public async Task<Receptionist> GetReceptionistByAccountIdAsync(string accountId,
@@ -37,8 +42,9 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
             FirstName = x.Account.FirstName,
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
-            OfficeAddress = x.Office.Address
-        }).ToArrayAsync(cancellationToken);
+            OfficeAddress = x.Office.Address,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+        }).ToArrayAsync(cancellationToken); 
     }
 
     public async Task<ReceptionistOneDTO?> GetReceptionistByIdAsync(long id,
@@ -50,7 +56,8 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
             FirstName = x.Account.FirstName,
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
-            OfficeAddress = x.Office.Address
+            OfficeAddress = x.Office.Address,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }
 }
