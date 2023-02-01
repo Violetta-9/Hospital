@@ -4,17 +4,17 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Command.Doctors.UpdateDoctor.UpdateDoctorProfile;
 using Profile.Application.Resources;
-using System.Threading;
 
 namespace Profile.Application.Validators.Commands.Doctor;
 
 public class UpdateDoctorProfileValidator : AbstractValidator<UpdateDoctorProfileCommand>
 {
-    private readonly UserManager<Account> _userManager;
-    private readonly ISpecializationRepository _specializationRepository;
     private readonly IOfficeRepository _officeRepository;
+    private readonly ISpecializationRepository _specializationRepository;
+    private readonly UserManager<Account> _userManager;
 
-    public UpdateDoctorProfileValidator(UserManager<Account> userManager,ISpecializationRepository specializationRepository,IOfficeRepository officeRepository)
+    public UpdateDoctorProfileValidator(UserManager<Account> userManager,
+        ISpecializationRepository specializationRepository, IOfficeRepository officeRepository)
     {
         _specializationRepository = specializationRepository;
         _officeRepository = officeRepository;

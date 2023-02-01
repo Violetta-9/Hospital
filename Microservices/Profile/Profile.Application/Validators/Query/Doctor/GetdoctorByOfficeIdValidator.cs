@@ -17,7 +17,6 @@ internal class GetDoctorByOfficeIdValidator : AbstractValidator<GetDoctorsByOffi
 
     private void CreateRules()
     {
-
         RuleFor(x => x.OfficeId)
             .Cascade(CascadeMode.Stop)
             .MustAsync(ExistsOfficeAsync)

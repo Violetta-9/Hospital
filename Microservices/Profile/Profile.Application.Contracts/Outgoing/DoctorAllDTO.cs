@@ -11,4 +11,5 @@ public class DoctorAllDTO
     public string OfficeAddress { get; set; }
     public string StatusTitle { get; set; }
     public DateTime BirthDay { get; set; }
+    public string DocumentAbsolutUrl { get; set; }
 }

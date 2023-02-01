@@ -9,7 +9,8 @@ public class DoctorOneDTO
     public string SpecializationTitle { get; set; }
     public string OfficeAddress { get; set; }
     public string StatusTitle { get; set; }
-    public string PhotoPath { get; set; }
+    public string DocumentAbsolutUrl { get; set; }
+    public string Blob { get; set; }
     public DateTime CareerStartYear { get; set; }
     public DateTime BirthDay { get; set; }
 }

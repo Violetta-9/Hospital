@@ -9,9 +9,11 @@ public class Account : IdentityUser, IAudientable
     public string LastName { get; set; }
     public string MiddleName { get; set; }
     public DateTime Birthday { get; set; }
+    public long? DocumentationId { get; set; }
     public virtual Doctor Doctors { get; set; }
     public virtual Receptionist Receptionists { get; set; }
     public virtual Patient Patients { get; set; }
+    public virtual Documentation Documentation { get; set; }
     public DateTimeOffset RowCreatedTimestamp { get; set; }
     public DateTimeOffset LastRowModificationTimestamp { get; set; }
 }

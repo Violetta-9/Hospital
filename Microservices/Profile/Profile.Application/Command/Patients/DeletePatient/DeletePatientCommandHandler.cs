@@ -1,5 +1,6 @@
 ﻿using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
+using Documents.API.Client.Abstraction;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Profile.Application.Contracts.Outgoing;
@@ -9,16 +10,18 @@ namespace Profile.Application.Command.Patients.DeletePatient;
 
 internal class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand, Response>
 {
+    private readonly IDocumentApiProxy _documentApiProxy;
     private readonly IPatientRepository _patientRepository;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<Account> _userManager;
 
     public DeletePatientCommandHandler(UserManager<Account> userManager, RoleManager<IdentityRole> roleManager,
-        IPatientRepository patientRepository)
+        IPatientRepository patientRepository, IDocumentApiProxy documentApiProxy)
     {
         _userManager = userManager;
         _roleManager = roleManager;
         _patientRepository = patientRepository;
+        _documentApiProxy = documentApiProxy;
     }
 
     public async Task<Response> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
@@ -32,6 +35,15 @@ internal class DeletePatientCommandHandler : IRequestHandler<DeletePatientComman
         if (user == null) return Response.Error;
 
         await _userManager.RemoveFromRoleAsync(user, role);
+
+        if (user.DocumentationId != null)
+        {
+            var documentId = (long)user.DocumentationId;
+            user.DocumentationId = null;
+            await _userManager.UpdateAsync(user);
+            await _documentApiProxy.DeleteBlobAsync(documentId, cancellationToken);
+        }
+
         return Response.Success;
     }
 }

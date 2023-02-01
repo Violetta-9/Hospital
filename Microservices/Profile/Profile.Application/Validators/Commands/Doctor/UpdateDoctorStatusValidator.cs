@@ -9,9 +9,10 @@ namespace Profile.Application.Validators.Commands.Doctor;
 
 public class UpdateDoctorStatusValidator : AbstractValidator<UpdateDoctorStatusCommand>
 {
-    private readonly UserManager<Account> _userManager;
     private readonly IStatusRepository _statusRepository;
-    public UpdateDoctorStatusValidator(UserManager<Account> userManager,IStatusRepository statusRepository)
+    private readonly UserManager<Account> _userManager;
+
+    public UpdateDoctorStatusValidator(UserManager<Account> userManager, IStatusRepository statusRepository)
     {
         _userManager = userManager;
         _statusRepository = statusRepository;
@@ -24,14 +25,14 @@ public class UpdateDoctorStatusValidator : AbstractValidator<UpdateDoctorStatusC
             .Cascade(CascadeMode.Stop)
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.AccountId));
-   
+
 
         RuleFor(x => x.NewStatus)
             .Cascade(CascadeMode.Stop)
             .MustAsync(_statusRepository.ExistsAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundStatus, opt.NewStatus));
     }
-    
+
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(id);

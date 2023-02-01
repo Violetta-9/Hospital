@@ -9,27 +9,24 @@ namespace Profile.Application.Validators.Commands.Doctor;
 
 public class AssignDoctorRoleValidator : AbstractValidator<AddDoctorRoleCommand>
 {
-    private readonly UserManager<Account> _userManager;
+    private readonly IOfficeRepository _officeRepository;
     private readonly ISpecializationRepository _specializationRepository;
     private readonly IStatusRepository _statusRepository;
-    private readonly IOfficeRepository _officeRepository;
+    private readonly UserManager<Account> _userManager;
 
 
-    public AssignDoctorRoleValidator(UserManager<Account> userManager, IStatusRepository statusRepository, IOfficeRepository officeRepository,ISpecializationRepository specializationRepository)
+    public AssignDoctorRoleValidator(UserManager<Account> userManager, IStatusRepository statusRepository,
+        IOfficeRepository officeRepository, ISpecializationRepository specializationRepository)
     {
         _userManager = userManager;
         _statusRepository = statusRepository;
         _officeRepository = officeRepository;
         _specializationRepository = specializationRepository;
         CreateRules();
-
     }
 
     private void CreateRules()
     {
-       
-      
-
         RuleFor(x => x.Doctor.OfficeId)
             .Cascade(CascadeMode.Stop)
             .MustAsync(_officeRepository.ExistsAsync)
@@ -45,5 +42,4 @@ public class AssignDoctorRoleValidator : AbstractValidator<AddDoctorRoleCommand>
             .MustAsync(_specializationRepository.ExistsAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundSpecialition, opt.Doctor.SpecializationId));
     }
-
 }

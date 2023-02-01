@@ -12,7 +12,7 @@ public class UpdateOfficeForReceptionistValidator : AbstractValidator<UpdateOffi
     private readonly IOfficeRepository _officeRepository;
     private readonly UserManager<Account> _userManager;
 
-    public UpdateOfficeForReceptionistValidator(UserManager<Account> userManager,IOfficeRepository officeRepository)
+    public UpdateOfficeForReceptionistValidator(UserManager<Account> userManager, IOfficeRepository officeRepository)
     {
         _userManager = userManager;
         _officeRepository = officeRepository;
@@ -31,7 +31,7 @@ public class UpdateOfficeForReceptionistValidator : AbstractValidator<UpdateOffi
             .MustAsync(_officeRepository.ExistsAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundOffice, opt.NewOffice));
     }
-   
+
 
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
     {

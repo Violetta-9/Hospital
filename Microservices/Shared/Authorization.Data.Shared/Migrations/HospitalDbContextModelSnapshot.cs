@@ -17,7 +17,7 @@ namespace Authorization.Data.Shared.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -39,6 +39,9 @@ namespace Authorization.Data.Shared.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
+
+                    b.Property<long?>("DocumentationId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -97,6 +100,9 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DocumentationId")
+                        .IsUnique();
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -150,6 +156,34 @@ namespace Authorization.Data.Shared.Migrations
                     b.ToTable("Doctors");
                 });
 
+            modelBuilder.Entity("Authorization.Data_Domain.Models.Documentation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ContainerName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastRowModificationTimestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("RowCreatedTimestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Documentations");
+                });
+
             modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>
                 {
                     b.Property<long>("Id")
@@ -160,6 +194,9 @@ namespace Authorization.Data.Shared.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
+
+                    b.Property<long?>("DocumentationId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
@@ -174,6 +211,9 @@ namespace Authorization.Data.Shared.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DocumentationId")
+                        .IsUnique();
 
                     b.ToTable("Offices");
                 });
@@ -475,6 +515,15 @@ namespace Authorization.Data.Shared.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Authorization.Data_Domain.Models.Account", b =>
+                {
+                    b.HasOne("Authorization.Data_Domain.Models.Documentation", "Documentation")
+                        .WithOne("Account")
+                        .HasForeignKey("Authorization.Data_Domain.Models.Account", "DocumentationId");
+
+                    b.Navigation("Documentation");
+                });
+
             modelBuilder.Entity("Authorization.Data_Domain.Models.Doctor", b =>
                 {
                     b.HasOne("Authorization.Data_Domain.Models.Account", "Account")
@@ -506,6 +555,15 @@ namespace Authorization.Data.Shared.Migrations
                     b.Navigation("Specialization");
 
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>
+                {
+                    b.HasOne("Authorization.Data_Domain.Models.Documentation", "Documentation")
+                        .WithOne("Office")
+                        .HasForeignKey("Authorization.Data_Domain.Models.Office", "DocumentationId");
+
+                    b.Navigation("Documentation");
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Patient", b =>
@@ -609,6 +667,13 @@ namespace Authorization.Data.Shared.Migrations
                     b.Navigation("Patients");
 
                     b.Navigation("Receptionists");
+                });
+
+            modelBuilder.Entity("Authorization.Data_Domain.Models.Documentation", b =>
+                {
+                    b.Navigation("Account");
+
+                    b.Navigation("Office");
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>

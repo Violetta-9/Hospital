@@ -9,7 +9,7 @@ public interface IRepositoryBase<TEntity>
     Task DeleteAsync(long id, CancellationToken cancellationToken = default);
     Task<bool> ExistsAsync(long id, CancellationToken cancellationToken = default);
     Task<TEntity> GetAsync(long id, CancellationToken cancellationToken = default);
-    Task<TEntity> GetAsync(string id, CancellationToken cancellationToken = default);
+
 
     Task<TEntity[]> GetAllAsync(CancellationToken cancellationToken = default);
     Task<TEntity> InsertAsync(TEntity newEntity, CancellationToken cancellationToken = default);
@@ -31,12 +31,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 
     public Task<TEntity> GetAsync(long id, CancellationToken cancellationToken)
     {
-        return DbContext.Set<TEntity>().SingleOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
-    }
-
-    public Task<TEntity> GetAsync(string id, CancellationToken cancellationToken)
-    {
-        return DbContext.Set<TEntity>().SingleOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
+        return DbContext.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
     }
 
 

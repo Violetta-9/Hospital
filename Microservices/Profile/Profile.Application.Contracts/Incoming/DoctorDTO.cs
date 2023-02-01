@@ -1,4 +1,6 @@
-﻿namespace Profile.Application.Contracts.Incoming;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Profile.Application.Contracts.Incoming;
 
 public class DoctorDTO
 {
@@ -11,4 +13,5 @@ public class DoctorDTO
     public long SpecializationId { get; set; }
     public long OfficeId { get; set; }
     public long StatusId { get; set; }
+    public IFormFile? File { get; set; }
 }

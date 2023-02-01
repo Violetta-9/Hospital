@@ -4,9 +4,9 @@ using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
+using Documents.API.Client;
 using Hellang.Middleware.ProblemDetails;
 using MassTransit;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -17,7 +17,6 @@ using Profile.Application;
 using Profile.Application.Contracts.Internal;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
-
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -31,12 +30,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
 services.AddApplication();
 services.AddApplicationServices();
-var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
+var uriSettings = services.Configure<BlobUrlHelpers>(configurationRoot.GetSection(nameof(BlobUrlHelpers)));
 services.AddSingleton(uriSettings);
 services.AddRepository();
 services.AddAuthorizationApi(configurationRoot);
-services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
-
+services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddDocumentsApi(configurationRoot);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var emailConfig = services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
@@ -115,25 +114,17 @@ builder.Services.AddMassTransit(x =>
 
     x.AddBus(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
     {
-      
-    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+        cfg.Host(new Uri("rabbitmq://localhost"), h =>
         {
             h.Username("guest");
             h.Password("guest");
         });
         var serviceProvider = builder.Services.BuildServiceProvider();
-        cfg.ReceiveEndpoint("office-status-change", e =>
-        {
-            e.Consumer<OfficeStatusChangedConsumer>(serviceProvider);
-        });
-        cfg.ReceiveEndpoint("doctor-status-change", e =>
-        {
-            e.Consumer<SpecializationStatusChangedConsumer>(serviceProvider);
-        });
+        cfg.ReceiveEndpoint("office-status-change", e => { e.Consumer<OfficeStatusChangedConsumer>(serviceProvider); });
+        cfg.ReceiveEndpoint("doctor-status-change",
+            e => { e.Consumer<SpecializationStatusChangedConsumer>(serviceProvider); });
     }));
 });
-
-
 
 
 var app = builder.Build();

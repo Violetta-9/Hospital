@@ -2,28 +2,33 @@
 using Authorization.API.Client.GeneratedClient;
 using Authorization.Data.Repository;
 using Authorization.Data_Domain.Models;
+using Documents.API.Client.Abstraction;
+using Documents.API.Client.GeneratedClient;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 using Profile.Application.Services;
+using Response = Profile.Application.Contracts.Outgoing.Response;
 
 namespace Profile.Application.Command.Receptionists.AddReceptionistRole;
 
 public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionistRoleCommand, Response>
 {
     private readonly IAuthorizationApiProxy _authorizationApiProxy;
+    private readonly IDocumentApiProxy _documentApiProxy;
     private readonly IEmailServices _emailServices;
     private readonly IReceptionistRepository _receptionistRepository;
     private readonly UserManager<Account> _userManager;
 
+
     public AddReceptionistRoleCommandHandler(UserManager<Account> userManager, IReceptionistRepository receptionist,
-        IAuthorizationApiProxy authorizationService, IEmailServices emailServices)
+        IAuthorizationApiProxy authorizationService, IEmailServices emailServices, IDocumentApiProxy documentApiProxy)
     {
         _userManager = userManager;
         _authorizationApiProxy = authorizationService;
         _receptionistRepository = receptionist;
         _emailServices = emailServices;
+        _documentApiProxy = documentApiProxy;
     }
 
     public async Task<Response> Handle(AddReceptionistRoleCommand request, CancellationToken cancellationToken)
@@ -33,7 +38,7 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
         await _emailServices.SendEmailAsync(request.ReceptionistDTO.Email, "Credentials Hospital",
             $"Log in to your account using the credentials below: \n email: {request.ReceptionistDTO.Email} \n password: {password}",
             cancellationToken);
-        var accountId = await _authorizationApiProxy.RegistrationAsync(new UserDTO()
+        var accountId = await _authorizationApiProxy.RegistrationAsync(new UserDTO
         {
             BirthDate = request.ReceptionistDTO.BirthDate,
             Email = request.ReceptionistDTO.Email,
@@ -47,10 +52,28 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
         if (user != null)
         {
             await _userManager.AddToRoleAsync(user, role);
-            await _receptionistRepository.InsertAsync(new Receptionist
-            {   AccountId = user.Id,
+            var recep = await _receptionistRepository.InsertAsync(new Receptionist
+            {
+                AccountId = user.Id,
                 OfficeId = request.ReceptionistDTO.OfficeId
             }, cancellationToken);
+
+            if (request.ReceptionistDTO.File != null)
+            {
+                var response = await _documentApiProxy.UploadBlobAsync(
+                    new FileParameter(request.ReceptionistDTO.File.OpenReadStream(),
+                        request.ReceptionistDTO.File.FileName,
+                        request.ReceptionistDTO.File.ContentType), recep.Id, SubjectUpdate._1, cancellationToken);
+                if (response > 0)
+                {
+                    user.DocumentationId = response;
+                    await _userManager.UpdateAsync(user);
+                    return Response.Success;
+                }
+
+                return Response.Error;
+            }
+
             return Response.Success;
         }
 

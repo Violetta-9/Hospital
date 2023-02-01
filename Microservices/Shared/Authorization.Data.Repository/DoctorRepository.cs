@@ -2,7 +2,9 @@
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Profile.Application.Contracts.Outgoing;
+using Profile.Application.Helpers;
 
 namespace Authorization.Data.Repository;
 
@@ -26,8 +28,11 @@ public interface IDoctorRepository : IRepositoryBase<Doctor>
 
 internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
 {
-    public DoctorRepository(HospitalDbContext dbContext) : base(dbContext)
+    private readonly BlobUrlHelpers _blobUrlHelpers;
+
+    public DoctorRepository(HospitalDbContext dbContext, IOptions<BlobUrlHelpers> blobOptions) : base(dbContext)
     {
+        _blobUrlHelpers = blobOptions.Value;
     }
 
     public async Task<Doctor> GetDoctorByAccountIdAsync(string accountId, CancellationToken cancellationToken = default)
@@ -46,7 +51,8 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             BirthDay = x.Account.Birthday,
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
-            StatusTitle = x.Status.Title
+            StatusTitle = x.Status.Title,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -62,7 +68,8 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
-            CareerStartYear = x.CareerStartYear
+            CareerStartYear = x.CareerStartYear,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }
 
@@ -72,14 +79,15 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
         return await DbContext.Doctors.Where(x => x.OfficeId == officeid).Select(x => new DoctorAllDTO
         {
             Id = x.Id,
-            AccountId=x.AccountId,
+            AccountId = x.AccountId,
             FirstName = x.Account.FirstName,
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
             BirthDay = x.Account.Birthday,
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
-            StatusTitle = x.Status.Title
+            StatusTitle = x.Status.Title,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -96,7 +104,8 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             BirthDay = x.Account.Birthday,
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
-            StatusTitle = x.Status.Title
+            StatusTitle = x.Status.Title,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -122,7 +131,8 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             BirthDay = x.Account.Birthday,
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
-            StatusTitle = x.Status.Title
+            StatusTitle = x.Status.Title,
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
         }).ToArrayAsync(cancellationToken);
         return doctors;
     }

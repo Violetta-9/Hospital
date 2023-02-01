@@ -30,7 +30,7 @@ public class DoctorController : MediatingControllerBase
     [HttpPost("roles")]
     [SwaggerOperation(Summary = "Assign the Role To Doctor", OperationId = "AssignRoleToDoctor")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-    public async Task<ActionResult> AssignRoleToDoctor([FromBody] DoctorDTO doctor)
+    public async Task<ActionResult> AssignRoleToDoctor([FromForm] DoctorDTO doctor)
     {
         var query = new AddDoctorRoleCommand(doctor);
         return await SendRequestAsync(query);

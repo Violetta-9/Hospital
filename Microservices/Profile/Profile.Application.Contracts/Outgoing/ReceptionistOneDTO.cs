@@ -7,5 +7,5 @@ public class ReceptionistOneDTO
     public string LastName { get; set; }
     public string MiddleName { get; set; }
     public string OfficeAddress { get; set; }
-    public string PhotoPath { get; set; }
+    public string DocumentAbsolutUrl { get; set; }
 }
