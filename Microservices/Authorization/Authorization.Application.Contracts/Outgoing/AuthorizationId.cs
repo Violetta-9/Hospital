@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Authorization.Application.Contracts.Outgoing
 {
-    public class AccessToken
+    public class AuthorizationId
     {
-        public string Token { get; set; }
+        public string AccountId { get; set; }
     }
 }

@@ -21,7 +21,7 @@ public class UserController : MediatingControllerBase
 
     [HttpPost("registration")]
     [SwaggerOperation(Summary = "Register new user", OperationId = "RegisterUser")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AccessToken))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AuthorizationId))]
     public async Task<ActionResult> Registration([FromBody] UserDTO newUser)
     {
         var query = new RegistrationCommand(newUser);
@@ -38,7 +38,7 @@ public class UserController : MediatingControllerBase
     }
 
     [HttpGet("confirmation/{userId}")]
-    [ApiExplorerSettings(IgnoreApi = true)]
+   
     public async Task<IActionResult> ConfirmEmail([FromRoute] [Required] string userId,
         [FromQuery] [Required] string token)
     {

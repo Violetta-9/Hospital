@@ -29,7 +29,7 @@ namespace Authorization.API.Client
             try
             {
                 var response = await api.RegisterUserAsync(newUser,cancellationToken);
-                return response.Token;
+                return response.AccountId;
             }
             catch (ApiException e)
             {

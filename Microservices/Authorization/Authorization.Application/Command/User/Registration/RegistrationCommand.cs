@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Authorization.Application.Command.User.Registration;
 
-public class RegistrationCommand : IRequest<AccessToken>
+public class RegistrationCommand : IRequest<AuthorizationId>
 {
     public UserDTO User { get; set; }
 

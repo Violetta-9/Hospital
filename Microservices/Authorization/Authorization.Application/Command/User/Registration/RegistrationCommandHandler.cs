@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Authorization.Application.Command.User.Registration;
 
-public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, AccessToken>
+public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, AuthorizationId>
 {
     private readonly IEmailServices _emailServices;
     private readonly RoleManager<IdentityRole> _roleManager;
@@ -22,7 +22,7 @@ public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, A
         _emailServices = emailServices;
     }
 
-    public async Task<AccessToken> Handle(RegistrationCommand request, CancellationToken cancellationToken)
+    public async Task<AuthorizationId> Handle(RegistrationCommand request, CancellationToken cancellationToken)
     {
         var role = UserRoles.User;
 
@@ -53,7 +53,7 @@ public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, A
             await _emailServices.SendConfirmEmailAsync(appUser, Messages.EmailSubject,
                 code,
                 cancellationToken);
-            return new AccessToken(){Token = appUser.Id};
+            return new AuthorizationId() { AccountId = appUser.Id };
         }
 
         throw new Exception(string.Join("/n", result.Errors.Select(x => x.Description)));

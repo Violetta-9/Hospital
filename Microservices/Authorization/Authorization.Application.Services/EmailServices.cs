@@ -27,7 +27,7 @@ public class EmailServices : IEmailServices
         CancellationToken cancellationToken)
     {
         var encodedToken = HttpUtility.UrlEncode(token);
-        var callbackUrl = $"https://localhost:44336/api/User/confirmation/{user.Id}?token={encodedToken}";
+        var callbackUrl = $"https://localhost:7091/api/User/confirmation/{user.Id}?token={encodedToken}";
         var content = string.Format(Messages.HtmlMessage,
             string.Join(" ", user.LastName, user.FirstName, user.MiddleName), callbackUrl);
 

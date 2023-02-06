@@ -50,7 +50,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, string>
             return stringToken;
         }
 
-        throw new Exception("Login work bad");
+        throw new Exception("Email or password are wrong");
     }
 
     private async Task<List<Claim>> CreateClaim(Account user)
