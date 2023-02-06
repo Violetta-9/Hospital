@@ -11,4 +11,5 @@ public class Service : KeyedEntityBase
     public long ServiceCategoryId { get; set; }
     public virtual Specialization Specialization { get; set; }
     public virtual ServiceCategory ServiceCategory { get; set; }
+    public virtual ICollection<Appointment> Appointments { get; set; }
 }

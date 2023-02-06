@@ -3,6 +3,7 @@ using System;
 using Authorization.Data.Shared.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Authorization.Data.Shared.Migrations
 {
     [DbContext(typeof(HospitalDbContext))]
-    partial class HospitalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230206121525_AddResultTable")]
+    partial class AddResultTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,40 +200,6 @@ namespace Authorization.Data.Shared.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Doctors");
-                });
-
-            modelBuilder.Entity("Authorization.Data_Domain.Models.Document", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("ContainerName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("LastRowModificationTimestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("text");
-
-                    b.Property<long>("ResultId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTimeOffset>("RowCreatedTimestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultId")
-                        .IsUnique();
-
-                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>
@@ -695,17 +664,6 @@ namespace Authorization.Data.Shared.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Authorization.Data_Domain.Models.Document", b =>
-                {
-                    b.HasOne("Authorization.Data_Domain.Models.Result", "Result")
-                        .WithOne("Document")
-                        .HasForeignKey("Authorization.Data_Domain.Models.Document", "ResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Result");
-                });
-
             modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>
                 {
                     b.HasOne("Authorization.Data_Domain.Models.Photo", "Photo")
@@ -856,11 +814,6 @@ namespace Authorization.Data.Shared.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("Office");
-                });
-
-            modelBuilder.Entity("Authorization.Data_Domain.Models.Result", b =>
-                {
-                    b.Navigation("Document");
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Service", b =>

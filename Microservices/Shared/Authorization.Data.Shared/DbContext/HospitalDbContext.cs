@@ -15,7 +15,10 @@ public class HospitalDbContext : IdentityDbContext<Account>
     public DbSet<Specialization> Specializations { get; set; }
     public DbSet<Service> Services { get; set; }
     public DbSet<ServiceCategory> ServiceCategories { get; set; }
-    public DbSet<Documentation> Documentations { get; set; }
+    public DbSet<Photo> Photos { get; set; }
+    public DbSet<Appointment> Appointments { get; set; }
+    public DbSet<Result> Results { get; set; }
+    public DbSet<Document> Documents { get; set; }
 
     public HospitalDbContext()
     {

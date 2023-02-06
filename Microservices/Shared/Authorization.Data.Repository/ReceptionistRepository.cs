@@ -44,7 +44,7 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
             OfficeAddress = x.Office.Address,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -58,7 +58,7 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
             OfficeAddress = x.Office.Address,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }
 }

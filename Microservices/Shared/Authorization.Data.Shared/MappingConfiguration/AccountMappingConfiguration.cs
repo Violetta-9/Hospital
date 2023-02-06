@@ -16,6 +16,6 @@ public class AccountMappingConfiguration : IEntityTypeConfiguration<Account>
             .IsRequired();
         builder.Property(x => x.LastName).HasColumnName(nameof(Account.LastName)).HasMaxLength(256).IsRequired();
         builder.Property(x => x.MiddleName).HasColumnName(nameof(Account.MiddleName)).HasMaxLength(256).IsRequired();
-        builder.Property(x => x.DocumentationId).HasColumnName(nameof(Account.DocumentationId));
+        builder.Property(x => x.PhotoId).HasColumnName(nameof(Account.PhotoId));
     }
 }

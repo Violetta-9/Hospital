@@ -52,7 +52,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -69,7 +69,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
             CareerStartYear = x.CareerStartYear,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }
 
@@ -87,7 +87,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -105,7 +105,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).ToArrayAsync(cancellationToken);
     }
 
@@ -132,7 +132,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).ToArrayAsync(cancellationToken);
         return doctors;
     }
