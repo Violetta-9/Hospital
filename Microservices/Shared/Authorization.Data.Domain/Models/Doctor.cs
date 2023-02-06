@@ -13,4 +13,5 @@ public class Doctor : KeyedEntityBase
     public virtual Account Account { get; set; }
     public virtual Office Office { get; set; }
     public virtual Specialization Specialization { get; set; }
+    public virtual ICollection<Appointment> Appointments { get; set; }
 }

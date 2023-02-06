@@ -2,7 +2,7 @@
 
 namespace Authorization.Data_Domain.Models;
 
-public class Documentation : KeyedEntityBase
+public class Photo : KeyedEntityBase
 {
     public string FileName { get; set; }
     public string Path { get; set; }
