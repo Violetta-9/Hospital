@@ -4,11 +4,11 @@ using Authorization.Data_Domain.Models;
 
 namespace Authorization.Data.Repository;
 
-public interface IDocumentsRepository : IRepositoryBase<Documentation>
+public interface IDocumentsRepository : IRepositoryBase<Photo>
 {
 }
 
-public class DocumentsRepository : RepositoryBase<Documentation>, IDocumentsRepository
+public class DocumentsRepository : RepositoryBase<Photo>, IDocumentsRepository
 {
     public DocumentsRepository(HospitalDbContext dbContext) : base(dbContext)
     {

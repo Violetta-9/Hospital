@@ -53,7 +53,7 @@ internal class PatientRepository : RepositoryBase<Patient>, IPatientRepository
             MiddleName = x.Account.MiddleName,
             PhoneNumber = x.Account.PhoneNumber,
             BirthDay = x.Account.Birthday,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Documentation.Path
+            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }
 }
