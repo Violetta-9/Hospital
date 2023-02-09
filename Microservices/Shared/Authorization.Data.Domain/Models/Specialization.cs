@@ -8,4 +8,5 @@ public class Specialization : KeyedEntityBase
     public bool IsActive { get; set; }
     public virtual ICollection<Doctor> Doctors { get; set; }
     public virtual ICollection<Service> Services { get; set; }
+    public virtual ICollection<Appointment> Appointments { get; set; }
 }
