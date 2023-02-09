@@ -1,10 +1,15 @@
 using System.Text;
+using Appointment.API.Application;
+using Appoitment.API.Helpers;
 using Authorization.Data.EF.PostgreSQL;
+using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +23,10 @@ var services= builder.Services;
 var configurationRoot = builder.Configuration;
 services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+services.AddApplication();
+services.AddRepository();
+
 services.AddIdentity<Account, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;
@@ -52,6 +61,38 @@ services.AddAuthentication(x =>
         ValidateLifetime = true
     };
 });
+services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Scheme = "Bearer",
+        Description = "Please insert JWT token into field"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+    c.EnableAnnotations();
+});
+
+services.AddProblemDetails(x =>
+{
+    x.Map<Exception>((context, exception) => CustomValidation<Exception>.CustomerDetails(exception));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -62,7 +103,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseProblemDetails();
 app.UseAuthorization();
 
 app.MapControllers();
