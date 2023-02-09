@@ -35,10 +35,10 @@ public class DeleteDoctorCommandHandler : IRequestHandler<DeleteDoctorCommand, R
         if (user == null) return Response.Error;
         await _userManager.RemoveFromRoleAsync(user, role);
 
-        if (user.DocumentationId != null)
+        if (user.PhotoId != null)
         {
-            var documentationId = (long)user.DocumentationId;
-            user.DocumentationId = null;
+            var documentationId = (long)user.PhotoId;
+            user.PhotoId = null;
             await _userManager.UpdateAsync(user);
             await _documentApiProxy.DeleteBlobAsync(documentationId, cancellationToken);
         }

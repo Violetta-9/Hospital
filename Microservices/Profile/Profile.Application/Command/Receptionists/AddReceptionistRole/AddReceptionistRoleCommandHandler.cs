@@ -66,7 +66,7 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
                         request.ReceptionistDTO.File.ContentType), recep.Id, SubjectUpdate._1, cancellationToken);
                 if (response > 0)
                 {
-                    user.DocumentationId = response;
+                    user.PhotoId = response;
                     await _userManager.UpdateAsync(user);
                     return Response.Success;
                 }
