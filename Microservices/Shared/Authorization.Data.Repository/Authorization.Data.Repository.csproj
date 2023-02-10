@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Appoitment.API\Appointment.API\Appointment.API.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Office\Office\Office.Application.Contracts\Office.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Profile\Profile.Application.Contracts\Profile.Application.Contracts.csproj" />
 		<ProjectReference Include="..\..\Services.API\Services.API.Contracts\Services.API.Contracts.csproj" />

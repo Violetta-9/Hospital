@@ -31,7 +31,7 @@ public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 
     public Task<TEntity> GetAsync(long id, CancellationToken cancellationToken)
     {
-        return DbContext.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
+        return DbContext.Set<TEntity>().SingleOrDefaultAsync(e => e.Id.Equals(id), cancellationToken);
     }
 
 

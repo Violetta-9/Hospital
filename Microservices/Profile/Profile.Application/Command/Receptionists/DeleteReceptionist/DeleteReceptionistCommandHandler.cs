@@ -36,10 +36,10 @@ internal class DeleteReceptionistCommandHandler : IRequestHandler<DeleteReceptio
         if (user == null) return Response.Error;
         await _userManager.RemoveFromRoleAsync(user, role);
 
-        if (user.DocumentationId != null)
+        if (user.PhotoId != null)
         {
-            var documentId = (long)user.DocumentationId;
-            user.DocumentationId = null;
+            var documentId = (long)user.PhotoId;
+            user.PhotoId = null;
             await _userManager.UpdateAsync(user);
             await _documentApiProxy.DeleteBlobAsync(documentId, cancellationToken);
         }

@@ -10,5 +10,6 @@ public class Office : KeyedEntityBase
     public long? PhotoId { get; set; }
     public virtual ICollection<Doctor> Doctors { get; set; }
     public virtual ICollection<Receptionist> Receptionists { get; set; }
+    public virtual ICollection<Appointment> Appointments { get; set; }
     public virtual Photo Photo { get; set; }
 }

@@ -121,7 +121,7 @@ namespace Authorization.Data.Shared.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<long>("DoctorId")
@@ -133,6 +133,9 @@ namespace Authorization.Data.Shared.Migrations
                     b.Property<DateTimeOffset>("LastRowModificationTimestamp")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long>("OfficeId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("PatientId")
                         .HasColumnType("bigint");
 
@@ -142,16 +145,20 @@ namespace Authorization.Data.Shared.Migrations
                     b.Property<long>("ServiceId")
                         .HasColumnType("bigint");
 
-                    b.Property<TimeSpan>("Time")
-                        .HasColumnType("interval");
+                    b.Property<long>("SpecializationId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
 
+                    b.HasIndex("OfficeId");
+
                     b.HasIndex("PatientId");
 
                     b.HasIndex("ServiceId");
+
+                    b.HasIndex("SpecializationId");
 
                     b.ToTable("Appointments");
                 });
@@ -643,6 +650,12 @@ namespace Authorization.Data.Shared.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Authorization.Data_Domain.Models.Office", "Office")
+                        .WithMany("Appointments")
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Authorization.Data_Domain.Models.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
@@ -655,11 +668,21 @@ namespace Authorization.Data.Shared.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Authorization.Data_Domain.Models.Specialization", "Specialization")
+                        .WithMany("Appointments")
+                        .HasForeignKey("SpecializationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Doctor");
+
+                    b.Navigation("Office");
 
                     b.Navigation("Patient");
 
                     b.Navigation("Service");
+
+                    b.Navigation("Specialization");
                 });
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Doctor", b =>
@@ -841,6 +864,8 @@ namespace Authorization.Data.Shared.Migrations
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Office", b =>
                 {
+                    b.Navigation("Appointments");
+
                     b.Navigation("Doctors");
 
                     b.Navigation("Receptionists");
@@ -875,6 +900,8 @@ namespace Authorization.Data.Shared.Migrations
 
             modelBuilder.Entity("Authorization.Data_Domain.Models.Specialization", b =>
                 {
+                    b.Navigation("Appointments");
+
                     b.Navigation("Doctors");
 
                     b.Navigation("Services");

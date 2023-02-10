@@ -20,8 +20,8 @@ internal class DeletePhotoCommandHandler : IRequestHandler<DeletePhotoCommand, R
     public async Task<Response> Handle(DeletePhotoCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(request.AccountId);
-        var docId = (long)user.DocumentationId;
-        user.DocumentationId = null;
+        var docId = (long)user.PhotoId;
+        user.PhotoId = null;
         await _userManager.UpdateAsync(user);
         if (user != null)
         {

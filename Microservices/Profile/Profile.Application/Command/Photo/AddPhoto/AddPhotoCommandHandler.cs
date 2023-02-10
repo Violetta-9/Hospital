@@ -28,7 +28,7 @@ internal class AddPhotoCommandHandler : IRequestHandler<AddPhotoCommand, Respons
         var user = await _userManager.FindByIdAsync(request.AddPhotoDTO.AccountId);
         if (user != null && id > 0)
         {
-            user.DocumentationId = id;
+            user.PhotoId = id;
             await _userManager.UpdateAsync(user);
             return Response.Success;
         }

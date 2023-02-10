@@ -74,7 +74,7 @@ public class AddDoctorRoleCommandHandler : IRequestHandler<AddDoctorRoleCommand,
                         request.Doctor.File.ContentType), doc.Id, SubjectUpdate._0, cancellationToken);
                 if (response > 0)
                 {
-                    user.DocumentationId = response;
+                    user.PhotoId = response;
                     await _userManager.UpdateAsync(user);
                 }
             }
