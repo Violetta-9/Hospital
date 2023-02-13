@@ -19,7 +19,7 @@ internal class CreateServiceCommandHandler : IRequestHandler<CreateServiceComman
         {
             Title = request.CreateServiceDto.Title,
             Price = request.CreateServiceDto.Price,
-            IsActive = request.CreateServiceDto.IsActive,
+            IsActive = true,
             ServiceCategoryId = request.CreateServiceDto.ServiceCategoryId
         };
         await _serviceRepository.InsertAsync(service, cancellationToken);
