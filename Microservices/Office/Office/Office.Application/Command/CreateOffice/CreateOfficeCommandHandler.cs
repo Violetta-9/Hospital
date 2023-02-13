@@ -19,7 +19,7 @@ internal class CreateOfficeCommandHandler : IRequestHandler<CreateOfficeCommand,
         {
             Address = request.OfficeDto.Address,
             RegistryPhoneNumber = request.OfficeDto.RegistryPhoneNumber,
-            IsActive = request.OfficeDto.IsActive
+            IsActive = true,
         };
         await _officeRepository.InsertAsync(office, cancellationToken);
         return office.Id;
