@@ -120,6 +120,9 @@
   <data name="NotFoundAppointmentId" xml:space="preserve">
     <value>Appointment Id {0} not found</value>
   </data>
+  <data name="NotFoundAppointmentResultId" xml:space="preserve">
+    <value>Appoinment result Id {0} not found</value>
+  </data>
   <data name="NotFoundDoctorId" xml:space="preserve">
     <value>Doctor Id {0} not found</value>
   </data>

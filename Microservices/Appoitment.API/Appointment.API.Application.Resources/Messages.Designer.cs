@@ -70,6 +70,15 @@ namespace Appointment.API.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appoinment result Id {0} not found.
+        /// </summary>
+        public static string NotFoundAppointmentResultId {
+            get {
+                return ResourceManager.GetString("NotFoundAppointmentResultId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Doctor Id {0} not found.
         /// </summary>
         public static string NotFoundDoctorId {
