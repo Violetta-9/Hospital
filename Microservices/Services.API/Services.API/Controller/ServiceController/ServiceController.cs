@@ -7,6 +7,8 @@ using Services.API.Application.Command.UpdateService;
 using Services.API.Application.Command.UpdateServiceStatus;
 using Services.API.Application.Helpers;
 using Services.API.Application.Query.GetAllServices;
+using Services.API.Application.Query.GetServiceBySpecializationId;
+using Services.API.Application.Query.GetServiceCategories;
 using Services.API.Application.Query.GetServicesById;
 using Services.API.Contracts.Incoming;
 using Services.API.Contracts.Outgoing;
@@ -52,20 +54,36 @@ public class ServiceController : MediatingControllerBase
     }
 
     [HttpGet]
-    [SwaggerOperation(Summary = "Get all services", OperationId = "GetAllServices")]
+    [SwaggerOperation(Summary = "Get all services ", OperationId = "GetAllServices")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto[]))]
     public async Task<ActionResult> GetAllServices()
     {
         var query = new GetAllServicesQuery();
         return await SendRequestAsync(query);
     }
+    [HttpGet("specialization")]
+    [SwaggerOperation(Summary = "Get all services by specialization id ", OperationId = "GetAllServicesBySpecializationId")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto[]))]
+    public async Task<ActionResult> GetAllServicesBySpecializationId([FromQuery] long specializationId)
+    {
+        var query = new GetServiceBySpecializationIdQuery(specializationId);
+        return await SendRequestAsync(query);
+    }
 
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     [SwaggerOperation(Summary = "Get service by id", OperationId = "GetServiceById")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto))]
-    public async Task<ActionResult> GetServiceById([FromQuery] long id)
+    public async Task<ActionResult> GetServiceById([FromRoute] long id)
     {
         var query = new GetServiceByIdQuery(id);
+        return await SendRequestAsync(query);
+    }
+    [HttpGet("categories")]
+    [SwaggerOperation(Summary = "Get service categories", OperationId = "GetServiceCategories")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(ServiceCategoriesDTO[]))]
+    public async Task<ActionResult> GetServiceCategories()
+    {
+        var query = new GetServiceCategoriesQuery();
         return await SendRequestAsync(query);
     }
 
