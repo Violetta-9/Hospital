@@ -26,7 +26,7 @@ var configurationRoot = builder.Configuration;
 
 services.AddApplication();
 services.AddRepository();
-services.AddHospitalPostgreSQL(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 services.AddIdentity<Account, IdentityRole>(options =>
