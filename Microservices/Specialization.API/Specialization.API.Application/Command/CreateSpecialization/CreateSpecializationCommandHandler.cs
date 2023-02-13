@@ -34,7 +34,7 @@ namespace Specialization.API.Application.Command.CreateSpecialization
             var specialization = new SpecializationEntity()
             {
                 Title = request.CreateSpecializationDto.Title,
-                IsActive = request.CreateSpecializationDto.IsActive
+                IsActive =true
             };
 
             
