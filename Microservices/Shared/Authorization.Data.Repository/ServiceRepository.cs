@@ -17,6 +17,7 @@ public interface IServiceRepository : IRepositoryBase<Service>
 
     public Task<OutServicesDto[]> GetServiceBySpecializationIdAsync(long specializationId,
         CancellationToken cancellationToken = default);
+   
 
     public Task<bool> IsServiceContainsFreeSpecializationAsync(long specializationId,
         CancellationToken cancellationToken);
@@ -83,4 +84,6 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
         return await DbContext.Services.Where(x => x.Id == specializationId && x.SpecializationId == null)
             .AnyAsync(cancellationToken);
     }
+
+   
 }
