@@ -38,7 +38,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, string>
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(listOfClaims),
-                Expires = DateTime.UtcNow.AddMinutes(20),
+                Expires = DateTime.UtcNow.AddMinutes(180),
                 SigningCredentials = new SigningCredentials
                 (new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.JwtSecretKey)),
                     SecurityAlgorithms.HmacSha256Signature)

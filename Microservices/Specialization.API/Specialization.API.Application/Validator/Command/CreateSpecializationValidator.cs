@@ -23,9 +23,7 @@ namespace Specialization.API.Application.Validator.Command
                 .NotEmpty()
                 .WithMessage(opt=>string.Format(Messages.NotEmptyField,nameof(opt.CreateSpecializationDto.Title)));
 
-            RuleFor(x => x.CreateSpecializationDto.IsActive)
-                .NotEmpty()
-                .WithMessage(opt => string.Format(Messages.NotEmptyField, nameof(opt.CreateSpecializationDto.IsActive)));
+         
            
         }
     }
