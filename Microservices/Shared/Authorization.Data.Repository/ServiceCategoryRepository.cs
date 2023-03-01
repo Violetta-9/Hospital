@@ -20,6 +20,7 @@ public class ServiceCategoryRepository : RepositoryBase<ServiceCategory>, IServi
     {
         return await DbContext.ServiceCategories.Select(x => new ServiceCategoriesDTO()
         {
+            Id=x.Id,
             Title = x.Title,
             TimeSlotSize = x.TimeSlotSize,
         }).ToArrayAsync(cancellationToken);

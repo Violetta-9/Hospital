@@ -52,6 +52,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,
+            CareerDate = x.CareerStartYear,
             DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).ToArrayAsync(cancellationToken);
     }
@@ -65,6 +66,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
             BirthDay = x.Account.Birthday,
+            PhoneNumber = x.Account.PhoneNumber,
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,
             StatusTitle = x.Status.Title,

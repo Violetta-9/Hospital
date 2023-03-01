@@ -21,6 +21,7 @@ public class OfficeRepository : RepositoryBase<OfficeEntity>, IOfficeRepository
     {
         return await DbContext.Offices.Select(x => new AllOfficesDto
         {
+            Id = x.Id,
             Address = x.Address,
             RegistryPhoneNumber = x.RegistryPhoneNumber,
             IsActive = x.IsActive

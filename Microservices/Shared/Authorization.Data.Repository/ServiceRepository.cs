@@ -21,6 +21,8 @@ public interface IServiceRepository : IRepositoryBase<Service>
 
     public Task<bool> IsServiceContainsFreeSpecializationAsync(long specializationId,
         CancellationToken cancellationToken);
+
+    public  Task<OutServicesDto[]> GetAllFreeServiceAsync(CancellationToken cancellationToken);
 }
 
 public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
@@ -32,6 +34,17 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
     public async Task<OutServicesDto[]> GetAllServiceAsync(CancellationToken cancellationToken)
     {
         return await DbContext.Services.Select(x => new OutServicesDto
+        {
+            Id = x.Id,
+            Title = x.Title,
+            Price = x.Price,
+            IsActive = x.IsActive,
+            ServiceCategoryName = x.ServiceCategory.Title
+        }).ToArrayAsync(cancellationToken);
+    }
+    public async Task<OutServicesDto[]> GetAllFreeServiceAsync(CancellationToken cancellationToken)
+    {
+        return await DbContext.Services.Where(x=>x.SpecializationId==null).Select(x => new OutServicesDto
         {
             Id = x.Id,
             Title = x.Title,
