@@ -24,7 +24,7 @@ internal class UploadCommandHandler : IRequestHandler<UploadCommand, long>
 
     public async Task<long> Handle(UploadCommand request, CancellationToken cancellationToken)
     {
-        var documentation = new Documentation();
+        var documentation = new Photo();
         var containerName = _blobStorageSettings.ImagesContainer;
         var pathTemplate = GetTemplatePath(request.Subject);
         var path = string.Format(pathTemplate, request.EntityId, request.File.FileName);
@@ -48,7 +48,7 @@ internal class UploadCommandHandler : IRequestHandler<UploadCommand, long>
         }
 
         return documentation.Id;
-        ;
+        
     }
 
     private string GetTemplatePath(SubjectUpdate subject)
