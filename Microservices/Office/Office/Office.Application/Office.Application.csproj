@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Documents.API.Client" Version="1.0.5" />
 		<PackageReference Include="FluentValidation" Version="11.4.0" />
 		<PackageReference Include="MassTransit" Version="8.0.11" />
 		<PackageReference Include="MediatR" Version="11.1.0" />

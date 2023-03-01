@@ -20,7 +20,6 @@ internal class UpdateOfficeCommandHandler : IRequestHandler<UpdateOfficeCommand,
 
         office.Address = request.UpdateOfficeDto.Address;
         office.RegistryPhoneNumber = request.UpdateOfficeDto.RegistryPhoneNumber;
-        office.IsActive = request.UpdateOfficeDto.IsActive;
         await _officeRepository.UpdateAsync(office, cancellationToken);
         return Response.Success;
     }
