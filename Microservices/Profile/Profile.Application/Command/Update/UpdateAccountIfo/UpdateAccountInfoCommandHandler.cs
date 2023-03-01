@@ -21,7 +21,7 @@ public class UpdateAccountInfoCommandHandler : IRequestHandler<UpdateAccountInfo
 
         user.FirstName = request.UserDtO.FirstName;
         user.LastName = request.UserDtO.LastName;
-        user.Email = request.UserDtO.Email;
+        user.MiddleName = request.UserDtO.MiddleName;
         user.PhoneNumber = request.UserDtO.PhoneNumber;
         user.Birthday = request.UserDtO.BirthDate;
         await _userManager.UpdateAsync(user);

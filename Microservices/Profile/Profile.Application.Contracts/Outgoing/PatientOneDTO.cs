@@ -8,6 +8,5 @@ public class PatientOneDTO
     public string MiddleName { get; set; }
     public string PhoneNumber { get; set; }
     public DateTime BirthDay { get; set; }
-    public string PhotoUrl { get; set; }
     public string DocumentAbsolutUrl { get; set; }
 }

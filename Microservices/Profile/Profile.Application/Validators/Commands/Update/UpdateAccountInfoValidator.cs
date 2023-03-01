@@ -23,19 +23,11 @@ public class UpdateAccountInfoValidator : AbstractValidator<UpdateAccountInfoCom
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.UserDtO.AccountId));
 
-        RuleFor(x => x.UserDtO.Email)
-            .Cascade(CascadeMode.Stop)
-            .MustAsync(UniqueEmail)
-            .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.UserDtO.Email));
+       
     }
 
 
-    private async Task<bool> UniqueEmail(string email, CancellationToken cancellationToken)
-    {
-        //todo: check email 
-        var account = await _userManager.FindByEmailAsync(email);
-        return account != null;
-    }
+  
 
     private async Task<bool> ExistsAccountAsync(string id, CancellationToken cancellationToken)
     {
