@@ -6,6 +6,7 @@ using Services.API.Application.Command.SetSpecializationForService;
 using Services.API.Application.Command.UpdateService;
 using Services.API.Application.Command.UpdateServiceStatus;
 using Services.API.Application.Helpers;
+using Services.API.Application.Query.GetAllFreeServices;
 using Services.API.Application.Query.GetAllServices;
 using Services.API.Application.Query.GetServiceBySpecializationId;
 using Services.API.Application.Query.GetServiceCategories;
@@ -59,6 +60,14 @@ public class ServiceController : MediatingControllerBase
     public async Task<ActionResult> GetAllServices()
     {
         var query = new GetAllServicesQuery();
+        return await SendRequestAsync(query);
+    }
+    [HttpGet("service/free")]
+    [SwaggerOperation(Summary = "Get all free services ", OperationId = "GetAllFreeServices")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto[]))]
+    public async Task<ActionResult> GetAllFreeServices()
+    {
+        var query = new GetAllFreeServicesQuery();
         return await SendRequestAsync(query);
     }
     [HttpGet("specialization")]

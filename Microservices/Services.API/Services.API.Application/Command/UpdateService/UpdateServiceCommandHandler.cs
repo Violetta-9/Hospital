@@ -19,7 +19,6 @@ internal class UpdateServiceCommandHandler : IRequestHandler<UpdateServiceComman
         if (service == null) return Response.Error;
         service.Title = request.UpdateServiceDto.Title;
         service.Price = request.UpdateServiceDto.Price;
-        service.IsActive = request.UpdateServiceDto.IsActive;
         service.ServiceCategoryId = request.UpdateServiceDto.ServiceCategoryId;
         await _serviceRepository.UpdateAsync(service, cancellationToken);
         return Response.Success;

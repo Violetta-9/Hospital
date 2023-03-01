@@ -8,6 +8,7 @@ namespace Services.API.Contracts.Outgoing
 {
     public class ServiceCategoriesDTO
     {
+        public long Id { get; set; }
         public string Title { get; set; }
         public double TimeSlotSize { get; set; }
 
