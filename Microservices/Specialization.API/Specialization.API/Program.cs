@@ -7,14 +7,11 @@ using Hellang.Middleware.ProblemDetails;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Services.API.Client;
 using Specialization.API.Application;
 using Specialization.API.Application.Helpers;
-
 using Specialization.API.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +27,6 @@ var configurationRoot = builder.Configuration;
 
 builder.Services.AddMassTransit(x =>
 {
-
     x.AddBus(ctx => Bus.Factory.CreateUsingRabbitMq(cfg =>
     {
         cfg.Host(new Uri("rabbitmq://localhost"), h =>
@@ -47,21 +43,20 @@ services.AddServiceApi(configurationRoot);
 var uriSettings = services.Configure<UriSettings>(configurationRoot.GetSection(nameof(UriSettings)));
 services.AddSingleton(uriSettings);
 services.AddHttpContextAccessor();
-services.AddHospitalPostgreSQL(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
-
 services.AddIdentity<Account, IdentityRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 6;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredUniqueChars = 0;
-})
+    {
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequiredUniqueChars = 0;
+    })
     .AddEntityFrameworkStores<HospitalDbContext>()
     .AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider);
 

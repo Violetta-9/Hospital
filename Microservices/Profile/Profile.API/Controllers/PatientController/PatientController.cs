@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Profile.API.Controllers.Abstraction.Mediator;
 using Profile.Application.Command.Patients.AddPatientRole;
 using Profile.Application.Command.Patients.DeletePatient;
+using Profile.Application.Contracts.Incoming;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 using Profile.Application.Query.Patient.GetAllPatient;
+using Profile.Application.Query.Patient.GetPatientByFullName;
 using Profile.Application.Query.Patient.GetPatientById;
+using Profile.Application.Query.Patient.GetPatientIdByAccountId;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profile.API.Controllers.PatientController;
@@ -41,7 +44,7 @@ public class PatientController : MediatingControllerBase
 
     [HttpDelete]
     [SwaggerOperation(Summary = "Delete Patient", OperationId = "DeletePatient")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
     public async Task<ActionResult> DeletePatient([FromForm] string accountId)
     {
         var query = new DeletePatientCommand(accountId);
@@ -50,10 +53,26 @@ public class PatientController : MediatingControllerBase
 
     [HttpPost("roles")]
     [SwaggerOperation(Summary = "Assign the Role To Patient", OperationId = "AssignPatientRole")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
     public async Task<ActionResult> AssignPatientRole([FromBody] string userId)
     {
         var query = new AddPatientRoleCommand(userId);
+        return await SendRequestAsync(query);
+    }
+    [HttpGet("users")]
+    [SwaggerOperation(Summary = "Find User", OperationId = "FindUser")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(UsersDTO[]))]
+    public async Task<ActionResult> FindUser([FromQuery] PatientsFullNameDTO userFullNameDto)
+    {
+        var query = new GetPatientByFullNameQuery(userFullNameDto);
+        return await SendRequestAsync(query);
+    }
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get Patient Id By AccountId", OperationId = "GetPatientIdByAccountId")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
+    public async Task<ActionResult> GetPatientIdByAccountId([FromQuery] string accountId)
+    {
+        var query = new GetPatientIdByAccountIdQuery(accountId);
         return await SendRequestAsync(query);
     }
 }

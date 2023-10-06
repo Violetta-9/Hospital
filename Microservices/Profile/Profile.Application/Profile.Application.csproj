@@ -15,7 +15,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Authorization.API.Client" Version="1.0.5" />
-		<PackageReference Include="Documents.API.Client" Version="1.0.5" />
+		<PackageReference Include="Documents.API.Client" Version="1.0.7" />
 		<PackageReference Include="FluentValidation" Version="11.4.0" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />

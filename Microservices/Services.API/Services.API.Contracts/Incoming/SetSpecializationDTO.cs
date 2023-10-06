@@ -3,5 +3,5 @@
 public class SetSpecializationDTO
 {
     public long SpecializationId { get; set; }
-    public virtual ICollection<long> ServicesId { get; set; }
+    public  ICollection<long> ServicesId { get; set; }
 }

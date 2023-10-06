@@ -1,7 +1,5 @@
-﻿namespace Specialization.API.Application.Resources
-{
-    public class Class1
-    {
+﻿namespace Specialization.API.Application.Resources;
 
-    }
+public class Class1
+{
 }

@@ -20,6 +20,11 @@ public interface IServiceRepository : IRepositoryBase<Service>
 
     public Task<bool> IsServiceContainsFreeSpecializationAsync(long specializationId,
         CancellationToken cancellationToken);
+
+    public Task<OutServicesDto[]> GetAllFreeServiceAsync(CancellationToken cancellationToken);
+
+    public Task UpdateSpecializationIdAsync(ICollection<long> servicesId, long specializationId,
+        CancellationToken cancellationToken);
 }
 
 public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
@@ -63,6 +68,26 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
         }
     }
 
+    public Task<OutServicesDto[]> GetAllFreeServiceAsync(CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdateSpecializationIdAsync(ICollection<long> servicesId, long specializationId,
+        CancellationToken cancellationToken)
+    {
+        var listOfSpecialization =
+            await GetServiceBySpecializationIdAsync(specializationId, cancellationToken);
+        if (listOfSpecialization != null)
+        {
+            var listOfServicesDB = listOfSpecialization.Select(x => x.Id).ToArray();
+            var result = listOfServicesDB.Except(servicesId).ToArray();
+            if (result.Any()) await DeleteSpecializationIdAsync(result, cancellationToken);
+        }
+
+        await SetSpecializationAsync(servicesId, specializationId, cancellationToken);
+    }
+
     public async Task<OutServicesDto[]> GetServiceBySpecializationIdAsync(long specializationId,
         CancellationToken cancellationToken = default)
     {
@@ -82,5 +107,16 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
     {
         return await DbContext.Services.Where(x => x.Id == specializationId && x.SpecializationId == null)
             .AnyAsync(cancellationToken);
+    }
+
+    private async Task DeleteSpecializationIdAsync(ICollection<long> servicesId,
+        CancellationToken cancellationToken)
+    {
+        foreach (var id in servicesId)
+        {
+            var service = await GetAsync(id, cancellationToken);
+            service.SpecializationId = null;
+            await UpdateAsync(service, cancellationToken);
+        }
     }
 }

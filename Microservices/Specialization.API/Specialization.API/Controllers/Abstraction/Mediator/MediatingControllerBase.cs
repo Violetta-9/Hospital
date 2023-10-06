@@ -1,25 +1,24 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Specialization.API.Controllers.Abstraction.Mediator
+namespace Specialization.API.Controllers.Abstraction.Mediator;
+
+public class MediatingControllerBase : ControllerBase
 {
-    public class MediatingControllerBase : ControllerBase
+    protected readonly IMediator _mediator;
+
+    public MediatingControllerBase(IMediator mediator)
     {
-        protected readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public MediatingControllerBase(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    public async Task<ActionResult> SendRequestAsync<T>(T request, CancellationToken cancellation = default)
+    {
+        if (request is null) throw new ArgumentNullException(nameof(request));
 
-        public async Task<ActionResult> SendRequestAsync<T>(T request, CancellationToken cancellation = default)
-        {
-            if (request is null) throw new ArgumentNullException(nameof(request));
+        var result = await _mediator.Send(request);
+        if (result is null) return NotFound(result);
 
-            var result = await _mediator.Send(request);
-            if (result is null) return NotFound(result);
-
-            return Ok(result);
-        }
+        return Ok(result);
     }
 }
