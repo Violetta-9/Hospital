@@ -6,12 +6,11 @@ using SpecializationEntity = Authorization.Data_Domain.Models.Specialization;
 
 namespace Specialization.API.Application.Command.CreateSpecialization;
 
+
 public class CreateSpecializationCommandHandler : IRequestHandler<CreateSpecializationCommand, long>
 {
-    public class CreateSpecializationCommandHandler : IRequestHandler<CreateSpecializationCommand, long>
-    {
-        private readonly ISpecializationRepository _specializationRepository;
-        private readonly IServiceApiProxy _serviceApiProxy;
+    private readonly ISpecializationRepository _specializationRepository;
+    private readonly IServiceApiProxy _serviceApiProxy;
 
     public CreateSpecializationCommandHandler(ISpecializationRepository specializationRepository,
         IServiceApiProxy serviceApiProxy)

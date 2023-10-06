@@ -17,14 +17,13 @@ public class CreateSpecializationValidator : AbstractValidator<CreateSpecializat
             .NotEmpty()
             .WithMessage(opt => string.Format(Messages.NotEmptyField, nameof(opt.CreateSpecializationDto.Title)));
 
-            RuleFor(x => x.CreateSpecializationDto.IsActive)
-                .NotEmpty()
-                .WithMessage(opt => string.Format(Messages.NotEmptyField, nameof(opt.CreateSpecializationDto.IsActive)));
+        RuleFor(x => x.CreateSpecializationDto.IsActive)
+            .NotEmpty()
+            .WithMessage(opt => string.Format(Messages.NotEmptyField, nameof(opt.CreateSpecializationDto.IsActive)));
 
-            RuleFor(x => x.CreateSpecializationDto.ServicesId)
-                .Must(servicesId => servicesId != null && servicesId.Any())
-                .WithMessage(opt => string.Format(Messages.NotEmptyField, nameof(opt.CreateSpecializationDto.ServicesId)));
+        RuleFor(x => x.CreateSpecializationDto.ServicesId)
+            .Must(servicesId => servicesId != null && servicesId.Any())
+            .WithMessage(opt => string.Format(Messages.NotEmptyField, nameof(opt.CreateSpecializationDto.ServicesId)));
 
-        }
     }
 }
