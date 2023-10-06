@@ -155,7 +155,7 @@ public class SpecializationTest
         var request =
             new UpdateSpecializationCommand(fixture.Build<UpdateSpecializationDTO>().With(x => x.Id, 1).Create());
         var handler =
-            new UpdateSpecializationCommandHandler((IServiceRepository)serviceMockApiProxy.Object, specializationMockRepository.Object);
+            new UpdateSpecializationCommandHandler(serviceMockApiProxy.Object, specializationMockRepository.Object);
         // Act
         var result = await handler.Handle(request, CancellationToken.None);
         // Assert
@@ -256,7 +256,7 @@ public class SpecializationTest
         var request =
             new UpdateSpecializationCommand(fixture.Build<UpdateSpecializationDTO>().With(x => x.Id, 1).Create());
         var handler =
-            new UpdateSpecializationCommandHandler((IServiceRepository)serviceMockApiProxy.Object, specializationMockRepository.Object);
+            new UpdateSpecializationCommandHandler(serviceMockApiProxy.Object, specializationMockRepository.Object);
 
         // Assert
 
