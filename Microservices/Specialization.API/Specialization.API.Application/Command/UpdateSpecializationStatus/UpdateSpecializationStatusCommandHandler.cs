@@ -1,32 +1,25 @@
 ﻿using Authorization.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MediatR;
 using Specialization.API.Application.Contracts.Outgoing;
 
-namespace Specialization.API.Application.Command.UpdateSpecializationStatus
-{
-    public class UpdateSpecializationStatusCommandHandler:IRequestHandler<UpdateSpecializationStatusCommand,Response>
-    {
-        private readonly ISpecializationRepository _specializationRepository;
-        public UpdateSpecializationStatusCommandHandler(ISpecializationRepository specializationRepository)
-        {
-            _specializationRepository = specializationRepository;
-        }
+namespace Specialization.API.Application.Command.UpdateSpecializationStatus;
 
-        public async Task<Response> Handle(UpdateSpecializationStatusCommand request, CancellationToken cancellationToken)
-        {
-           var specialization=await _specializationRepository.GetAsync(request.UpdateSpecializationStatusDto.Id,cancellationToken);
-           if (specialization == null)
-           {
-               return Response.Error;
-           }
-           specialization.IsActive=request.UpdateSpecializationStatusDto.IsActive;
-           await _specializationRepository.UpdateAsync(specialization, cancellationToken);
-           return Response.Success;
-        }
+public class UpdateSpecializationStatusCommandHandler : IRequestHandler<UpdateSpecializationStatusCommand, Response>
+{
+    private readonly ISpecializationRepository _specializationRepository;
+
+    public UpdateSpecializationStatusCommandHandler(ISpecializationRepository specializationRepository)
+    {
+        _specializationRepository = specializationRepository;
+    }
+
+    public async Task<Response> Handle(UpdateSpecializationStatusCommand request, CancellationToken cancellationToken)
+    {
+        var specialization =
+            await _specializationRepository.GetAsync(request.UpdateSpecializationStatusDto.Id, cancellationToken);
+        if (specialization == null) return Response.Error;
+        specialization.IsActive = request.UpdateSpecializationStatusDto.IsActive;
+        await _specializationRepository.UpdateAsync(specialization, cancellationToken);
+        return Response.Success;
     }
 }
