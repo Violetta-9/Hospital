@@ -1,12 +1,16 @@
 ﻿using Authorization.Data.Repository;
 using AutoFixture;
+using FluentAssertions;
 using Moq;
 using Services.API.Client.Abstraction;
-using Services.API.Client.GeneratedClient;
 using Specialization.API.Application.Command.CreateSpecialization;
 using Specialization.API.Application.Command.UpdateSpecialization;
 using Specialization.API.Application.Command.UpdateSpecializationStatus;
 using Specialization.API.Application.Contracts.Incoming;
+using Specialization.API.Application.Contracts.Outgoing;
+using Specialization.API.Application.Query.GetAllSpecialization;
+using Specialization.API.Application.Query.GetSpecializationById;
+using Response = Services.API.Client.GeneratedClient.Response;
 using SpecializationEntity = Authorization.Data_Domain.Models.Specialization;
 
 namespace Specialization.Tests.Unit;
@@ -315,5 +319,95 @@ public class SpecializationTest
         Assert.IsTrue(result.IsSuccess);
         Assert.That(request.UpdateSpecializationStatusDto.Id, Is.EqualTo(expectedSpecialization.Id));
         Assert.That(request.UpdateSpecializationStatusDto.IsActive, Is.EqualTo(expectedSpecialization.IsActive));
+    }
+
+    [Test]
+    public async Task UpdateSpecializationStatus_WithNoSpecializationFromRepository_ReturnBadResponse()
+    {
+        // Arrange
+        var fixture = new Fixture();
+        fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => fixture.Behaviors.Remove(b));
+        fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
+        var expectedSpecialization = fixture.Build<SpecializationEntity>()
+            .With(x => x.Id, 1)
+            .Create();
+
+        var specializationMockRepository = new Mock<ISpecializationRepository>();
+        specializationMockRepository.Setup(rep => rep.GetAsync(It.IsAny<long>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(null! as SpecializationEntity);
+
+        specializationMockRepository
+            .Setup(repo => repo.UpdateAsync(It.IsAny<SpecializationEntity>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync((SpecializationEntity entity, CancellationToken _) => entity);
+
+
+        var request = new UpdateSpecializationStatusCommand(fixture.Build<UpdateSpecializationStatusDTO>()
+            .With(x => x.Id, 1)
+            .With(x => x.IsActive, false)
+            .Create());
+        var handler = new UpdateSpecializationStatusCommandHandler(specializationMockRepository.Object);
+
+        // Assert
+        var result = await handler.Handle(request, CancellationToken.None);
+        specializationMockRepository.Verify(rep => rep.GetAsync(It.Is<long>(x =>
+            x == request.UpdateSpecializationStatusDto.Id), CancellationToken.None), Times.Once);
+
+
+        specializationMockRepository.Verify(rep => rep.UpdateAsync(It.Is<SpecializationEntity>(
+            x => x.Id == expectedSpecialization.Id
+        ), CancellationToken.None), Times.Never);
+
+        Assert.IsFalse(result.IsSuccess);
+    }
+
+    [Test]
+    public async Task GetAllSpecialization_ReturnSpecializationListArray()
+    {
+        // Arrange
+        var fixture = new Fixture();
+
+        var specializationMockRepository = new Mock<ISpecializationRepository>();
+        specializationMockRepository
+            .Setup(repo => repo.GetAllSpecializationAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(fixture.Create<SpecializationListDTO[]>());
+
+        var request = new GetAllSpecializationQuery();
+        var handler =
+            new GetAllSpecializationQueryHandler(specializationMockRepository.Object);
+        // Act
+        var result = await handler.Handle(request, CancellationToken.None);
+        // Assert
+        specializationMockRepository.Verify(rep => rep.GetAllSpecializationAsync(CancellationToken.None), Times.Once);
+
+        result.Should().NotBeNull();
+        result.Should().NotContainNulls();
+    }
+
+    [Test]
+    public async Task GetSpecializationByIdQuery_ReturnSpecializationOnSuccess()
+    {
+        // Arrange
+        var fixture = new Fixture();
+
+        var specializationMockRepository = new Mock<ISpecializationRepository>();
+        specializationMockRepository
+            .Setup(repo => repo.GetSpecializationByIdAsync(It.IsAny<long>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(fixture.Create<SpecializationDTO>());
+
+        var request = fixture.Create<GetSpecializationByIdQuery>();
+        var handler =
+            new GetSpecializationByIdQueryHandler(specializationMockRepository.Object);
+        // Act
+        var result = await handler.Handle(request, CancellationToken.None);
+        // Assert
+        specializationMockRepository.Verify(
+            rep => rep.GetSpecializationByIdAsync(It.Is<long>(x => x == request.SpecializationId),
+                CancellationToken.None), Times.Once);
+
+        result.Should().NotBeNull();
+        result.Title.Should().NotBeNull();
+        result.Services.Should().NotContainNulls();
     }
 }
