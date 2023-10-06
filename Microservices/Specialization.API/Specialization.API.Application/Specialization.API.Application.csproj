@@ -13,7 +13,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-    <PackageReference Include="Services.API.Client" Version="1.0.0" />
+    <PackageReference Include="Services.API.Client" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>
