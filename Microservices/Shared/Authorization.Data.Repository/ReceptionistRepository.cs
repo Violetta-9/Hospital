@@ -17,6 +17,9 @@ public interface IReceptionistRepository : IRepositoryBase<Receptionist>
 
     public Task<ReceptionistOneDTO?> GetReceptionistByIdAsync(long id,
         CancellationToken cancellationToken = default);
+
+    public Task<long> GetReceptionistIdByAccountIdAsync(string accountId,
+        CancellationToken cancellationToken = default);
 }
 
 internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReceptionistRepository
@@ -60,5 +63,12 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
             OfficeAddress = x.Office.Address,
             DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).SingleOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<long> GetReceptionistIdByAccountIdAsync(string accountId,
+        CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Receptionists.Where(x => x.AccountId == accountId).Select(x => x.Id)
+            .SingleOrDefaultAsync(cancellationToken);
     }
 }

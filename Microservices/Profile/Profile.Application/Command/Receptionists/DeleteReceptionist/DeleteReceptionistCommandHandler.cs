@@ -27,11 +27,11 @@ internal class DeleteReceptionistCommandHandler : IRequestHandler<DeleteReceptio
     public async Task<Response> Handle(DeleteReceptionistCommand request, CancellationToken cancellationToken)
     {
         var role = UserRoles.Receptionist;
-        var receptionist =
-            await _receptionistRepository.GetReceptionistByAccountIdAsync(request.AccountId, cancellationToken);
-        if (receptionist == null) return Response.Error;
+        var receptionistId =
+            await _receptionistRepository.GetReceptionistIdByAccountIdAsync(request.AccountId, cancellationToken);
+        if (receptionistId == null) return Response.Error;
 
-        await _receptionistRepository.DeleteAsync(receptionist.Id, cancellationToken);
+        await _receptionistRepository.DeleteAsync(receptionistId, cancellationToken);
         var user = await _userManager.FindByIdAsync(request.AccountId);
         if (user == null) return Response.Error;
         await _userManager.RemoveFromRoleAsync(user, role);

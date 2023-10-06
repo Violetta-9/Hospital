@@ -3,6 +3,7 @@ using Authorization.Data.EF.PostgreSQL;
 using Authorization.Data.Repository;
 using Authorization.Data.Shared.DbContext;
 using Authorization.Data_Domain.Models;
+using Documents.API.Client;
 using Hellang.Middleware.ProblemDetails;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,7 +42,7 @@ builder.Services.AddMassTransit(x =>
 
 services.AddHospitalPostgreSql(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
+services.AddDocumentsApi(configurationRoot);
 services.AddIdentity<Account, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;

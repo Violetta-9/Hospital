@@ -10,6 +10,7 @@ using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Helpers;
 using Profile.Application.Query.Receptionist.GetAllReceptionist;
 using Profile.Application.Query.Receptionist.GetReceptionistById;
+using Profile.Application.Query.Receptionist.GetReceptionistIdByAccountId;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profile.API.Controllers.ReceptionistController;
@@ -24,7 +25,7 @@ public class ReceptionistController : MediatingControllerBase
     }
 
     [HttpPost("roles")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
     [SwaggerOperation(Summary = "Assign receptionist role", OperationId = "AssignReceptionistRole")]
     public async Task<ActionResult> AssignReceptionistRole([FromForm] ReceptionistDTO receptionistDto)
     {
@@ -43,7 +44,7 @@ public class ReceptionistController : MediatingControllerBase
 
     [HttpPatch]
     [SwaggerOperation(Summary = "Update Office", OperationId = "UpdateOffice")]
-    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(string))]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
     public async Task<ActionResult> UpdateOffice([FromForm] UpdateReceptionistDTO receptionistDto)
     {
         var query = new UpdateOfficeCommand(receptionistDto);
@@ -65,6 +66,14 @@ public class ReceptionistController : MediatingControllerBase
     public async Task<ActionResult> GetReceptionistById([FromRoute] long receptionistId)
     {
         var query = new GetReceptionistByIdQuery(receptionistId);
+        return await SendRequestAsync(query);
+    }
+    [HttpGet]
+    [SwaggerOperation(Summary = "Get Receptionist Id By AccountId", OperationId = "GetReceptionistIdByAccountId")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
+    public async Task<ActionResult> GetReceptionistIdByAccountId([FromQuery] string accountId)
+    {
+        var query = new GetReceptionistIdByAccountIdQuery(accountId);
         return await SendRequestAsync(query);
     }
 }

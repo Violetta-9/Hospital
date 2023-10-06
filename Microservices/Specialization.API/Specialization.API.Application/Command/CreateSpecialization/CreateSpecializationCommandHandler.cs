@@ -16,7 +16,7 @@ using SpecializationEntity= Authorization.Data_Domain.Models.Specialization;
 
 namespace Specialization.API.Application.Command.CreateSpecialization
 {
-    internal class CreateSpecializationCommandHandler : IRequestHandler<CreateSpecializationCommand, long>
+    public class CreateSpecializationCommandHandler : IRequestHandler<CreateSpecializationCommand, long>
     {
         private readonly ISpecializationRepository _specializationRepository;
         private readonly IServiceApiProxy _serviceApiProxy;

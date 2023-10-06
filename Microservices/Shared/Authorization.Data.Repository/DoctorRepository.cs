@@ -24,6 +24,8 @@ public interface IDoctorRepository : IRepositoryBase<Doctor>
 
     public Task<DoctorAllDTO[]> FindDoctorByFullNameAsync(string firsName, string lastName, string middleName,
         CancellationToken cancellationToken = default);
+
+    public Task<long> GetDoctorIdByAccountIdAsync(string accountId, CancellationToken cancellationToken = default);
 }
 
 internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
@@ -38,6 +40,12 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
     public async Task<Doctor> GetDoctorByAccountIdAsync(string accountId, CancellationToken cancellationToken = default)
     {
         return await DbContext.Doctors.SingleOrDefaultAsync(x => x.AccountId == accountId, cancellationToken);
+    }
+
+    public async Task<long> GetDoctorIdByAccountIdAsync(string accountId, CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Doctors.Where(x => x.AccountId == accountId).Select(x => x.Id)
+            .SingleOrDefaultAsync(cancellationToken);
     }
 
     public async Task<DoctorAllDTO[]> GetAllDoctorsAsync(CancellationToken cancellationToken = default)
@@ -115,9 +123,9 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
         var lowerFirstNameTerm = firsName.ToLower();
         var lowerLastNameTerm = lastName.ToLower();
         var lowerMiddleNameTerm = middleName.ToLower();
-        var matchExpressionFirstName = $"%{lowerFirstNameTerm}%";
-        var matchExpressionLastName = $"%{lowerLastNameTerm}%";
-        var matchExpressionMiddleName = $"%{lowerMiddleNameTerm}%";
+        var matchExpressionFirstName = lowerFirstNameTerm != "" ? $"%{lowerFirstNameTerm}%" : "";
+        var matchExpressionLastName = lowerLastNameTerm != "" ? $"%{lowerLastNameTerm}%" : "";
+        var matchExpressionMiddleName = lowerMiddleNameTerm != "" ? $"%{lowerMiddleNameTerm}%" : "";
         var doctors = await DbContext.Doctors.Where(x =>
             EF.Functions.Like(x.Account.FirstName.ToLower(), matchExpressionFirstName) ||
             EF.Functions.Like(x.Account.LastName.ToLower(), matchExpressionLastName) ||

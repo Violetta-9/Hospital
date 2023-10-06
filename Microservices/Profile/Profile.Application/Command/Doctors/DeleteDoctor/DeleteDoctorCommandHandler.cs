@@ -27,10 +27,10 @@ public class DeleteDoctorCommandHandler : IRequestHandler<DeleteDoctorCommand, R
     public async Task<Response> Handle(DeleteDoctorCommand request, CancellationToken cancellationToken)
     {
         var role = UserRoles.Doctor;
-        var doctor = await _doctorRepository.GetDoctorByAccountIdAsync(request.AccountId, cancellationToken);
-        if (doctor == null) return Response.Error;
+        var doctorId = await _doctorRepository.GetDoctorIdByAccountIdAsync(request.AccountId, cancellationToken);
+        if (doctorId == null) return Response.Error;
 
-        await _doctorRepository.DeleteAsync(doctor.Id, cancellationToken);
+        await _doctorRepository.DeleteAsync(doctorId, cancellationToken);
         var user = await _userManager.FindByIdAsync(request.AccountId);
         if (user == null) return Response.Error;
         await _userManager.RemoveFromRoleAsync(user, role);

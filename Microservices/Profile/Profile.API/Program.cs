@@ -38,6 +38,8 @@ services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrin
 services.AddDocumentsApi(configurationRoot);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+
+
 var emailConfig = services.Configure<EmailSettings>(configurationRoot.GetSection(nameof(EmailSettings)));
 services.AddSingleton(emailConfig);
 

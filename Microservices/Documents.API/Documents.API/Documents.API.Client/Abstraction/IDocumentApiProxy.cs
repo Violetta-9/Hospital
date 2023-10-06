@@ -9,4 +9,5 @@ public interface IDocumentApiProxy
 
     public Task<Response> DeleteBlobAsync(long documentId, CancellationToken cancellationToken);
     public Task<BlobDTO> GetBlobAsync(long documentId, CancellationToken cancellationToken);
+    public Task<Response> UpdateBlobAsync(long documentId, FileParameter file, CancellationToken cancellationToken);
 }

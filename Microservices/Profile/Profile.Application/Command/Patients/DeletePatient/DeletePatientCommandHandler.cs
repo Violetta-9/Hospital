@@ -27,10 +27,10 @@ internal class DeletePatientCommandHandler : IRequestHandler<DeletePatientComman
     public async Task<Response> Handle(DeletePatientCommand request, CancellationToken cancellationToken)
     {
         var role = UserRoles.Patient;
-        var patient = _patientRepository.GetPatientByAccountId(request.AccountId, cancellationToken);
-        if (patient == null) return Response.Error;
+        var patientId = await _patientRepository.GetPatientIdByAccountId(request.AccountId, cancellationToken);
+        if (patientId == null) return Response.Error;
 
-        await _patientRepository.DeleteAsync(patient.Id, cancellationToken);
+        await _patientRepository.DeleteAsync(patientId, cancellationToken);
         var user = await _userManager.FindByIdAsync(request.AccountId);
         if (user == null) return Response.Error;
 

@@ -90,7 +90,27 @@ public class DocumentApiProxy : IDocumentApiProxy
             throw e;
         }
     }
-
+    public async Task<Response> UpdateBlobAsync(long documentId,FileParameter file, CancellationToken cancellationToken)
+    {
+        var api = await GetApiClientAsync(cancellationToken);
+        try
+        {
+            var response = await api.UpdateBlobAsync(documentId, file, cancellationToken);
+            return response;
+        }
+        catch (ApiException e)
+        {
+            var error = JsonConvert.DeserializeObject<ResponseDetail.ResponseDetail>(e.Response);
+            throw new ValidationException(new List<ValidationFailure>
+            {
+                new(string.Empty, error?.Detail)
+            });
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
     public async Task<DocumentApi> GetApiClientAsync(CancellationToken cancellationToken = default)
     {
         return new DocumentApi(BaseUrl, await _httpClientProvider.GetHttpClientAsync(cancellationToken));

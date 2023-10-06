@@ -46,6 +46,32 @@ public class ServiceApiProxy : IServiceApiProxy
             throw e;
         }
     }
+    public async Task<Response> UpdateSpecializationIdForServicesAsync(long specializationId,
+        ICollection<long> servicesId, CancellationToken cancellationToken)
+    {
+        var api = await GetApiClientAsync(cancellationToken);
+        try
+        {
+            var response = await api.UpdateSpecializationForServiceAsync(new SetSpecializationDTO
+            {
+                ServicesId = servicesId,
+                SpecializationId = specializationId
+            }, cancellationToken);
+            return response;
+        }
+        catch (ApiException e)
+        {
+            var error = JsonConvert.DeserializeObject<ResponseDetail.ResponseDetail>(e.Response);
+            throw new ValidationException(new List<ValidationFailure>
+            {
+                new(string.Empty, error?.Detail)
+            });
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
 
     public async Task<ServiceApi> GetApiClientAsync(CancellationToken cancellationToken = default)
     {

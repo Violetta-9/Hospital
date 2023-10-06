@@ -25,7 +25,7 @@ public class OfficeController : MediatingControllerBase
     [HttpPost("create")]
     [SwaggerOperation(Summary = "Create office", OperationId = "CreateOffice")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
-    public async Task<ActionResult> CreateOffice([FromBody] CreateOfficeDTO newOfficeDto)
+    public async Task<ActionResult> CreateOffice([FromForm] CreateOfficeDTO newOfficeDto)
     {
         var query = new CreateOfficeCommand(newOfficeDto);
         return await SendRequestAsync(query);
@@ -34,7 +34,7 @@ public class OfficeController : MediatingControllerBase
     [HttpPut]
     [SwaggerOperation(Summary = "Update office", OperationId = "UpdateOffice")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-    public async Task<ActionResult> UpdateOffice([FromBody] UpdateOfficeDTO changeOfficeDto)
+    public async Task<ActionResult> UpdateOffice([FromForm] UpdateOfficeDTO changeOfficeDto)
     {
         var query = new UpdateOfficeCommand(changeOfficeDto);
         return await SendRequestAsync(query);
