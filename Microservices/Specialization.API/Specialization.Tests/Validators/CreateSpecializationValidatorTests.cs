@@ -44,7 +44,7 @@ namespace Specialization.Tests.Validators
             var command = new CreateSpecializationCommand(new CreateSpecializationDTO
             {
                 Title = "SomeTitle",
-                IsActive = null is bool,
+                IsActive = false,
                 ServicesId = new List<long>() { 1, 2, 3 }
             });
 
@@ -62,8 +62,7 @@ namespace Specialization.Tests.Validators
             var command = new CreateSpecializationCommand(new CreateSpecializationDTO
             {
                 Title = "SomeTitle",
-                IsActive = true,
-                ServicesId = null
+                IsActive = true
             });
 
             // Act
@@ -81,7 +80,7 @@ namespace Specialization.Tests.Validators
             var command = new CreateSpecializationCommand(new CreateSpecializationDTO
             {
                 Title = "SomeTitle",
-                IsActive = null is bool,
+                IsActive = false,
                 ServicesId = new List<long>()
             });
 
