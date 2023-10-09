@@ -1,15 +1,13 @@
-﻿
-
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using Specialization.API.Application.Command.CreateSpecialization;
 using Specialization.API.Application.Contracts.Incoming;
 using Specialization.API.Application.Resources;
 using Specialization.API.Application.Validator.Command;
 
-namespace Specialization.Tests.Unit
+namespace Specialization.Tests.Validators
 {
     [TestFixture]
-    public class SpecializationValidatorTests
+    public class CreateSpecializationValidatorTests
     {
         private CreateSpecializationValidator _validator;
 
@@ -27,9 +25,9 @@ namespace Specialization.Tests.Unit
             {
                 Title = string.Empty,
                 IsActive = true,
-                ServicesId = new List<long>(){1,2,3}
+                ServicesId = new List<long>() { 1, 2, 3 }
             });
-          
+
 
             // Act
             var result = _validator.TestValidate(command);
@@ -45,7 +43,7 @@ namespace Specialization.Tests.Unit
             // Arrange
             var command = new CreateSpecializationCommand(new CreateSpecializationDTO
             {
-                Title = "SomeTitle", 
+                Title = "SomeTitle",
                 IsActive = null is bool,
                 ServicesId = new List<long>() { 1, 2, 3 }
             });
@@ -64,7 +62,7 @@ namespace Specialization.Tests.Unit
             var command = new CreateSpecializationCommand(new CreateSpecializationDTO
             {
                 Title = "SomeTitle",
-                IsActive =true,
+                IsActive = true,
                 ServicesId = null
             });
 
