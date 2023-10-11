@@ -30,7 +30,7 @@ public class UpdateSpecializationCommandHandler : IRequestHandler<UpdateSpeciali
             var serviceResponse =
                 await _serviceApiProxy.UpdateSpecializationIdForServicesAsync(specialization.Id, request.ServicesId,
                     cancellationToken);
-            ;
+            
             if (!serviceResponse.IsSuccess) throw new Exception("UpdateSpecializationCommandHandler work bad");
         }
         catch (ValidationException e)

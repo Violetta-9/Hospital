@@ -183,7 +183,7 @@ public class SpecializationTest
     }
 
     [Test]
-    public async Task UpdateSpecialization__ReturnSpecializationIdOnSuccess()
+    public async Task UpdateSpecialization_ReturnFalseResponse()
     {
         // Arrange
         var fixture = new Fixture();
