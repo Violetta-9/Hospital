@@ -21,7 +21,7 @@ public class LoginValidator : AbstractValidator<LoginQuery>
         RuleFor(x => x.Email)
             .Cascade(CascadeMode.Stop)
             .MustAsync(UniqueEmail)
-            .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.Email));
+            .WithMessage(opt => string.Format(Messages.NotFoundUser, opt.Email));
     }
 
     private async Task<bool> UniqueEmail(string email, CancellationToken cancellationToken)
