@@ -24,15 +24,15 @@ internal class UpdateOfficeCommandHandler : IRequestHandler<UpdateOfficeCommand,
         if (office == null) return Response.Error;
         office.Address = request.UpdateOfficeDto.Address;
         office.RegistryPhoneNumber = request.UpdateOfficeDto.RegistryPhoneNumber;
-        if (request.UpdateOfficeDto.File != null)
-        {   
-            var response = await _documentApiProxy.UpdateBlobAsync((long)office.PhotoId,
-                new FileParameter(request.UpdateOfficeDto.File.OpenReadStream(), request.UpdateOfficeDto.File.FileName,
-                    request.UpdateOfficeDto.File.ContentType), cancellationToken);
+        //if (request.UpdateOfficeDto.File != null)
+        //{   
+        //    var response = await _documentApiProxy.UpdateBlobAsync((long)office.PhotoId,
+        //        new FileParameter(request.UpdateOfficeDto.File.OpenReadStream(), request.UpdateOfficeDto.File.FileName,
+        //            request.UpdateOfficeDto.File.ContentType), cancellationToken);
             
-                await _officeRepository.UpdateAsync(office, cancellationToken);
+        //        await _officeRepository.UpdateAsync(office, cancellationToken);
                 
-        }
+        //}
         return Response.Success;
     }
 }
