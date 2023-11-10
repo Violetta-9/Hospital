@@ -90,12 +90,13 @@ public class DocumentApiProxy : IDocumentApiProxy
             throw e;
         }
     }
-    public async Task<Response> UpdateBlobAsync(long documentId,FileParameter file, CancellationToken cancellationToken)
+    public async Task<long> UpdateBlobAsync(FileParameter file, long photoId, SubjectUpdate subjectUpdate,
+        CancellationToken cancellationToken)
     {
         var api = await GetApiClientAsync(cancellationToken);
         try
         {
-            var response = await api.UpdateBlobAsync(documentId, file, cancellationToken);
+            var response = await api.UpdateBlobAsync(file, photoId, subjectUpdate, cancellationToken);
             return response;
         }
         catch (ApiException e)
