@@ -1,6 +1,7 @@
 ﻿
 using Authorization.Data.Repository;
 using AutoMapper;
+using Documents.API.Client.Abstraction;
 using MediatR;
 using Office.Application.Contracts.Outgoing;
 
@@ -9,10 +10,12 @@ namespace Office.Application.Query.GetOfficeById
     public class GetOfficeByIdQueryHandler : IRequestHandler<GetOfficeByIdQuery, OfficeDto>
     {
         private readonly IOfficeRepository _officeRepository;
+        private readonly IDocumentApiProxy _documentApiProxy;
 
-        public GetOfficeByIdQueryHandler(IOfficeRepository officeRepository)
+        public GetOfficeByIdQueryHandler(IOfficeRepository officeRepository,IDocumentApiProxy documentApiProxy)
         {
             _officeRepository=officeRepository;
+            _documentApiProxy = documentApiProxy;
         }
 
         public async Task<OfficeDto> Handle(GetOfficeByIdQuery request, CancellationToken cancellationToken)
@@ -20,7 +23,14 @@ namespace Office.Application.Query.GetOfficeById
             var config = new MapperConfiguration(cfg => cfg.CreateMap<Authorization.Data_Domain.Models.Office, OfficeDto>());
             var mapper = new Mapper(config);
             var entity = await _officeRepository.GetAsync(request.Id, cancellationToken);
-            return mapper.Map<OfficeDto>(entity);
+            var officeDto = mapper.Map<OfficeDto>(entity);
+            if (entity.PhotoId != null)
+            {
+                var photo = await _documentApiProxy.GetBlobAsync((long)entity.PhotoId, cancellationToken);
+                officeDto.FilePath = photo.AbsoluteUri;
+            }
+            
+            return officeDto ;
         }
     }
 }
