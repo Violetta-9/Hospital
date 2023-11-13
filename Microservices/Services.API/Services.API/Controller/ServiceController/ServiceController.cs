@@ -97,7 +97,7 @@ public class ServiceController : MediatingControllerBase
         var query = new GetServiceCategoriesQuery();
         return await SendRequestAsync(query);
     }
-    [HttpGet("empty")]
+    [HttpGet("service/free")]
     [SwaggerOperation(Summary = "Get empty services", OperationId = "GetEmptyServices")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(EmptyServices[]))]
     public async Task<ActionResult> GetEmptyServices()
