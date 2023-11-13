@@ -9,6 +9,7 @@ using Services.API.Application.Command.UpdateSpecializationForServices;
 using Services.API.Application.Helpers;
 using Services.API.Application.Query.GetAllServiceCategories;
 using Services.API.Application.Query.GetAllServices;
+using Services.API.Application.Query.GetEmptyServices;
 using Services.API.Application.Query.GetServicesById;
 using Services.API.Contracts.Incoming;
 using Services.API.Contracts.Outgoing;
@@ -94,6 +95,14 @@ public class ServiceController : MediatingControllerBase
     public async Task<ActionResult> GetServiceCategories()
     {
         var query = new GetServiceCategoriesQuery();
+        return await SendRequestAsync(query);
+    }
+    [HttpGet("empty")]
+    [SwaggerOperation(Summary = "Get empty services", OperationId = "GetEmptyServices")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(EmptyServices[]))]
+    public async Task<ActionResult> GetEmptyServices()
+    {
+        var query = new GetEmptyServicesQuery();
         return await SendRequestAsync(query);
     }
 }

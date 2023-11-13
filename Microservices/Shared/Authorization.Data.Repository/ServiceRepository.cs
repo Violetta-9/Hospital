@@ -21,7 +21,7 @@ public interface IServiceRepository : IRepositoryBase<Service>
     public Task<bool> IsServiceContainsFreeSpecializationAsync(long specializationId,
         CancellationToken cancellationToken);
 
-    public Task<OutServicesDto[]> GetAllFreeServiceAsync(CancellationToken cancellationToken);
+    public Task<Service[]> GetAllFreeServiceAsync(CancellationToken cancellationToken);
 
     public Task UpdateSpecializationIdAsync(ICollection<long> servicesId, long specializationId,
         CancellationToken cancellationToken);
@@ -68,9 +68,9 @@ public class ServiceRepository : RepositoryBase<Service>, IServiceRepository
         }
     }
 
-    public Task<OutServicesDto[]> GetAllFreeServiceAsync(CancellationToken cancellationToken)
+    public async Task<Service[]> GetAllFreeServiceAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+       return await DbContext.Services.Where(x => x.SpecializationId == null).ToArrayAsync(cancellationToken);
     }
 
     public async Task UpdateSpecializationIdAsync(ICollection<long> servicesId, long specializationId,
