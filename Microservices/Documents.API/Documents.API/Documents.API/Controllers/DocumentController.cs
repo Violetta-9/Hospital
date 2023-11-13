@@ -1,4 +1,5 @@
 ﻿using Documents.API.Application.Command.Delete;
+using Documents.API.Application.Command.Update;
 using Documents.API.Application.Command.Upload;
 using Documents.API.Application.Contracts.Incoming;
 using Documents.API.Application.Contracts.Outgoing;
@@ -45,6 +46,14 @@ public class DocumentController : MediatingControllerBase
     public async Task<ActionResult> GetBlob([FromQuery] DeleteOrGetFileDTO dto)
     {
         var query = new GetBlobQuery(dto);
+        return await SendRequestAsync(query);
+    }
+    [HttpPut]
+    [SwaggerOperation(Summary = "Update", OperationId = "UpdateBlob")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
+    public async Task<ActionResult> UpdateBlob([FromForm] UpdateFileDto newFileDto)
+    {
+        var query = new UpdateCommand(newFileDto);
         return await SendRequestAsync(query);
     }
 }

@@ -8,6 +8,7 @@ using Office.Application.Contracts.Incoming;
 using Office.Application.Contracts.Outgoing;
 using Office.Application.Helpers;
 using Office.Application.Query.GetAllOffices;
+using Office.Application.Query.GetOfficeById;
 using Office.Controllers.Abstraction.Mediator;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -55,6 +56,14 @@ public class OfficeController : MediatingControllerBase
     public async Task<ActionResult> GetAllOffices()
     {
         var query = new GetAllOfficesQuery();
+        return await SendRequestAsync(query);
+    }
+    [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Get office by id offices", OperationId = "GetOfficeById")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OfficeDto))]
+    public async Task<ActionResult> GetOfficeById([FromRoute] long id)
+    {
+        var query = new GetOfficeByIdQuery(id);
         return await SendRequestAsync(query);
     }
 }
