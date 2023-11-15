@@ -7,7 +7,9 @@ using Services.API.Application.Command.UpdateService;
 using Services.API.Application.Command.UpdateServiceStatus;
 using Services.API.Application.Command.UpdateSpecializationForServices;
 using Services.API.Application.Helpers;
+using Services.API.Application.Query.GetAllServiceCategories;
 using Services.API.Application.Query.GetAllServices;
+using Services.API.Application.Query.GetEmptyServices;
 using Services.API.Application.Query.GetServicesById;
 using Services.API.Contracts.Incoming;
 using Services.API.Contracts.Outgoing;
@@ -87,5 +89,20 @@ public class ServiceController : MediatingControllerBase
         var query = new UpdateSpecializationForServiceCommand(setSpecializationDto.SpecializationId,setSpecializationDto.ServicesId);
         return await SendRequestAsync(query);
     }
-
+    [HttpGet("categories")]
+    [SwaggerOperation(Summary = "Get service categories", OperationId = "GetServiceCategories")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(CategoriesDto[]))]
+    public async Task<ActionResult> GetServiceCategories()
+    {
+        var query = new GetServiceCategoriesQuery();
+        return await SendRequestAsync(query);
+    }
+    [HttpGet("service/free")]
+    [SwaggerOperation(Summary = "Get empty services", OperationId = "GetEmptyServices")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(EmptyServices[]))]
+    public async Task<ActionResult> GetEmptyServices()
+    {
+        var query = new GetEmptyServicesQuery();
+        return await SendRequestAsync(query);
+    }
 }

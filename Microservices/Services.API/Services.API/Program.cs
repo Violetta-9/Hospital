@@ -129,6 +129,7 @@ app.UseCors(x => x
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader());
+
 app.UseHttpsRedirection();
 app.UseProblemDetails();
 app.UseAuthorization();
