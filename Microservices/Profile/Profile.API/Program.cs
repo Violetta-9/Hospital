@@ -20,7 +20,12 @@ using Profile.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
-var configurationRoot = builder.Configuration;
+var configurationRoot = new ConfigurationBuilder()
+    .AddEnvironmentVariables()
+    .AddCommandLine(args)
+    .AddJsonFile("appsettings.json")
+    .AddUserSecrets<Program>(true)
+    .Build();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -34,7 +39,7 @@ var uriSettings = services.Configure<BlobUrlHelpers>(configurationRoot.GetSectio
 services.AddSingleton(uriSettings);
 services.AddRepository();
 services.AddAuthorizationApi(configurationRoot);
-services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 services.AddDocumentsApi(configurationRoot);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

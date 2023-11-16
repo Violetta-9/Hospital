@@ -23,12 +23,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var services = builder.Services;
-var configurationRoot = builder.Configuration;
+var configurationRoot = new ConfigurationBuilder()
+    .AddEnvironmentVariables()
+    .AddCommandLine(args)
+    .AddJsonFile("appsettings.json")
+    .AddUserSecrets<Program>(true)
+    .Build();
 services.AddApplication();
 services.AddRepository();
 var blobSettings = services.Configure<BlobStorageSettings>(configurationRoot.GetSection(nameof(BlobStorageSettings)));
 services.AddSingleton(blobSettings);
-services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 services.AddApplicationServices();
 services.AddSingleton(x =>
     new BlobServiceClient(builder.Configuration.GetSection("ConnectionStrings:BlobStorageConnection").Value));

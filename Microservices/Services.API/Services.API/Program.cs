@@ -22,11 +22,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var services = builder.Services;
-var configurationRoot = builder.Configuration;
+var configurationRoot = new ConfigurationBuilder()
+    .AddEnvironmentVariables()
+    .AddCommandLine(args)
+    .AddJsonFile("appsettings.json")
+    .AddUserSecrets<Program>(true)
+    .Build();
 
 services.AddApplication();
 services.AddRepository();
-services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 services.AddIdentity<Account, IdentityRole>(options =>

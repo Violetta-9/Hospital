@@ -14,7 +14,12 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
-var configurationRoot = builder.Configuration;
+var configurationRoot =  new ConfigurationBuilder()
+    .AddEnvironmentVariables()
+    .AddCommandLine(args)
+    .AddJsonFile("appsettings.json")
+    .AddUserSecrets<Program>(true)
+    .Build();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -40,7 +45,7 @@ services.AddIdentity<Account, IdentityRole>(options =>
     })
     .AddEntityFrameworkStores<HospitalDbContext>()
     .AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider);
-services.AddHospitalPostgreSql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+services.AddHospitalPostgreSql(configurationRoot.GetSection("ConnectionStrings:DefaultConnection").Value);
 services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

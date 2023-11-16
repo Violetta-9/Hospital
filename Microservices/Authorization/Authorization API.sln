@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization API", "Authorization API\Authorization API.csproj", "{B28B7E1F-6DB3-48D2-B723-C4E474818A7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.API", "Authorization API\Authorization.API.csproj", "{B28B7E1F-6DB3-48D2-B723-C4E474818A7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{6C025089-CB74-4958-85C1-63F90C860A50}"
 EndProject
@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.Application.S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{98884B81-A838-4DD1-BD1C-4235E975EA63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorization.API.Client", "Authorization.API.Client\Authorization.API.Client.csproj", "{496CF543-2F3A-489B-9BFD-DE63F58200FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization.API.Client", "Authorization.API.Client\Authorization.API.Client.csproj", "{496CF543-2F3A-489B-9BFD-DE63F58200FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

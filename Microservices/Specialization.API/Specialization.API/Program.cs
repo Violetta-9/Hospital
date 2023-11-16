@@ -23,7 +23,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var services = builder.Services;
-var configurationRoot = builder.Configuration;
+var configurationRoot = new ConfigurationBuilder()
+    .AddEnvironmentVariables()
+    .AddCommandLine(args)
+    .AddJsonFile("appsettings.json")
+    .AddUserSecrets<Program>(true)
+    .Build();
 
 builder.Services.AddMassTransit(x =>
 {
