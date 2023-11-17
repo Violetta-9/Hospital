@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Authorization_API.Controllers.User;
+namespace Authorization.API.Controllers.User;
 
 [Route("api/[controller]")]
 [ApiController]

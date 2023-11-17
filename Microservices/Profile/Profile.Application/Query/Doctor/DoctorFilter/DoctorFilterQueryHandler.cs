@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Profile.Application.Contracts.Incoming;
 using Profile.Application.Contracts.Outgoing;
 using Profile.Application.Query.Doctor.GetAllDoctors;
@@ -20,6 +15,7 @@ namespace Profile.Application.Query.Doctor.DoctorFilter
         public DoctorFilterQueryHandler(IMediator mediator)
         {
             _mediator = mediator;
+            Response = new DoctorAllDTO[0];
         }
         public async Task<DoctorAllDTO[]> Handle(DoctorFilterQuery request, CancellationToken cancellationToken)
         {
