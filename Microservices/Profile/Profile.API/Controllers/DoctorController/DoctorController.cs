@@ -92,7 +92,7 @@ public class DoctorController : MediatingControllerBase
         return await SendRequestAsync(query);
     }
     [Authorize(Roles = UserRoles.Receptionist)]
-    [HttpGet("specialization/{id}")]
+    [HttpGet("specialization")]
     [SwaggerOperation(Summary = "Get Doctors By Specialization Id", OperationId = "GetDoctorsBySpecializationId")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]
     public async Task<ActionResult> GetDoctorsBySpecializationId([FromQuery] long specializationId)
