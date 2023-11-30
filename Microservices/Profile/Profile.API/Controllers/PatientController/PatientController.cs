@@ -32,7 +32,7 @@ public class PatientController : MediatingControllerBase
         var query = new GetAllPatientQuery();
         return await SendRequestAsync(query);
     }
-
+    [AllowAnonymous]
     [HttpGet("{patientId}")]
     [SwaggerOperation(Summary = "Get Patient By Id", OperationId = "GetPatientById")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(PatientOneDTO))]
@@ -67,6 +67,7 @@ public class PatientController : MediatingControllerBase
         var query = new GetPatientByFullNameQuery(userFullNameDto);
         return await SendRequestAsync(query);
     }
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(Summary = "Get Patient Id By AccountId", OperationId = "GetPatientIdByAccountId")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]

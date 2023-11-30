@@ -49,7 +49,7 @@ public class OfficeController : MediatingControllerBase
         var query = new UpdateOfficeStatusCommand(updateOfficeStatus);
         return await SendRequestAsync(query);
     }
-
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(Summary = "Get all offices", OperationId = "GetAllOffices")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AllOfficesDto[]))]

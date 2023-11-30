@@ -50,7 +50,7 @@ public class SpecializationController : MediatingControllerBase
         var query = new UpdateSpecializationStatusCommand(updateSpecializationStatusDto);
         return await SendRequestAsync(query);
     }
-
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(Summary = "Get all specializations", OperationId = "GetAllSpecialization")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(SpecializationListDTO[]))]

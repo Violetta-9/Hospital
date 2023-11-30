@@ -91,7 +91,7 @@ public class DoctorController : MediatingControllerBase
         var query = new GetDoctorsByOfficeIdQuery(officeId);
         return await SendRequestAsync(query);
     }
-    [Authorize(Roles = UserRoles.Receptionist)]
+    [AllowAnonymous]
     [HttpGet("specialization")]
     [SwaggerOperation(Summary = "Get Doctors By Specialization Id", OperationId = "GetDoctorsBySpecializationId")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]

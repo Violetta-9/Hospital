@@ -107,6 +107,7 @@ public class ServiceController : MediatingControllerBase
         var query = new GetEmptyServicesQuery();
         return await SendRequestAsync(query);
     }
+    [AllowAnonymous]
     [HttpGet("service")]
     [SwaggerOperation(Summary = "Get services by specialization id", OperationId = "GetServicesBySpecializationId")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto[]))]

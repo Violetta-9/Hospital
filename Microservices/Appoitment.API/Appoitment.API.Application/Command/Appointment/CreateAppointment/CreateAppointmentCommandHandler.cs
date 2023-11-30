@@ -24,7 +24,7 @@ namespace Appointment.API.Application.Command.Appointment.CreateAppointment
             {
                 DoctorId = request.AppointmentDto.DoctorId,
                 PatientId = request.AppointmentDto.PatientId,
-               // ServiceId = request.AppointmentDto.ServiceId,
+                ServiceId = request.AppointmentDto.ServiceId,
                 DateTime = request.AppointmentDto.DateTime,
                 OfficeId = request.AppointmentDto.OfficeId,
                 SpecializationId = request.AppointmentDto.SpecializationId,
