@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using Appointment.API.Application.Contracts.Outgoing;
+﻿using Appointment.API.Application.Contracts.Outgoing;
 using Authorization.Data.Repository;
 using MediatR;
 
@@ -23,7 +17,7 @@ namespace Appointment.API.Application.Command.Appointment.ApproveAppointment
             var appointment = await _appointmentRepository.GetAsync(request.AppointmentId, cancellationToken);
             if (appointment != null)
             {
-                appointment.IsApproved=true;
+                appointment.IsApproved = request.IsApprove;
                 await _appointmentRepository.UpdateAsync(appointment, cancellationToken);
                 return Response.Success;
             }

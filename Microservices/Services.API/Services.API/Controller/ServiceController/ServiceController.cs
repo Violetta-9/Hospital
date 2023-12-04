@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Authorization.Data_Domain.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.API.Application.Command.CreateService;
@@ -11,6 +12,7 @@ using Services.API.Application.Query.GetAllServiceCategories;
 using Services.API.Application.Query.GetAllServices;
 using Services.API.Application.Query.GetEmptyServices;
 using Services.API.Application.Query.GetServicesById;
+using Services.API.Application.Query.GetServicesBySpecializationId;
 using Services.API.Contracts.Incoming;
 using Services.API.Contracts.Outgoing;
 using Services.API.Controller.Abstraction.Mediator;
@@ -103,6 +105,15 @@ public class ServiceController : MediatingControllerBase
     public async Task<ActionResult> GetEmptyServices()
     {
         var query = new GetEmptyServicesQuery();
+        return await SendRequestAsync(query);
+    }
+    [AllowAnonymous]
+    [HttpGet("service")]
+    [SwaggerOperation(Summary = "Get services by specialization id", OperationId = "GetServicesBySpecializationId")]
+    [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto[]))]
+    public async Task<ActionResult> GetServiceBySpecializationId([FromQuery] long specializationId)
+    {
+        var query = new GetServicesBySpecializationIdQuery(specializationId);
         return await SendRequestAsync(query);
     }
 }

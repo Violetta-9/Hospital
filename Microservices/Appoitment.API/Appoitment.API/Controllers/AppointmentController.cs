@@ -49,9 +49,9 @@ namespace Appoitment.API.Controllers
         [HttpPatch("approve")]
         [SwaggerOperation(Summary = "Approve Appointment", OperationId = "ApproveAppointment")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
-        public async Task<ActionResult> ApproveAppointment([FromForm]  long appointmentId)
+        public async Task<ActionResult> ApproveAppointment([FromForm]  long appointmentId,[FromForm] bool isApprove)
         {
-            var query = new ApproveAppointmentCommand(appointmentId);
+            var query = new ApproveAppointmentCommand(appointmentId,isApprove);
             return await SendRequestAsync(query);
         }
         [Authorize(Roles = UserRoles.Receptionist)]

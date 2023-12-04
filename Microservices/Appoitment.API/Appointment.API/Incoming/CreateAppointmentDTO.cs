@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic;
-
-namespace Appointment.API.Application.Contracts.Incoming
+﻿namespace Appointment.API.Application.Contracts.Incoming
 {
     public class CreateAppointmentDTO
     {
@@ -15,7 +8,5 @@ namespace Appointment.API.Application.Contracts.Incoming
         public long SpecializationId { get; set; }
         public long OfficeId { get; set; }
         public DateTime DateTime { get; set; }
-     
-
     }
 }
