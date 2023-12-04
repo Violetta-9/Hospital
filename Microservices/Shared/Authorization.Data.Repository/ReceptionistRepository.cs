@@ -61,6 +61,7 @@ internal class ReceptionistRepository : RepositoryBase<Receptionist>, IReception
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
             OfficeAddress = x.Office.Address,
+            OfficeId = x.OfficeId,
             DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
         }).SingleOrDefaultAsync(cancellationToken);
     }

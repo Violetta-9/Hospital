@@ -48,6 +48,7 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
         DateTime date, long officeId,
         CancellationToken cancellationToken = default)
     {
+     
         return await DbContext.Appointments.AsNoTracking()
             .Where(x => x.DateTime.Date == date.Date && x.OfficeId == officeId)
             .Select(x => new AppointmentScheduleForReceptionistDTO
@@ -59,7 +60,9 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
                 DoctorFullName = string.Join(" ", x.Doctor.Account.LastName, x.Doctor.Account.FirstName,
                     x.Doctor.Account.MiddleName),
                 ServiceName = x.Service.Title,
-                PatientPhoneNumber = x.Patient.Account.PhoneNumber
+                PatientPhoneNumber = x.Patient.Account.PhoneNumber,
+                SpecializationName = x.Specialization.Title,
+                IsApprove = x.IsApproved
             }).ToArrayAsync(cancellationToken);
     }
 
