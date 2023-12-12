@@ -4,7 +4,7 @@ namespace Documents.API.Client.Abstraction;
 
 public interface IDocumentApiProxy
 {
-    public Task<long> UploadBlobAsync(FileParameter file, long entityId, SubjectUpdate subjectUpdate,
+    public Task<long> UploadBlobAsync(FileParameter file, long entityId, long? resultId, SubjectUpdate subjectUpdate,
         CancellationToken cancellationToken);
 
     public Task<Response> DeleteBlobAsync(long documentId, CancellationToken cancellationToken);

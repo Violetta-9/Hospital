@@ -58,9 +58,9 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, SubjectUpdate? subject)
+        public virtual System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, long? resultId, SubjectUpdate? subject)
         {
-            return UploadBlobAsync(file, entityId, subject, System.Threading.CancellationToken.None);
+            return UploadBlobAsync(file, entityId, resultId, subject, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -69,7 +69,7 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, SubjectUpdate? subject, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, long? resultId, SubjectUpdate? subject, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Document");
@@ -100,6 +100,13 @@ namespace Documents.API.Client.GeneratedClient
                     else
                     {
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(entityId, System.Globalization.CultureInfo.InvariantCulture)), "EntityId");
+                    }
+
+                    if (resultId == null)
+                        throw new System.ArgumentNullException("resultId");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(resultId, System.Globalization.CultureInfo.InvariantCulture)), "ResultId");
                     }
 
                     if (subject == null)
@@ -645,6 +652,8 @@ namespace Documents.API.Client.GeneratedClient
         _2 = 2,
 
         _3 = 3,
+
+        _4 = 4,
 
     }
 

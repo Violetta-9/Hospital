@@ -10,6 +10,7 @@ using Appointment.API.Application.Command.Appointment.ApproveAppointment;
 using Appointment.API.Application.Command.Appointment.CancelAppointment;
 using Appointment.API.Application.Command.Appointment.CreateAppointment;
 using Appointment.API.Application.Command.Appointment.RescheduleAppointment;
+using Appointment.API.Application.Command.Result.CreateAppointment;
 using Appointment.API.Application.Contracts.Incoming;
 using Appointment.API.Application.Contracts.Outgoing;
 using Appointment.API.Application.Query.GetAppointmentByPatientId;
@@ -88,6 +89,15 @@ namespace Appoitment.API.Controllers
         public async Task<ActionResult> GetAppointmentListForPatient([FromQuery] long patientId)
         {
             var query = new GetAppointmentByPatientIdQuery(patientId);
+            return await SendRequestAsync(query);
+        }
+        [Authorize(Roles = UserRoles.Doctor)]
+        [HttpPost("result")]
+        [SwaggerOperation(Summary = "Create Appointment Result", OperationId = "CreateAppointmentResult")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AppointmentHistoryDTO[]))]
+        public async Task<ActionResult> CreateAppointmentResult(CreateAppointmentResultDto dto)
+        {
+            var query = new CreateAppointmentResultCommand(dto);
             return await SendRequestAsync(query);
         }
     }

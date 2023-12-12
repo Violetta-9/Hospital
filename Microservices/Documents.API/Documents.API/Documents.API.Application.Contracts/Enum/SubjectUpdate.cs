@@ -5,5 +5,6 @@ public enum SubjectUpdate
     Doctor = 0,
     Receptionist,
     Patient,
-    Office
+    Office,
+    Result
 }

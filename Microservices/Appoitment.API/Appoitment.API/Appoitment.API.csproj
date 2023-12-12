@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Authorization.Data.EF.PostgreSQL\Authorization.Data.EF.PostgreSQL.csproj" />
     <ProjectReference Include="..\Appointment.API.Application.Helpers\Appointment.API.Application.Helpers.csproj" />
+    <ProjectReference Include="..\Appointment.API.Service\Appointment.API.Application.Service.csproj" />
     <ProjectReference Include="..\Appoitment.API.Application\Appointment.API.Application.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿using Documents.API.Application.Command.Delete;
 using Documents.API.Application.Command.Update;
 using Documents.API.Application.Command.Upload;
+using Documents.API.Application.Command.UploadDocuments;
 using Documents.API.Application.Contracts.Incoming;
 using Documents.API.Application.Contracts.Outgoing;
 using Documents.API.Application.Query.GetBlob;
@@ -27,9 +28,19 @@ public class DocumentController : MediatingControllerBase
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(long))]
     public async Task<ActionResult> UploadBlob([FromForm] UploadFileDTO newFileDto)
     {
-        var query = new UploadCommand(newFileDto);
+        IBaseRequest query;
+        if (newFileDto.ResultId > 0)
+        {
+             query = new UploadDocumentsCommand(newFileDto);
+        }
+        else
+        {
+             query = new UploadCommand(newFileDto);
+        }
+       
         return await SendRequestAsync(query);
     }
+
 
     [HttpDelete]
     [SwaggerOperation(Summary = "Delete", OperationId = "DeleteBlob")]

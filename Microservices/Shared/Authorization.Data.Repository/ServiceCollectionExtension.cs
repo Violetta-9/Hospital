@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Authorization.Data.Repository.Abstraction;
+using Authorization.Data_Domain.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Authorization.Data.Repository;
 
@@ -15,6 +17,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<ISpecializationRepository, SpecializationRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<IDocumentsRepository, DocumentsRepository>();
+        services.AddScoped<IPhotosRepository, PhotosRepository>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IRepositoryBase<Result>, RepositoryBase<Result>>();
     }
 }

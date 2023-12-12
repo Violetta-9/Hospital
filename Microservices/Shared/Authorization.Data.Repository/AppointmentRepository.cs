@@ -41,6 +41,7 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
                 PatientFullName = string.Join(" ", x.Patient.Account.LastName, x.Patient.Account.FirstName,
                     x.Patient.Account.MiddleName),
                 ServiceName = x.Service.Title
+
             }).ToArrayAsync(cancellationToken);
     }
 

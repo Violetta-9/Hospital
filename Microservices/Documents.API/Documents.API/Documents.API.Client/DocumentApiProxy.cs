@@ -21,13 +21,13 @@ public class DocumentApiProxy : IDocumentApiProxy
         _httpClientProvider = httpClientProvider;
     }
 
-    public async Task<long> UploadBlobAsync(FileParameter file, long entityId, SubjectUpdate subjectUpdate,
+    public async Task<long> UploadBlobAsync(FileParameter file, long entityId,long? resultId, SubjectUpdate subjectUpdate,
         CancellationToken cancellationToken)
     {
         var api = await GetApiClientAsync(cancellationToken);
         try
         {
-            var response = await api.UploadBlobAsync(file, entityId, subjectUpdate, cancellationToken);
+            var response = await api.UploadBlobAsync(file, entityId, resultId,subjectUpdate, cancellationToken);
             return response;
         }
         catch (ApiException e)
@@ -43,6 +43,7 @@ public class DocumentApiProxy : IDocumentApiProxy
             throw e;
         }
     }
+
 
     public async Task<Response> DeleteBlobAsync(long documentId, CancellationToken cancellationToken)
     {
