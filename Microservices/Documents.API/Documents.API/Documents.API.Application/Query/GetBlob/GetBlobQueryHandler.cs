@@ -10,12 +10,14 @@ internal class GetBlobQueryHandler : IRequestHandler<GetBlobQuery, BlobDTO>
     private readonly IBlobServices _blobServices;
 
     private readonly IDocumentsRepository _documentsRepository;
+    private readonly IPhotosRepository _photosRepository;
 
 
-    public GetBlobQueryHandler(IDocumentsRepository documentsRepository, IBlobServices blobServices)
+    public GetBlobQueryHandler(IDocumentsRepository documentsRepository, IBlobServices blobServices, IPhotosRepository photosRepository)
     {
         _documentsRepository = documentsRepository;
         _blobServices = blobServices;
+        _photosRepository = photosRepository;
     }
 
     public async Task<BlobDTO> Handle(GetBlobQuery request, CancellationToken cancellationToken)

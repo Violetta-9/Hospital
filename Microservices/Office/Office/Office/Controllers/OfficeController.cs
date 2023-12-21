@@ -58,6 +58,7 @@ public class OfficeController : MediatingControllerBase
         var query = new GetAllOfficesQuery();
         return await SendRequestAsync(query);
     }
+
     [HttpGet("{id}")]
     [SwaggerOperation(Summary = "Get office by id offices", OperationId = "GetOfficeById")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OfficeDto))]
