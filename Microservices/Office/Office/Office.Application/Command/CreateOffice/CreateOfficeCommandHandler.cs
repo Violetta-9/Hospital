@@ -29,7 +29,7 @@ internal class CreateOfficeCommandHandler : IRequestHandler<CreateOfficeCommand,
         if (request.OfficeDto?.File!= null)
         {
             var response = await _documentApiProxy.UploadBlobAsync(new FileParameter(request.OfficeDto.File.OpenReadStream(), request.OfficeDto.File.FileName,
-                request.OfficeDto.File.ContentType),office.Id,SubjectUpdate._3, cancellationToken);
+                request.OfficeDto.File.ContentType),office.Id,null ,SubjectUpdate._3, cancellationToken);
             if (response > 0)
             {
                 office.PhotoId=response;

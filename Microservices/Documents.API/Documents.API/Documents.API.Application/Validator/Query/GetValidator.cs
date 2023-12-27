@@ -1,11 +1,11 @@
 ﻿using Authorization.Data.Repository;
-using Documents.API.Application.Query.GetBlob;
+using Documents.API.Application.Query.GetBlobDocuments;
 using Documents.API.Application.Resourse;
 using FluentValidation;
 
 namespace Documents.API.Application.Validator.Query;
 
-public class GetValidator : AbstractValidator<GetBlobQuery>
+public class GetValidator : AbstractValidator<GetBlobDocumentsQuery>
 {
     private readonly IDocumentsRepository _documentsRepository;
 

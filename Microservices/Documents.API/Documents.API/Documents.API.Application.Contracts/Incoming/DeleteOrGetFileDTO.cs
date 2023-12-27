@@ -3,4 +3,5 @@
 public class DeleteOrGetFileDTO
 {
     public long DocumentId { get; set; }
+    public bool IsPhoto { get; set; }
 }

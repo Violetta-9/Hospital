@@ -4,7 +4,8 @@ using Documents.API.Application.Command.Upload;
 using Documents.API.Application.Command.UploadDocuments;
 using Documents.API.Application.Contracts.Incoming;
 using Documents.API.Application.Contracts.Outgoing;
-using Documents.API.Application.Query.GetBlob;
+using Documents.API.Application.Query.GetBlobDocuments;
+using Documents.API.Application.Query.GetBlobPhoto;
 using Documents.API.Controllers.Abstraction.Mediator;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -50,13 +51,22 @@ public class DocumentController : MediatingControllerBase
         var query = new DeleteCommand(dto);
         return await SendRequestAsync(query);
     }
-
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(Summary = "Get", OperationId = "GetBlob")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(BlobDTO))]
     public async Task<ActionResult> GetBlob([FromQuery] DeleteOrGetFileDTO dto)
     {
-        var query = new GetBlobQuery(dto);
+        IBaseRequest query;
+        if (dto.IsPhoto)
+        {
+            query=  new GetBlobPhotoQuery(dto);
+            return await SendRequestAsync(query);
+        }
+        else
+        {
+            query = new GetBlobDocumentsQuery(dto);
+        }
         return await SendRequestAsync(query);
     }
     [HttpPut]

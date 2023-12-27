@@ -258,9 +258,9 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId)
+        public virtual System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId, bool? isPhoto)
         {
-            return GetBlobAsync(documentId, System.Threading.CancellationToken.None);
+            return GetBlobAsync(documentId, isPhoto, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -269,13 +269,17 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId, bool? isPhoto, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Document?");
             if (documentId != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("DocumentId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(documentId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isPhoto != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("IsPhoto") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isPhoto, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -572,6 +576,9 @@ namespace Documents.API.Client.GeneratedClient
     {
         [Newtonsoft.Json.JsonProperty("documentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public long DocumentId { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("isPhoto", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsPhoto { get; set; }
 
     }
 

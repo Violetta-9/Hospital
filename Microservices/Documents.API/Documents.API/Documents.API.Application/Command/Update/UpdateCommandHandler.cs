@@ -13,10 +13,10 @@ namespace Documents.API.Application.Command.Update
     {
         private readonly IBlobServices _blobService;
         private readonly BlobStorageSettings _blobStorageSettings;
-        private readonly IDocumentsRepository _documentsRepository;
+        private readonly IPhotosRepository _documentsRepository;
 
         public UpdateCommandHandler(IBlobServices blobService, IOptions<BlobStorageSettings> blobStorageSettings,
-            IDocumentsRepository documentsRepository)
+            IPhotosRepository documentsRepository)
         {
             _blobService = blobService;
             _blobStorageSettings = blobStorageSettings.Value;

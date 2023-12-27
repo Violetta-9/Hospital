@@ -6,6 +6,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Documents.API.Client;
 
@@ -70,12 +71,12 @@ public class DocumentApiProxy : IDocumentApiProxy
         }
     }
 
-    public async Task<BlobDTO> GetBlobAsync(long documentId, CancellationToken cancellationToken)
+    public async Task<BlobDTO> GetBlobAsync(long documentId,bool isPhotoId, CancellationToken cancellationToken)
     {
-        var api = await GetApiClientAsync(cancellationToken);
+        var api = new DocumentApi(BaseUrl, new HttpClient());
         try
         {
-            var response = await api.GetBlobAsync(documentId, cancellationToken);
+            var response = await api.GetBlobAsync(documentId,isPhotoId, cancellationToken);
             return response;
         }
         catch (ApiException e)

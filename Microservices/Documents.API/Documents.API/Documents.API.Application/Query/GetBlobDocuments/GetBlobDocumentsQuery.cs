@@ -2,14 +2,14 @@
 using Documents.API.Application.Contracts.Outgoing;
 using MediatR;
 
-namespace Documents.API.Application.Query.GetBlob;
+namespace Documents.API.Application.Query.GetBlobDocuments;
 
-public class GetBlobQuery : IRequest<BlobDTO>
+public class GetBlobDocumentsQuery : IRequest<BlobDTO>
 {
     public long DocumentId { get; set; }
 
 
-    public GetBlobQuery(DeleteOrGetFileDTO entityDto)
+    public GetBlobDocumentsQuery(DeleteOrGetFileDTO entityDto)
     {
         DocumentId = entityDto.DocumentId;
     }
