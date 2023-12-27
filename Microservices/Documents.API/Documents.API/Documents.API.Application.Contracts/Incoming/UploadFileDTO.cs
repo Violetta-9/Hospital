@@ -7,5 +7,6 @@ public class UploadFileDTO
 {
     public IFormFile File { get; set; }
     public long EntityId { get; set; }
+    public long ResultId { get; set; }
     public SubjectUpdate Subject { get; set; }
 }

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Appointment.API.Application.Service;
+using Documents.API.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +35,8 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 services.AddApplication();
 services.AddRepository();
-
+services.AddServices();
+services.AddDocumentsApi(configurationRoot);
 services.AddIdentity<Account, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;

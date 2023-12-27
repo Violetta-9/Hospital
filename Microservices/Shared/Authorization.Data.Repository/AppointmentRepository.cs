@@ -2,6 +2,7 @@
 using Authorization.Data.Repository.Abstraction;
 using Authorization.Data.Shared.DbContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using AppointmentEntity = Authorization.Data_Domain.Models.Appointment;
 
 namespace Authorization.Data.Repository;
@@ -18,6 +19,10 @@ public interface IAppointmentRepository : IRepositoryBase<AppointmentEntity>
 
     public Task<AppointmentHistoryDTO[]>
         GetAppointmentsByPatientIdAsync(long patientId,
+            CancellationToken cancellationToken = default);
+
+    Task<BusyTimeSlotsDto[]>
+        GetBusyTimeSlots(long docId, DateTime date,
             CancellationToken cancellationToken = default);
 }
 
@@ -40,7 +45,11 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
                 DateTime = x.DateTime,
                 PatientFullName = string.Join(" ", x.Patient.Account.LastName, x.Patient.Account.FirstName,
                     x.Patient.Account.MiddleName),
-                ServiceName = x.Service.Title
+                ServiceName = x.Service.Title,
+                SpecializationName = x.Specialization.Title,
+                ResultId = x.Result.Id,
+                PatientId = x.PatientId,
+
             }).ToArrayAsync(cancellationToken);
     }
 
@@ -62,7 +71,8 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
                 ServiceName = x.Service.Title,
                 PatientPhoneNumber = x.Patient.Account.PhoneNumber,
                 SpecializationName = x.Specialization.Title,
-                IsApprove = x.IsApproved
+                IsApprove = x.IsApproved,
+                PatientId = x.PatientId
             }).ToArrayAsync(cancellationToken);
     }
 
@@ -70,13 +80,27 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
         GetAppointmentsByPatientIdAsync(long patientId,
             CancellationToken cancellationToken = default)
     {
-        return await DbContext.Appointments.AsNoTracking().Where(x => x.PatientId == patientId)
+        return await DbContext.Appointments.AsNoTracking().Where(x => x.PatientId == patientId && DateTime.Now.Date <= x.DateTime.Date)
             .Select(x => new AppointmentHistoryDTO
             {
                 DateTime = x.DateTime,
                 DoctorFullName = string.Join(" ", x.Doctor.Account.LastName, x.Doctor.Account.FirstName,
                     x.Doctor.Account.MiddleName),
-                ServiceName = x.Service.Title
+                ServiceName = x.Service.Title,
+                IsApprove = x.IsApproved,
+                SpecializationId = x.Specialization.Id,
+                AppointmentId = x.Id,
+            }).ToArrayAsync(cancellationToken);
+    }
+    public async Task<BusyTimeSlotsDto[]>
+        GetBusyTimeSlots(long docId,DateTime date,
+            CancellationToken cancellationToken = default)
+    {
+        return await DbContext.Appointments.AsNoTracking().Where(x => x.DoctorId == docId && x.DateTime.Date == date.Date)
+            .Select(x => new BusyTimeSlotsDto
+            {
+               DatesTime = x.DateTime,
+               Duration = x.Service.ServiceCategory.TimeSlotSize
             }).ToArrayAsync(cancellationToken);
     }
 }

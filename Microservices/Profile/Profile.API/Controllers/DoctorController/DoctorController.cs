@@ -64,7 +64,7 @@ public class DoctorController : MediatingControllerBase
         var query = new UpdateDoctorProfileCommand(updateDoctorDTO);
         return await SendRequestAsync(query);
     }
-    [Authorize(Roles = UserRoles.Receptionist)]
+    [AllowAnonymous]
     [HttpGet("all")]
     [SwaggerOperation(Summary = "Get All Doctors", OperationId = "GetAllDoctors")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(DoctorAllDTO[]))]

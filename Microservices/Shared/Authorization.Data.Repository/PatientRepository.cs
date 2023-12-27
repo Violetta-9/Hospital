@@ -53,16 +53,48 @@ internal class PatientRepository : RepositoryBase<Patient>, IPatientRepository
 
     public async Task<PatientOneDTO?> GetPatientByIdAsync(long id, CancellationToken cancellationToken = default)
     {
-        return await DbContext.Patients.Where(x => x.Id == id).Select(x => new PatientOneDTO
-        {
-            AccountId = x.AccountId,
-            FirstName = x.Account.FirstName,
-            LastName = x.Account.LastName,
-            MiddleName = x.Account.MiddleName,
-            PhoneNumber = x.Account.PhoneNumber,
-            BirthDay = x.Account.Birthday,
-            DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path
-        }).SingleOrDefaultAsync(cancellationToken);
+        var currentTime = DateTime.Now.TimeOfDay;
+        var appointments = await DbContext.Patients.Where(x => x.Id == id).Select(x =>x.Appointments
+            .Where(y => y.PatientId == id && y.IsApproved && y.DateTime.Date <= DateTime.Now.Date)
+            .GroupBy(y => y.SpecializationId)
+            .Select(specGroup => new ResultForPatient
+            {
+                Title = specGroup.First().Specialization.Title,
+                Children = specGroup
+                    .GroupBy(a => a.ServiceId)
+                    .Select(serviceGroup => new ServiceForPatientResultDto
+                    {
+                        Title = serviceGroup.First().Service.Title,
+                        Children = serviceGroup.Where(appf=>appf.IsApproved && appf.Result.AppointmentId == appf.Id)
+                            .Select(app => new AppointmentForPatientDto
+                            {
+                                Date = app.DateTime.ToShortDateString(),
+                                DoctorFullName =
+                                    $"{app.Doctor.Account.FirstName} {app.Doctor.Account.LastName} {app.Doctor.Account.MiddleName}",
+                                Children = new List<ResultDto>
+                                {
+                                    new ResultDto
+                                    {
+                                        AbsoluteUrl = _blobUrlHelpers.AbsolutUrl + app.Result.Document.Path,
+                                        FileTitle = app.Result.Document.FileName
+                                    }
+                                }
+                            }).ToList()
+                    }).ToList()
+            }).ToList()).SingleOrDefaultAsync();
+        return await DbContext.Patients.Where(x => x.Id == id).Select(x =>
+            new PatientOneDTO
+            {
+                AccountId = x.AccountId,
+                FirstName = x.Account.FirstName,
+                LastName = x.Account.LastName,
+                MiddleName = x.Account.MiddleName,
+                PhoneNumber = x.Account.PhoneNumber,
+                BirthDay = x.Account.Birthday,
+                DocumentAbsolutUrl = _blobUrlHelpers.AbsolutUrl + x.Account.Photo.Path,
+                Results = appointments
+            }
+        ).SingleOrDefaultAsync(cancellationToken);
     }
 
     public async Task<UsersDTO[]> FindUsersByFullName(string firsName, string lastName, string middleName,

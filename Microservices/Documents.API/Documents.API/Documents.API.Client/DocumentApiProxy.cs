@@ -6,6 +6,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Documents.API.Client;
 
@@ -21,13 +22,13 @@ public class DocumentApiProxy : IDocumentApiProxy
         _httpClientProvider = httpClientProvider;
     }
 
-    public async Task<long> UploadBlobAsync(FileParameter file, long entityId, SubjectUpdate subjectUpdate,
+    public async Task<long> UploadBlobAsync(FileParameter file, long entityId,long? resultId, SubjectUpdate subjectUpdate,
         CancellationToken cancellationToken)
     {
         var api = await GetApiClientAsync(cancellationToken);
         try
         {
-            var response = await api.UploadBlobAsync(file, entityId, subjectUpdate, cancellationToken);
+            var response = await api.UploadBlobAsync(file, entityId, resultId,subjectUpdate, cancellationToken);
             return response;
         }
         catch (ApiException e)
@@ -43,6 +44,7 @@ public class DocumentApiProxy : IDocumentApiProxy
             throw e;
         }
     }
+
 
     public async Task<Response> DeleteBlobAsync(long documentId, CancellationToken cancellationToken)
     {
@@ -69,12 +71,12 @@ public class DocumentApiProxy : IDocumentApiProxy
         }
     }
 
-    public async Task<BlobDTO> GetBlobAsync(long documentId, CancellationToken cancellationToken)
+    public async Task<BlobDTO> GetBlobAsync(long documentId,bool isPhotoId, CancellationToken cancellationToken)
     {
-        var api = await GetApiClientAsync(cancellationToken);
+        var api = new DocumentApi(BaseUrl, new HttpClient());
         try
         {
-            var response = await api.GetBlobAsync(documentId, cancellationToken);
+            var response = await api.GetBlobAsync(documentId,isPhotoId, cancellationToken);
             return response;
         }
         catch (ApiException e)

@@ -14,7 +14,7 @@ using Response = Documents.API.Client.GeneratedClient.Response;
 namespace Profile.API.Controllers.PhotoController;
 
 [Route("api/[controller]")]
-[Authorize(Roles = UserRoles.Receptionist)]
+//[Authorize(Roles = UserRoles.Receptionist)]
 [ApiController]
 public class PhotoController : MediatingControllerBase
 {

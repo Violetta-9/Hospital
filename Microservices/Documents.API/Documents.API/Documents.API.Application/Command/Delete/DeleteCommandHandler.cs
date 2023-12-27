@@ -8,10 +8,10 @@ namespace Documents.API.Application.Command.Delete;
 internal class DeleteCommandHandler : IRequestHandler<DeleteCommand, Response>
 {
     private readonly IBlobServices _blobServices;
-    private readonly IDocumentsRepository _documentsRepository;
+    private readonly IPhotosRepository _documentsRepository;
 
 
-    public DeleteCommandHandler(IDocumentsRepository documentsRepository, IBlobServices blobServices)
+    public DeleteCommandHandler(IPhotosRepository documentsRepository, IBlobServices blobServices)
     {
         _documentsRepository = documentsRepository;
         _blobServices = blobServices;

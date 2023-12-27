@@ -24,7 +24,14 @@ public class SpecializationRepository : RepositoryBase<SpecializationEntity>, IS
         {
             Id = x.Id,
             Title = x.Title,
-            IsActive = x.IsActive
+            IsActive = x.IsActive,
+            Services = x.Services.Select(s => new OutServicesDto
+            {
+                Id = s.Id,
+                Title = s.Title,
+                Price = s.Price,
+                ServiceCategoryName = s.ServiceCategory.Title
+            }).ToArray(),
         }).ToArrayAsync(cancellationToken);
     }
 

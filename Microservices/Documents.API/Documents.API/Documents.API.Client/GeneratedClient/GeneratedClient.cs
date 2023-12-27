@@ -58,9 +58,9 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, SubjectUpdate? subject)
+        public virtual System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, long? resultId, SubjectUpdate? subject)
         {
-            return UploadBlobAsync(file, entityId, subject, System.Threading.CancellationToken.None);
+            return UploadBlobAsync(file, entityId, resultId, subject, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -69,7 +69,7 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, SubjectUpdate? subject, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<long> UploadBlobAsync(FileParameter file, long? entityId, long? resultId, SubjectUpdate? subject, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Document");
@@ -100,6 +100,13 @@ namespace Documents.API.Client.GeneratedClient
                     else
                     {
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(entityId, System.Globalization.CultureInfo.InvariantCulture)), "EntityId");
+                    }
+
+                    if (resultId == null)
+                        throw new System.ArgumentNullException("resultId");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(resultId, System.Globalization.CultureInfo.InvariantCulture)), "ResultId");
                     }
 
                     if (subject == null)
@@ -251,9 +258,9 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId)
+        public virtual System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId, bool? isPhoto)
         {
-            return GetBlobAsync(documentId, System.Threading.CancellationToken.None);
+            return GetBlobAsync(documentId, isPhoto, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -262,13 +269,17 @@ namespace Documents.API.Client.GeneratedClient
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<BlobDTO> GetBlobAsync(long? documentId, bool? isPhoto, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Document?");
             if (documentId != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("DocumentId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(documentId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isPhoto != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("IsPhoto") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isPhoto, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 
@@ -566,6 +577,9 @@ namespace Documents.API.Client.GeneratedClient
         [Newtonsoft.Json.JsonProperty("documentId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public long DocumentId { get; set; }
 
+        [Newtonsoft.Json.JsonProperty("isPhoto", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsPhoto { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.0.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -645,6 +659,8 @@ namespace Documents.API.Client.GeneratedClient
         _2 = 2,
 
         _3 = 3,
+
+        _4 = 4,
 
     }
 

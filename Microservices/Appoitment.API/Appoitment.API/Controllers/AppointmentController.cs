@@ -10,12 +10,14 @@ using Appointment.API.Application.Command.Appointment.ApproveAppointment;
 using Appointment.API.Application.Command.Appointment.CancelAppointment;
 using Appointment.API.Application.Command.Appointment.CreateAppointment;
 using Appointment.API.Application.Command.Appointment.RescheduleAppointment;
+using Appointment.API.Application.Command.Result.CreateAppointment;
 using Appointment.API.Application.Contracts.Incoming;
 using Appointment.API.Application.Contracts.Outgoing;
 using Appointment.API.Application.Query.GetAppointmentByPatientId;
 using Appointment.API.Application.Query.GetAppointmentForDoctor;
 using Appointment.API.Application.Query.GetAppointmentForReceptionist;
 using Appointment.API.Application.Helpers;
+using Appointment.API.Application.Query.GetBusySlots;
 
 namespace Appoitment.API.Controllers
 {
@@ -39,7 +41,7 @@ namespace Appoitment.API.Controllers
         [Authorize]
         [HttpPatch]
         [SwaggerOperation(Summary = "Reschedule Appointment", OperationId = "RescheduleAppointment")]
-        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(Response))]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AppointmentHistoryDTO[]))]
         public async Task<ActionResult> RescheduleAppointment([FromForm] RescheduleAppointmentDTO appointmentDto)
         {
             var query = new RescheduleAppointmentCommand(appointmentDto);
@@ -88,6 +90,24 @@ namespace Appoitment.API.Controllers
         public async Task<ActionResult> GetAppointmentListForPatient([FromQuery] long patientId)
         {
             var query = new GetAppointmentByPatientIdQuery(patientId);
+            return await SendRequestAsync(query);
+        }
+        [Authorize(Roles = UserRoles.Doctor)]
+        [HttpPost("result")]
+        [SwaggerOperation(Summary = "Create Appointment Result", OperationId = "CreateAppointmentResult")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AppointmentHistoryDTO[]))]
+        public async Task<ActionResult> CreateAppointmentResult(CreateAppointmentResultDto dto)
+        {
+            var query = new CreateAppointmentResultCommand(dto);
+            return await SendRequestAsync(query);
+        }
+        [AllowAnonymous]
+        [HttpGet("busy")]
+        [SwaggerOperation(Summary = "Get busy time slots", OperationId = "GetBusyTimeSlot")]
+        [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(BusyTimeSlotsDto[]))]
+        public async Task<ActionResult> GetBusyTimeSlots([FromQuery] long doctorId, [FromQuery] DateTime data)
+        {
+            var query = new GetBusySlotsQuery(doctorId,data);
             return await SendRequestAsync(query);
         }
     }

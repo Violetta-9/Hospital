@@ -26,7 +26,7 @@ namespace Office.Application.Query.GetOfficeById
             var officeDto = mapper.Map<OfficeDto>(entity);
             if (entity.PhotoId != null)
             {
-                var photo = await _documentApiProxy.GetBlobAsync((long)entity.PhotoId, cancellationToken);
+                var photo = await _documentApiProxy.GetBlobAsync((long)entity.PhotoId,true, cancellationToken);
                 officeDto.FilePath = photo.AbsoluteUri;
             }
             

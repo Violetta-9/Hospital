@@ -1,4 +1,6 @@
-﻿namespace Profile.Application.Contracts.Outgoing;
+﻿using Authorization.Data_Domain.Models;
+
+namespace Profile.Application.Contracts.Outgoing;
 
 public class PatientOneDTO
 {
@@ -10,4 +12,5 @@ public class PatientOneDTO
     public DateTime BirthDay { get; set; }
     public string PhotoUrl { get; set; }
     public string DocumentAbsolutUrl { get; set; }
+    public List<ResultForPatient> Results { get; set; }
 }

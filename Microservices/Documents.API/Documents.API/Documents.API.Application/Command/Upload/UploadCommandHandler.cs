@@ -12,10 +12,10 @@ internal class UploadCommandHandler : IRequestHandler<UploadCommand, long>
 {
     private readonly IBlobServices _blobService;
     private readonly BlobStorageSettings _blobStorageSettings;
-    private readonly IDocumentsRepository _documentsRepository;
+    private readonly IPhotosRepository _documentsRepository;
 
     public UploadCommandHandler(IBlobServices blobService, IOptions<BlobStorageSettings> blobStorageSettings,
-        IDocumentsRepository documentsRepository)
+        IPhotosRepository documentsRepository)
     {
         _blobService = blobService;
         _blobStorageSettings = blobStorageSettings.Value;

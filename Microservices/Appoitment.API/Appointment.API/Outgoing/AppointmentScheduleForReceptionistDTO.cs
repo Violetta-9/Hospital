@@ -11,6 +11,7 @@ namespace Appointment.API.Application.Contracts.Outgoing
         public string ServiceName { get; set; }
         public string SpecializationName { get; set; }
         public bool IsApprove { get; set; }
+        public long PatientId { get; set; }
 
     }
 }
