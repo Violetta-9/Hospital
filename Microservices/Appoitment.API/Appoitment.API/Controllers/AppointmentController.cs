@@ -83,7 +83,7 @@ namespace Appoitment.API.Controllers
             var query = new GetAppointmentForReceptionistQuery(dataTime,officeId);
             return await SendRequestAsync(query);
         }
-        [Authorize(Roles = UserRoles.Patient)]
+        [Authorize]
         [HttpGet("patient")]
         [SwaggerOperation(Summary = "Get Appointment List For Patient", OperationId = "GetAppointmentListForPatient")]
         [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(AppointmentHistoryDTO[]))]

@@ -25,10 +25,16 @@ namespace Profile.Application.Command.Photo.UpdatePhoto
         public async Task<Response> Handle(UpdatePhotoCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(request.AccountId);
-            var docId = (long)user.PhotoId;
-            if (user != null)
+            long docId=new long();
+            if (user != null && user.PhotoId.HasValue)
             {
-                await _documentApiProxy.UpdateBlobAsync(docId, new FileParameter(request.File.OpenReadStream(),request.File.FileName,request.File.ContentType),cancellationToken);
+                docId = user.PhotoId.Value;
+            }
+        
+            if (user != null && docId>0 )
+            {
+                Console.WriteLine(docId);
+                await _documentApiProxy.UpdateBlobAsync(new FileParameter(request.File.OpenReadStream(),request.File.FileName,request.File.ContentType),docId,(SubjectUpdate)request.SubjectUpdate,cancellationToken);
                 return Response.Success;
             }
             return Response.Error;

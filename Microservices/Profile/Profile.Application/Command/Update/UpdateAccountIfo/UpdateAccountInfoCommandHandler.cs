@@ -18,13 +18,12 @@ public class UpdateAccountInfoCommandHandler : IRequestHandler<UpdateAccountInfo
     {
         var user = await _userManager.FindByIdAsync(request.UserDtO.AccountId);
         if (user == null) return Response.Error;
-
+        user.Email = user.UserName;
         user.FirstName = request.UserDtO.FirstName;
         user.LastName = request.UserDtO.LastName;
-        user.Email = request.UserDtO.Email;
         user.PhoneNumber = request.UserDtO.PhoneNumber;
         user.Birthday = request.UserDtO.BirthDate;
-        await _userManager.UpdateAsync(user);
+       var a = await _userManager.UpdateAsync(user);
         return Response.Success;
     }
 }

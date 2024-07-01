@@ -22,7 +22,7 @@ internal class AddPhotoCommandHandler : IRequestHandler<AddPhotoCommand, Respons
     {
         var id = await _documentApiProxy.UploadBlobAsync(
             new FileParameter(request.AddPhotoDTO.File.OpenReadStream(), request.AddPhotoDTO.File.FileName,
-                request.AddPhotoDTO.File.ContentType), request.AddPhotoDTO.EntityType,
+                request.AddPhotoDTO.File.ContentType), request.AddPhotoDTO.EntityType,0,
             (SubjectUpdate)request.AddPhotoDTO.SubjectUpdate,
             cancellationToken);
         var user = await _userManager.FindByIdAsync(request.AddPhotoDTO.AccountId);

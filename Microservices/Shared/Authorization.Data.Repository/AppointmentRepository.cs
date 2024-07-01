@@ -3,6 +3,7 @@ using Authorization.Data.Repository.Abstraction;
 using Authorization.Data.Shared.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using System.Linq;
 using AppointmentEntity = Authorization.Data_Domain.Models.Appointment;
 
 namespace Authorization.Data.Repository;
@@ -37,7 +38,7 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
         CancellationToken cancellationToken = default)
     {
         return await DbContext.Appointments.AsNoTracking()
-            .Where(x => x.DateTime.Date == date.Date && x.DoctorId == doctorId)
+            .Where(x => x.DateTime.Date == date.Date && x.DoctorId == doctorId && x.IsApproved)
             .Select(x => new AppointmentScheduleForDoctorDTO
             {
                 AppointmentId = x.Id,
@@ -92,15 +93,19 @@ internal class AppointmentRepository : RepositoryBase<AppointmentEntity>, IAppoi
                 AppointmentId = x.Id,
             }).ToArrayAsync(cancellationToken);
     }
-    public async Task<BusyTimeSlotsDto[]>
-        GetBusyTimeSlots(long docId,DateTime date,
-            CancellationToken cancellationToken = default)
+    public async Task<BusyTimeSlotsDto[]>GetBusyTimeSlots(long docId,DateTime date,CancellationToken cancellationToken = default)
     {
-        return await DbContext.Appointments.AsNoTracking().Where(x => x.DoctorId == docId && x.DateTime.Date == date.Date)
-            .Select(x => new BusyTimeSlotsDto
-            {
-               DatesTime = x.DateTime,
-               Duration = x.Service.ServiceCategory.TimeSlotSize
-            }).ToArrayAsync(cancellationToken);
+        var doc = await DbContext.Doctors.Where(x => x.Id == docId).Include(x => x.Status).FirstOrDefaultAsync(cancellationToken);
+        if (doc != null && doc.Status.Title == "At work")
+        {
+            return await DbContext.Appointments.AsNoTracking().Where(x => x.DoctorId == docId && x.DateTime.Date == date.Date)
+                .Select(x => new BusyTimeSlotsDto
+                {
+                    DatesTime = x.DateTime,
+                    Duration = x.Service.ServiceCategory.TimeSlotSize
+                }).ToArrayAsync(cancellationToken);
+
+        }
+        return Array.Empty<BusyTimeSlotsDto>();
     }
 }

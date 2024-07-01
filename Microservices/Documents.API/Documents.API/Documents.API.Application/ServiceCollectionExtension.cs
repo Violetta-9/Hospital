@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Documents.API.Application.PipelineBehaviors;
+using Documents.API.Application.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ public static class ServiceCollectionExtension
 {
     public static void AddApplication(this IServiceCollection services)
     {
+        services.AddScoped<IPhotoService, PhotoService>();
         services.AddMediatR(Assembly.GetExecutingAssembly());
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         AssemblyScanner.FindValidatorsInAssembly(typeof(ServiceCollectionExtension).Assembly)

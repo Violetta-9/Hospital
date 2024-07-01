@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Authorization.Data_Domain.Models.Account">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAACAAAAAQAAAAAAAYAAAABgACEAgAAAg=</HashCode>
+      <FileName>Models\Account.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Photo" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Appointment">
+    <Position X="7" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAUAAAAAAAAAAIAQAAAACQAQCAAAAAAQACEA=</HashCode>
+      <FileName>Models\Appointment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Result" />
+      <Property Name="Office" />
+      <Property Name="Doctor" />
+      <Property Name="Patient" />
+      <Property Name="Service" />
+      <Property Name="Specialization" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Doctor">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAMAECAAAAAAgAAIAAAQAAAAAAAAAAAAAQAAEA=</HashCode>
+      <FileName>Models\Doctor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Account" />
+      <Property Name="Status" />
+      <Property Name="Office" />
+      <Property Name="Specialization" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Document">
+    <Position X="11.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAIAAAAAAAQAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Models\Document.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Patient">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Models\Patient.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Account" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Office">
+    <Position X="4.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAEAAAAAAAQAAACAACAgACAAgAAAA=</HashCode>
+      <FileName>Models\Office.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Photo">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAIAQAAAAAAAAAAAAAAABAAEA=</HashCode>
+      <FileName>Models\Photo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Receptionist">
+    <Position X="2.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAAAQAAEA=</HashCode>
+      <FileName>Models\Receptionist.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Account" />
+      <Property Name="Office" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Result">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgQIAAAAAAAAAAAAAAAAAAAQAAAQAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Result.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Document" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Service">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAUAAAEAAEAAAAAAAQAAAAAAAAAAAAAAAEkA=</HashCode>
+      <FileName>Models\Service.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Specialization" />
+      <Property Name="ServiceCategory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.ServiceCategory">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Models\ServiceCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Specialization">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAEAAEAAAAAAAQAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\Specialization.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Authorization.Data_Domain.Models.Status">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\Status.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

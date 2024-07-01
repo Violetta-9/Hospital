@@ -28,7 +28,7 @@ internal class UpdateOfficeCommandHandler : IRequestHandler<UpdateOfficeCommand,
         {
             var response = await _documentApiProxy.UpdateBlobAsync(
                 new FileParameter(request.UpdateOfficeDto.File.OpenReadStream(), request.UpdateOfficeDto.File.FileName,
-                    request.UpdateOfficeDto.File.ContentType), (long)office.PhotoId, SubjectUpdate._3, cancellationToken);
+                    request.UpdateOfficeDto.File.ContentType), (long)office.PhotoId, SubjectUpdate.Office, cancellationToken);
             if (response > 0)
             {
                 office.PhotoId=response;

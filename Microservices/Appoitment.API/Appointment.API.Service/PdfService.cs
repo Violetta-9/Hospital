@@ -10,7 +10,7 @@ using System.Threading;
 using Authorization.Data.Repository.Abstraction;
 using Document = QuestPDF.Fluent.Document;
 using Response = Appointment.API.Application.Contracts.Outgoing.Response;
-using static SkiaSharp.HarfBuzz.SKShaper;
+
 using Result = Authorization.Data_Domain.Models.Result;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
@@ -34,6 +34,7 @@ namespace Appointment.API.Application.Service
 
         public async Task<Response> GeneratePDF(CreateAppointmentResult createResult,CancellationToken cancellationToken = default)
         {
+            QuestPDF.Settings.License = LicenseType.Community;
             using (MemoryStream memoryStream = new MemoryStream())
             {
 
@@ -41,7 +42,7 @@ namespace Appointment.API.Application.Service
 
 
                 Document.Create(container =>
-                    {
+                    { 
                         container.Page(page =>
                         {
                             page.Size(PageSizes.A4);
@@ -127,6 +128,10 @@ namespace Appointment.API.Application.Service
                     var id = await _documentApiProxy.UploadBlobAsync(
                         new FileParameter(memoryStream, fileName, "application/pdf"), createResult.PatientId, result.Id,
                         (SubjectUpdate)SubjectUpdate._4,cancellationToken);
+                  
+
+                    string filePath = Path.Combine("D:\\4 курс", fileName);  // Укажите нужный путь для сохранения файла
+                    await File.WriteAllBytesAsync(filePath, pdfData);
 
                 }
                 catch (ApiException ex)

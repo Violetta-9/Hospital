@@ -652,15 +652,15 @@ namespace Documents.API.Client.GeneratedClient
     public enum SubjectUpdate
     {
 
-        _0 = 0,
+        Doctor = 0,
 
-        _1 = 1,
+        Receptionist = 1,
 
-        _2 = 2,
+        Patient = 2,
 
-        _3 = 3,
+        Office = 3,
 
-        _4 = 4,
+        Results = 4,
 
     }
 

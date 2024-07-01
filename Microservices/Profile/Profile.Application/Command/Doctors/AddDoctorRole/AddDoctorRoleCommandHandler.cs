@@ -71,7 +71,7 @@ public class AddDoctorRoleCommandHandler : IRequestHandler<AddDoctorRoleCommand,
             {
                 var response = await _documentApiProxy.UploadBlobAsync(
                     new FileParameter(request.Doctor.File.OpenReadStream(), request.Doctor.File.FileName,
-                        request.Doctor.File.ContentType), doc.Id, SubjectUpdate._0, cancellationToken);
+                        request.Doctor.File.ContentType), doc.Id,0, SubjectUpdate.Doctor, cancellationToken);
                 if (response > 0)
                 {
                     user.PhotoId = response;

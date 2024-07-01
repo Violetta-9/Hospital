@@ -23,10 +23,10 @@ public class UpdateAccountInfoValidator : AbstractValidator<UpdateAccountInfoCom
             .MustAsync(ExistsAccountAsync)
             .WithMessage(opt => string.Format(Messages.NotFoundAccount, opt.UserDtO.AccountId));
 
-        RuleFor(x => x.UserDtO.Email)
-            .Cascade(CascadeMode.Stop)
-            .MustAsync(UniqueEmail)
-            .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.UserDtO.Email));
+        //RuleFor(x => x.UserDtO.Email)
+        //    .Cascade(CascadeMode.Stop)
+        //    .MustAsync(UniqueEmail)
+        //    .WithMessage(opt => string.Format(Messages.NotUniqueEmail, opt.UserDtO.Email));
     }
 
 

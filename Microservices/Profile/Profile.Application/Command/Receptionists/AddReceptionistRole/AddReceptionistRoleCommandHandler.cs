@@ -63,7 +63,7 @@ public class AddReceptionistRoleCommandHandler : IRequestHandler<AddReceptionist
                 var response = await _documentApiProxy.UploadBlobAsync(
                     new FileParameter(request.ReceptionistDTO.File.OpenReadStream(),
                         request.ReceptionistDTO.File.FileName,
-                        request.ReceptionistDTO.File.ContentType), recep.Id, SubjectUpdate._1, cancellationToken);
+                        request.ReceptionistDTO.File.ContentType), recep.Id,0, SubjectUpdate.Receptionist, cancellationToken);
                 if (response > 0)
                 {
                     user.PhotoId = response;

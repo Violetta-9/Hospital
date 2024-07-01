@@ -9,16 +9,8 @@ using Authorization.Data.Repository;
 using Services.API.Client;
 using ServiceCollectionExtension = Specialization.API.Application.ServiceCollectionExtension;
 using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Moq;
 using Services.API.Client.Abstraction;
-using Services.API.Client.GeneratedClient;
-using System;
 using MassTransit;
 
 namespace Specialization.Tests

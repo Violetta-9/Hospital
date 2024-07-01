@@ -72,6 +72,7 @@ internal class DoctorRepository : RepositoryBase<Doctor>, IDoctorRepository
             FirstName = x.Account.FirstName,
             LastName = x.Account.LastName,
             MiddleName = x.Account.MiddleName,
+            PhoneNumber = x.Account.PhoneNumber,
             BirthDay = x.Account.Birthday,
             OfficeAddress = x.Office.Address,
             SpecializationTitle = x.Specialization.Title,

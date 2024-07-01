@@ -65,10 +65,10 @@ public class ServiceController : MediatingControllerBase
         return await SendRequestAsync(query);
     }
 
-    [HttpGet("id")]
+    [HttpGet("id/{id}")]
     [SwaggerOperation(Summary = "Get service by id", OperationId = "GetServiceById")]
     [SwaggerResponse(StatusCodes.Status200OK, Type = typeof(OutServicesDto))]
-    public async Task<ActionResult> GetServiceById([FromQuery] long id)
+    public async Task<ActionResult> GetServiceById([FromRoute] long id)
     {
         var query = new GetServiceByIdQuery(id);
         return await SendRequestAsync(query);
